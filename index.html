@@ -1,0 +1,1715 @@
+<!doctype html>
+<html lang="ms">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tukuk AI Studio</title>
+  <meta name="description" content="Projek web AI percuma oleh Tukuk untuk chat, idea projek, automasi web, music, video, gambar, belajar, menulis, melukis, dan coding.">
+  <meta name="theme-color" content="#020617">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #020617;
+      --bg-soft: #0f172a;
+      --panel: rgba(15, 23, 42, 0.76);
+      --panel-strong: rgba(15, 23, 42, 0.96);
+      --text: #e5e7eb;
+      --muted: #94a3b8;
+      --line: rgba(148, 163, 184, 0.2);
+      --accent: #38bdf8;
+      --green: #22c55e;
+      --purple: #a78bfa;
+      --danger: #fb7185;
+      --shadow: 0 24px 80px rgba(0, 0, 0, 0.42);
+    }
+    body.light {
+      color-scheme: light;
+      --bg: #f8fafc;
+      --bg-soft: #e2e8f0;
+      --panel: rgba(255, 255, 255, 0.82);
+      --panel-strong: rgba(255, 255, 255, 0.96);
+      --text: #0f172a;
+      --muted: #475569;
+      --line: rgba(15, 23, 42, 0.14);
+      --shadow: 0 24px 80px rgba(15, 23, 42, 0.12);
+    }
+    body.light header, body.light .chat-card, body.light .card, body.light .panel {
+      backdrop-filter: blur(18px);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at 12% 8%, rgba(56, 189, 248, 0.2), transparent 28%),
+        radial-gradient(circle at 88% 0%, rgba(34, 197, 94, 0.16), transparent 26%),
+        radial-gradient(circle at 50% 100%, rgba(167, 139, 250, 0.14), transparent 34%),
+        var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    button, input, textarea, select { font: inherit; }
+    .page { width: min(1160px, calc(100% - 32px)); margin: 0 auto; }
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      border-bottom: 1px solid var(--line);
+      background: rgba(2, 6, 23, 0.78);
+      backdrop-filter: blur(18px);
+    }
+    nav {
+      min-height: 74px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 22px;
+    }
+    .brand { display: flex; align-items: center; gap: 12px; font-weight: 900; letter-spacing: -0.04em; }
+    .logo {
+      width: 42px;
+      height: 42px;
+      border-radius: 15px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, var(--accent), var(--green));
+      color: #020617;
+      box-shadow: 0 12px 34px rgba(56, 189, 248, 0.22);
+      font-weight: 900;
+    }
+    .nav-links { display: flex; align-items: center; gap: 8px; color: var(--muted); font-size: 0.94rem; }
+    .nav-links a { padding: 9px 12px; border-radius: 999px; }
+    .nav-links a:hover { color: var(--text); background: rgba(148, 163, 184, 0.1); }
+    .nav-links button {
+      border: 1px solid var(--line);
+      background: rgba(15, 23, 42, 0.62);
+      color: var(--text);
+      border-radius: 999px;
+      padding: 8px 12px;
+      cursor: pointer;
+      font-weight: 800;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 430px;
+      gap: 30px;
+      align-items: center;
+      padding: 58px 0 34px;
+    }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(34, 197, 94, 0.08);
+      color: #bbf7d0;
+      font-size: 0.9rem;
+      margin-bottom: 18px;
+    }
+    h1 {
+      margin: 0;
+      font-size: clamp(2.55rem, 7vw, 5.8rem);
+      line-height: 0.96;
+      letter-spacing: -0.08em;
+    }
+    .gradient-text {
+      background: linear-gradient(135deg, #7dd3fc, #86efac 48%, #c4b5fd);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .hero-copy {
+      max-width: 720px;
+      margin: 22px 0 0;
+      color: var(--muted);
+      font-size: clamp(1rem, 2vw, 1.18rem);
+    }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+    .btn {
+      border: 0;
+      border-radius: 16px;
+      padding: 13px 18px;
+      cursor: pointer;
+      font-weight: 800;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: transform 160ms ease, background 160ms ease, border-color 160ms ease;
+    }
+    .btn:hover { transform: translateY(-1px); }
+    .btn-primary {
+      color: #020617;
+      background: linear-gradient(135deg, var(--accent), var(--green));
+      box-shadow: 0 16px 42px rgba(34, 197, 94, 0.18);
+    }
+    .btn-secondary {
+      border: 1px solid var(--line);
+      color: var(--text);
+      background: rgba(15, 23, 42, 0.72);
+    }
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 34px;
+      max-width: 650px;
+    }
+    .metric {
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 16px;
+      background: rgba(15, 23, 42, 0.52);
+      backdrop-filter: blur(18px);
+    }
+    .metric strong { display: block; font-size: 1.35rem; letter-spacing: -0.04em; }
+    .metric span { color: var(--muted); font-size: 0.86rem; }
+
+    .chat-card {
+      position: relative;
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      background: var(--panel);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(22px);
+      overflow: visible;
+      resize: both;
+      min-width: 340px;
+      min-height: 520px;
+      max-width: 960px;
+      max-height: 760px;
+      cursor: move;
+    }
+    .chat-card.resizing {
+      cursor: nwse-resize;
+    }
+    .chat-card.dragging {
+      user-select: none;
+    }
+    .chat-handle {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      z-index: 5;
+      display: flex;
+      gap: 8px;
+      pointer-events: none;
+    }
+    .chat-handle span {
+      pointer-events: auto;
+      width: 30px;
+      height: 30px;
+      display: grid;
+      place-items: center;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      background: rgba(2, 6, 23, 0.72);
+      color: var(--muted);
+      cursor: pointer;
+      font-size: 0.82rem;
+    }
+    .chat-handle span:hover {
+      color: var(--text);
+      border-color: rgba(56, 189, 248, 0.35);
+    }
+    .chat-top {
+      padding: 18px 70px 18px 18px;
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      align-items: center;
+    }
+    .chat-top strong { display: block; letter-spacing: -0.03em; }
+    .chat-top span { display: block; margin-top: 2px; color: var(--muted); font-size: 0.82rem; }
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      color: #bbf7d0;
+      font-size: 0.82rem;
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: rgba(34, 197, 94, 0.1);
+      border: 1px solid rgba(34, 197, 94, 0.18);
+      white-space: nowrap;
+    }
+    .status::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--green);
+      box-shadow: 0 0 18px var(--green);
+    }
+    .messages {
+      min-height: 365px;
+      max-height: 520px;
+      overflow: auto;
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .message { display: flex; gap: 10px; align-items: flex-start; animation: pop 180ms ease; }
+    @keyframes pop {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .avatar {
+      width: 34px;
+      height: 34px;
+      border-radius: 13px;
+      display: grid;
+      place-items: center;
+      flex: 0 0 auto;
+      font-size: 0.76rem;
+      font-weight: 900;
+    }
+    .avatar.user {
+      background: rgba(56, 189, 248, 0.16);
+      color: #bae6fd;
+      border: 1px solid rgba(56, 189, 248, 0.22);
+    }
+    .avatar.ai {
+      background: rgba(34, 197, 94, 0.14);
+      color: #bbf7d0;
+      border: 1px solid rgba(34, 197, 94, 0.22);
+    }
+    .bubble {
+      max-width: min(620px, 78%);
+      padding: 12px 14px;
+      border-radius: 18px;
+      line-height: 1.55;
+      font-size: 0.94rem;
+      border: 1px solid var(--line);
+      background: rgba(15, 23, 42, 0.72);
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+    }
+    .message.user { flex-direction: row-reverse; }
+    .message.user .bubble {
+      background: linear-gradient(135deg, rgba(14, 165, 233, 0.22), rgba(34, 197, 94, 0.16));
+      border-color: rgba(56, 189, 248, 0.22);
+    }
+    .media-panel {
+      border-top: 1px solid var(--line);
+      background: rgba(2, 6, 23, 0.55);
+      padding: 14px;
+    }
+    .media-panel[hidden] {
+      display: none;
+    }
+    .media-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      gap: 12px;
+    }
+    .media-header button {
+      border: 1px solid var(--line);
+      background: rgba(15, 23, 42, 0.7);
+      color: var(--text);
+      width: 32px;
+      height: 32px;
+      border-radius: 12px;
+      cursor: pointer;
+    }
+    #visualCanvas {
+      width: 100%;
+      height: 260px;
+      border-radius: 18px;
+      background: #020617;
+      border: 1px solid var(--line);
+      display: block;
+    }
+    #audioPlayer {
+      width: 100%;
+      margin-top: 10px;
+    }
+    .tools-panel {
+      margin-top: 12px;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+    }
+    .editor-panel {
+      margin: 0 14px 14px;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      overflow: hidden;
+      background: rgba(2, 6, 23, 0.42);
+    }
+    .editor-panel[hidden] {
+      display: none;
+    }
+    .editor-tabs {
+      display: flex;
+      gap: 6px;
+      padding: 10px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(15, 23, 42, 0.6);
+    }
+    .editor-tabs button {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(2, 6, 23, 0.5);
+      color: var(--muted);
+      padding: 7px 10px;
+      cursor: pointer;
+      font-weight: 800;
+    }
+    .editor-tabs button.active {
+      color: #020617;
+      background: linear-gradient(135deg, var(--accent), var(--green));
+      border-color: transparent;
+    }
+    .editor-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 320px;
+    }
+    .editor-grid textarea {
+      border: 0;
+      border-right: 1px solid var(--line);
+      border-radius: 0;
+      min-height: 320px;
+      resize: vertical;
+      background: #020617;
+    }
+    .preview-frame {
+      border: 0;
+      width: 100%;
+      min-height: 320px;
+      background: #fff;
+    }
+    .tool-btn:hover {
+      border-color: rgba(34, 197, 94, 0.35);
+      background: rgba(34, 197, 94, 0.1);
+    }
+    .composer { padding: 16px; border-top: 1px solid var(--line); background: rgba(2, 6, 23, 0.35); }
+    .input-row { display: grid; grid-template-columns: 1fr auto; gap: 10px; }
+    textarea {
+      width: 100%;
+      resize: none;
+      min-height: 48px;
+      max-height: 150px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 13px 14px;
+      outline: none;
+      color: var(--text);
+      background: rgba(15, 23, 42, 0.82);
+    }
+    textarea:focus {
+      border-color: rgba(56, 189, 248, 0.55);
+      box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.08);
+    }
+    .send {
+      min-width: 96px;
+      border-radius: 18px;
+      color: #020617;
+      background: linear-gradient(135deg, var(--accent), var(--green));
+      border: 0;
+      cursor: pointer;
+      font-weight: 900;
+    }
+    .send:disabled { opacity: 0.55; cursor: not-allowed; }
+    .quick { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+    .quick button {
+      border: 1px solid var(--line);
+      color: var(--muted);
+      background: rgba(15, 23, 42, 0.55);
+      border-radius: 999px;
+      padding: 8px 10px;
+      cursor: pointer;
+      font-size: 0.82rem;
+    }
+    .quick button:hover { color: var(--text); border-color: rgba(56, 189, 248, 0.35); }
+    .student-dashboard {
+      margin: 0 14px 14px;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 16px;
+      background: rgba(2, 6, 23, 0.42);
+    }
+    .utility-panel {
+      margin: 0 14px 14px;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 14px;
+      background: rgba(2, 6, 23, 0.42);
+    }
+    .utility-panel[hidden] { display: none; }
+    .utility-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-top: 10px; }
+    .utility-grid button {
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 10px;
+      background: rgba(15, 23, 42, 0.6);
+      color: var(--text);
+      cursor: pointer;
+      font-weight: 800;
+    }
+    .utility-grid button:hover { border-color: rgba(34, 197, 94, 0.35); }
+    .student-dashboard[hidden] { display: none; }
+    .dashboard-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .dashboard-grid input, .dashboard-grid textarea {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 12px;
+      background: rgba(15, 23, 42, 0.82);
+      color: var(--text);
+      outline: none;
+    }
+    .dashboard-grid textarea { min-height: 82px; resize: vertical; }
+    .dashboard-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+    .dashboard-actions button {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 9px 12px;
+      background: rgba(34, 197, 94, 0.12);
+      color: var(--text);
+      cursor: pointer;
+      font-weight: 800;
+    }
+    .dashboard-output {
+      margin-top: 12px;
+      padding: 12px;
+      border-radius: 16px;
+      background: rgba(15, 23, 42, 0.7);
+      color: var(--muted);
+      white-space: pre-wrap;
+      line-height: 1.6;
+    }
+    main { padding: 26px 0 10px; }
+    section { padding: 42px 0; }
+    .section-title { margin: 0 0 16px; font-size: clamp(1.8rem, 4vw, 3rem); letter-spacing: -0.06em; }
+    .section-copy { color: var(--muted); line-height: 1.75; max-width: 790px; }
+    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 22px; }
+    .card {
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: 20px;
+      background: rgba(15, 23, 42, 0.55);
+      backdrop-filter: blur(18px);
+    }
+    .card h3 { margin: 0 0 8px; letter-spacing: -0.03em; }
+    .card p { margin: 0; color: var(--muted); line-height: 1.65; font-size: 0.94rem; }
+
+    .workspace {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 18px;
+      margin-top: 22px;
+    }
+    .panel {
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: 20px;
+      background: rgba(15, 23, 42, 0.55);
+    }
+    .panel h3 { margin: 0 0 14px; letter-spacing: -0.03em; }
+    .todo {
+      display: grid;
+      gap: 10px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    .todo li {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      color: var(--muted);
+      padding: 12px;
+      border: 1px solid rgba(148, 163, 184, 0.14);
+      border-radius: 16px;
+      background: rgba(2, 6, 23, 0.22);
+    }
+    .todo b { color: var(--text); }
+    .code {
+      width: 100%;
+      overflow: auto;
+      margin: 0;
+      padding: 16px;
+      border-radius: 18px;
+      color: #d1fae5;
+      background: #020617;
+      border: 1px solid var(--line);
+      font-size: 0.88rem;
+      line-height: 1.6;
+    }
+
+    footer {
+      margin-top: 28px;
+      padding: 34px 0 48px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 22px;
+      transform: translateX(-50%);
+      padding: 12px 14px;
+      border-radius: 999px;
+      background: var(--panel-strong);
+      border: 1px solid var(--line);
+      color: var(--text);
+      box-shadow: var(--shadow);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 180ms ease, transform 180ms ease;
+      z-index: 30;
+    }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(-4px); }
+
+    @media (max-width: 920px) {
+      .hero, .workspace { grid-template-columns: 1fr; }
+      .chat-card { max-width: 720px; }
+      .nav-links { display: none; }
+      .cards { grid-template-columns: 1fr; }
+      .metrics { grid-template-columns: 1fr; }
+      .bubble { max-width: 88%; }
+    }
+    @media (max-width: 560px) {
+      .page { width: min(100% - 22px, 1160px); }
+      .hero-actions .btn { width: 100%; }
+      .input-row { grid-template-columns: 1fr; }
+      .send { min-height: 46px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="page" aria-label="Navigasi utama">
+      <a class="brand" href="#top" aria-label="Tukuk AI Studio">
+        <span class="logo">AI</span>
+        <span>Tukuk AI Studio</span>
+      </a>
+      <div class="nav-links">
+        <a href="#chat">AI Chat</a>
+        <a href="#features">Engine</a>
+        <a href="#roadmap">Pelankan</a>
+        <button id="themeButton" type="button">Light</button>
+      </div>
+    </nav>
+  </header>
+
+  <div class="page hero" id="top">
+    <div>
+      <div class="eyebrow">AI pelajar percuma: buat app, media, gambar, video, dan belajar</div>
+      <h1>Tukuk AI boleh <span class="gradient-text">buat apa saja</span></h1>
+      <p class="hero-copy">
+        Tukuk AI direka untuk pelajar dan semua orang yang perlukan AI percuma.
+        Dari chat, anda boleh minta buat aplikasi web apa saja, hasilkan bunyi music,
+        jana visual video, bina gambar/artboard, tulis dokumen, belajar subjek, buat coding,
+        edit teks atau kod, dan cari alternatif alat percuma/open-source.
+      </p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#chat">Cuba AI engine</a>
+        <a class="btn btn-secondary" href="#features">Lihat engine</a>
+      </div>
+      <div class="metrics" aria-label="Ringkasan projek">
+        <div class="metric"><strong>RM0</strong><span>Kos hosting</span></div>
+        <div class="metric"><strong>Static</strong><span>Tanpa backend</span></div>
+        <div class="metric"><strong>Pages</strong><span>Siap deploy</span></div>
+      </div>
+    </div>
+
+    <aside class="chat-card" id="chat" aria-label="AI chat demo">
+      <div class="chat-handle" aria-label="Kawalan chat">
+        <span id="resetChat" title="Reset posisi">⌂</span>
+        <span id="toggleTools" title="Tools">⚙</span>
+        <span id="toggleUtility" title="Utility">★</span>
+      </div>
+      <div class="chat-top">
+        <div>
+          <strong>Tukuk Assistant</strong>
+          <span>Engine percuma: prompt, generator, planner, coder</span>
+        </div>
+        <span class="status">Online</span>
+      </div>
+      <div class="messages" id="messages"></div>
+      <div class="media-panel" id="mediaPanel" hidden>
+        <div class="media-header">
+          <strong id="mediaTitle">Media Engine</strong>
+          <button type="button" id="mediaClose" aria-label="Tutup media">✕</button>
+        </div>
+        <canvas id="visualCanvas" width="640" height="260"></canvas>
+        <audio id="audioPlayer" controls></audio>
+      </div>
+      <div class="tools-panel" id="toolsPanel" hidden>
+        <button class="tool-btn" id="speakButton" type="button">Bacakan jawapan</button>
+        <button class="tool-btn" id="voiceButton" type="button">Suara ke teks</button>
+        <button class="tool-btn" id="downloadButton" type="button">Download chat</button>
+        <button class="tool-btn" id="clearButton" type="button">Reset chat</button>
+        <button class="tool-btn" id="appButton" type="button">Buat app web</button>
+        <button class="tool-btn" id="editButton" type="button">Edit teks/kod</button>
+      </div>
+      <div class="editor-panel" id="editorPanel" hidden>
+        <div class="editor-tabs">
+          <button type="button" class="active" data-tab="code">Code</button>
+          <button type="button" data-tab="preview">Preview</button>
+          <button type="button" data-tab="both">Both</button>
+          <button type="button" id="runEditor">Run</button>
+          <button type="button" id="downloadApp">Download App</button>
+        </div>
+        <div class="editor-grid">
+          <textarea id="editorCode" spellcheck="false"></textarea>
+          <iframe id="previewFrame" class="preview-frame" title="Live preview"></iframe>
+        </div>
+      </div>
+      <div class="student-dashboard" id="studentDashboard" hidden>
+        <strong>Student Study Assistant</strong>
+        <div class="dashboard-grid" style="margin-top:12px">
+          <input id="subjectInput" placeholder="Subjek, contoh: Matematik / Coding / Sejarah">
+          <input id="deadlineInput" placeholder="Tarikh/tenggang masa, contoh: 2 jam / esok">
+          <textarea id="notesInput" placeholder="Nota/tugasan/topik yang perlu difahami"></textarea>
+          <textarea id="goalInput" placeholder="Matlamat, contoh: faham algebra, siap tugasan, buat kuiz"></textarea>
+        </div>
+        <div class="dashboard-actions">
+          <button type="button" id="planStudy">Pelankan belajar</button>
+          <button type="button" id="makeQuiz">Buat kuiz</button>
+          <button type="button" id="makeFlashcards">Flashcards</button>
+          <button type="button" id="focusTimer">Mode fokus</button>
+          <button type="button" id="portfolioExport">Eksport portfolio</button>
+        </div>
+        <div class="dashboard-output" id="dashboardOutput">Isi subjek, nota, dan matlamat untuk dapatkan bantuan belajar.</div>
+      </div>
+      <div class="utility-panel" id="utilityPanel" hidden>
+        <strong>Utility AI Sempurna</strong>
+        <div class="utility-grid">
+          <button type="button" id="saveTemplate">Simpan template</button>
+          <button type="button" id="loadTemplate">Muat template</button>
+          <button type="button" id="copyLast">Salin jawapan</button>
+          <button type="button" id="screenshotButton">Screenshot halaman</button>
+          <button type="button" id="exportAll">Eksport semua</button>
+          <button type="button" id="presetStudent">Preset pelajar</button>
+        </div>
+      </div>
+      <div class="composer">
+        <div class="input-row">
+          <textarea id="promptInput" rows="2" placeholder="Minta AI bantu buat music, video, gambar, belajar, menulis, melukis, projek, atau coding..."></textarea>
+          <button class="send" id="sendButton" type="button">Hantar</button>
+        </div>
+        <div class="quick" aria-label="Cadangan soalan">
+          <button type="button">Preset pelajar</button>
+          <button type="button">Salin jawapan</button>
+          <button type="button">Pelankan belajar</button>
+          <button type="button">Buat kuiz</button>
+          <button type="button">Flashcards</button>
+          <button type="button">Buat app web</button>
+          <button type="button">Edit apa saja</button>
+          <button type="button">Cari alat percuma</button>
+          <button type="button">Buat music</button>
+          <button type="button">Mainkan bunyi</button>
+          <button type="button">Buat video</button>
+          <button type="button">Buat gambar</button>
+          <button type="button">Belajar coding</button>
+          <button type="button">Tulis artikel</button>
+          <button type="button">Lukis idea</button>
+          <button type="button">Buat projek</button>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <main class="page">
+    <section id="features">
+      <h2 class="section-title">Engine percuma dalam browser</h2>
+      <p class="section-copy">
+        Versi ini tidak bergantung pada API berbayar. Ia menggunakan engine ringkas client-side:
+        pengesanan kategori, template generator, random idea engine, prompt builder, planner,
+        dan mini coder untuk hasilkan output terus dalam chat.
+      </p>
+      <div class="cards">
+        <article class="card">
+          <h3>Music engine</h3>
+          <p>Hasilkan konsep lagu, lirik, chord, struktur verse-chorus, dan prompt muzik.</p>
+        </article>
+        <article class="card">
+          <h3>Visual engine</h3>
+          <p>Hasilkan prompt gambar, konsep logo, palet warna, gaya visual, dan idea lukisan.</p>
+        </article>
+        <article class="card">
+          <h3>Coding engine</h3>
+          <p>Hasilkan struktur fail, contoh HTML/CSS/JS, checklist debugging, dan pelan projek.</p>
+        </article>
+        <article class="card">
+          <h3>Open-source tools</h3>
+          <p>Gunakan Web Audio API, Canvas, Speech API, localStorage, dan download chat tanpa kos.</p>
+        </article>
+        <article class="card">
+          <h3>Student dashboard</h3>
+          <p>Pelan belajar, kuiz, flashcards, mode fokus, dan eksport portfolio untuk pelajar.</p>
+        </article>
+        <article class="card">
+          <h3>Utility sempurna</h3>
+          <p>Tema, simpan template, salin jawapan, screenshot, eksport semua, dan preset pelajar.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="roadmap">
+      <h2 class="section-title">Pelankan projek</h2>
+      <p class="section-copy">
+        Gunakan pelan ini untuk kembangkan projek dari demo statik kepada AI studio sebenar.
+      </p>
+      <div class="workspace">
+        <div class="panel">
+          <h3>Roadmap ringkas</h3>
+          <ul class="todo">
+            <li><b>1.</b> Tambah halaman baharu seperti portfolio, dokumentasi, dan galeri demo.</li>
+            <li><b>2.</b> Sambung API AI melalui Cloudflare Worker atau backend kecil supaya API key tidak terdedah.</li>
+            <li><b>3.</b> Simpan sejarah chat dalam localStorage untuk pengalaman lebih baik.</li>
+            <li><b>4.</b> Tambah tema terang/gelap, carian, dan halaman admin ringkas.</li>
+          </ul>
+        </div>
+        <div class="panel">
+          <h3>Struktur fail cadangan</h3>
+          <pre class="code">tukuk-website/
+  index.html
+  assets/
+    app.js
+    style.css
+  docs/
+    roadmap.html
+  CNAME</pre>
+        </div>
+      </div>
+    </section>
+
+    <section id="privacy">
+      <h2 class="section-title">Privasi</h2>
+      <p class="section-copy">
+        Versi ini tidak menghantar mesej ke server luar. Jika mahu sambung ke model AI sebenar,
+        gunakan API key anda sendiri dan jangan letakkan rahsia dalam JavaScript browser.
+      </p>
+    </section>
+  </main>
+
+  <footer class="page">
+    <span>© <span id="year"></span> Tukuk AI Studio</span>
+    <span>Dibina untuk GitHub Pages</span>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    const messages = document.getElementById('messages');
+    const promptInput = document.getElementById('promptInput');
+    const sendButton = document.getElementById('sendButton');
+    const toast = document.getElementById('toast');
+    const mediaPanel = document.getElementById('mediaPanel');
+    const mediaTitle = document.getElementById('mediaTitle');
+    const mediaClose = document.getElementById('mediaClose');
+    const audioPlayer = document.getElementById('audioPlayer');
+    const canvas = document.getElementById('visualCanvas');
+    const ctx = canvas.getContext('2d');
+    const chatCard = document.getElementById('chat');
+    const resetChat = document.getElementById('resetChat');
+    const toggleTools = document.getElementById('toggleTools');
+    const toolsPanel = document.getElementById('toolsPanel');
+    const speakButton = document.getElementById('speakButton');
+    const voiceButton = document.getElementById('voiceButton');
+    const downloadButton = document.getElementById('downloadButton');
+    const clearButton = document.getElementById('clearButton');
+    const appButton = document.getElementById('appButton');
+    const editButton = document.getElementById('editButton');
+    const editorPanel = document.getElementById('editorPanel');
+    const editorCode = document.getElementById('editorCode');
+    const previewFrame = document.getElementById('previewFrame');
+    const runEditor = document.getElementById('runEditor');
+    const downloadApp = document.getElementById('downloadApp');
+    const studentDashboard = document.getElementById('studentDashboard');
+    const subjectInput = document.getElementById('subjectInput');
+    const deadlineInput = document.getElementById('deadlineInput');
+    const notesInput = document.getElementById('notesInput');
+    const goalInput = document.getElementById('goalInput');
+    const dashboardOutput = document.getElementById('dashboardOutput');
+    const planStudy = document.getElementById('planStudy');
+    const makeQuiz = document.getElementById('makeQuiz');
+    const makeFlashcards = document.getElementById('makeFlashcards');
+    const focusTimer = document.getElementById('focusTimer');
+    const portfolioExport = document.getElementById('portfolioExport');
+    const themeButton = document.getElementById('themeButton');
+    const toggleUtility = document.getElementById('toggleUtility');
+    const utilityPanel = document.getElementById('utilityPanel');
+    const saveTemplate = document.getElementById('saveTemplate');
+    const loadTemplate = document.getElementById('loadTemplate');
+    const copyLast = document.getElementById('copyLast');
+    const screenshotButton = document.getElementById('screenshotButton');
+    const exportAll = document.getElementById('exportAll');
+    const presetStudent = document.getElementById('presetStudent');
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    const greetings = [
+      `Hai! Saya Tukuk Assistant. Pilih music, video, gambar, belajar, menulis, melukis, projek, atau coding.`,
+      `Saya ada engine percuma client-side untuk buat prompt, lirik, idea visual, kod, dan pelan projek.`,
+      `Tulis apa yang anda mahu buat dalam mana-mana bahasa: buat lagu pop tentang malam, make a cyberpunk image, crée un projet web, 作图, 動画, 노래, música, فيديو.`
+    ];
+
+    const languages = [
+      { name: 'Bahasa Melayu', code: 'ms', detect: ['saya', 'boleh', 'buat', 'yang', 'ini', 'dengan', 'untuk'], hello: 'Hai!' },
+      { name: 'English', code: 'en', detect: ['i', 'you', 'the', 'and', 'make', 'create', 'help'], hello: 'Hello!' },
+      { name: 'Bahasa Indonesia', code: 'id', detect: ['saya', 'bisa', 'buat', 'yang', 'ini', 'dengan', 'untuk'], hello: 'Halo!' },
+      { name: 'Español', code: 'es', detect: ['hola', 'quiero', 'puedes', 'crear', 'hacer', 'para', 'con'], hello: '¡Hola!' },
+      { name: 'Français', code: 'fr', detect: ['bonjour', 'je', 'peux', 'créer', 'faire', 'pour', 'avec'], hello: 'Bonjour!' },
+      { name: 'Deutsch', code: 'de', detect: ['hallo', 'ich', 'kann', 'erstellen', 'machen', 'für', 'mit'], hello: 'Hallo!' },
+      { name: 'Italiano', code: 'it', detect: ['ciao', 'posso', 'creare', 'fare', 'per', 'con', 'aiuto'], hello: 'Ciao!' },
+      { name: 'Português', code: 'pt', detect: ['ola', 'olá', 'posso', 'criar', 'fazer', 'para', 'com'], hello: 'Olá!' },
+      { name: 'Nederlands', code: 'nl', detect: ['hallo', 'ik', 'kan', 'maken', 'voor', 'met', 'helpen'], hello: 'Hallo!' },
+      { name: 'Русский', code: 'ru', detect: ['привет', 'могу', 'создать', 'делать', 'для', 'помочь'], hello: 'Привет!' },
+      { name: 'العربية', code: 'ar', detect: ['مرحبا', 'أريد', 'يمكن', 'إنشاء', 'مساعدة'], hello: 'مرحبا!' },
+      { name: '中文', code: 'zh', detect: ['你好', '可以', '创建', '制作', '帮助'], hello: '你好!' },
+      { name: '日本語', code: 'ja', detect: ['こんにちは', 'できます', '作る', '作成', '助けて'], hello: 'こんにちは!' },
+      { name: '한국어', code: 'ko', detect: ['안녕', '만들', '수', '도움', '생성'], hello: '안녕!' },
+      { name: 'हिन्दी', code: 'hi', detect: ['नमस्ते', 'मैं', 'बना', 'सकते', 'मदद'], hello: 'नमस्ते!' },
+      { name: 'ไทย', code: 'th', detect: ['สวัสดี', 'ช่วย', 'สร้าง', 'ทำ', 'ได้'], hello: 'สวัสดี!' },
+      { name: 'Tiếng Việt', code: 'vi', detect: ['xin', 'chào', 'tôi', 'có', 'tạo', 'giúp'], hello: 'Xin chào!' },
+      { name: 'Tagalog', code: 'tl', detect: ['kumusta', 'gusto', 'ko', 'gawa', 'tulong'], hello: 'Kumusta!' },
+      { name: 'Türkçe', code: 'tr', detect: ['merhaba', 'yap', 'oluştur', 'yardım', 'için'], hello: 'Merhaba!' },
+      { name: 'Polski', code: 'pl', detect: ['cześć', 'mogę', 'utworzyć', 'zrobić', 'pomoc'], hello: 'Cześć!' },
+      { name: 'Українська', code: 'uk', detect: ['привіт', 'можу', 'створити', 'зробити', 'допомога'], hello: 'Привіт!' },
+      { name: 'فارسی', code: 'fa', detect: ['سلام', 'می‌توانم', 'ایجاد', 'کمک'], hello: 'سلام!' },
+      { name: 'עברית', code: 'he', detect: ['שלום', 'אני', 'יכול', 'ליצור', 'לעזור'], hello: 'שלום!' },
+      { name: 'Swahili', code: 'sw', detect: ['habari', 'ninaweza', 'kuunda', 'kusaidia'], hello: 'Habari!' },
+      { name: 'Afrikaans', code: 'af', detect: ['hallo', 'kan', 'maak', 'help'], hello: 'Hallo!' },
+      { name: 'Filipino', code: 'fil', detect: ['kumusta', 'gusto', 'gawa', 'tulong'], hello: 'Kumusta!' }
+    ];
+    const visualStyles = ['cyberpunk', 'minimal', 'watercolor', '3D render', 'anime', 'flat design', 'pixel art', 'realistic'];
+    const projectTypes = ['web app', 'mobile app', 'portfolio', 'dashboard', 'game', 'bot', 'landing page'];
+    const codeStacks = ['HTML/CSS/JS', 'React', 'Vue', 'Node.js', 'Python', 'PHP', 'WordPress'];
+
+    function pick(list) {
+      return list[Math.floor(Math.random() * list.length)];
+    }
+
+    function detectLanguage(text) {
+      const lower = text.toLowerCase();
+      let best = languages[0];
+      let bestScore = 0;
+
+      languages.forEach((language) => {
+        const score = language.detect.reduce((total, word) => total + (lower.includes(word.toLowerCase()) ? 1 : 0), 0);
+        if (score > bestScore) {
+          best = language;
+          bestScore = score;
+        }
+      });
+
+      return bestScore > 0 ? best : languages[0];
+    }
+
+    function translateHello(language) {
+      return `${language.hello} Saya boleh bantu dalam ${language.name}.`;
+    }
+
+    function addLanguageNote(language, output) {
+      if (language.code === 'ms') return output;
+      return `${translateHello(language)}\n\n${output}\n\nTerjemahan ringkas Bahasa Melayu:\nSaya boleh bantu hasilkan idea, prompt, pelan, kod, atau langkah seterusnya untuk permintaan anda.`;
+    }
+
+    function titleCase(text) {
+      return text.replace(/\b\w/g, (letter) => letter.toUpperCase());
+    }
+
+    function extractTopic(text, fallback) {
+      const cleaned = text
+        .replace(/^(buat|hasilkan|cipta|tulis|lukis|design|designkan|generate|bagi|nak|minta)\s+/i, '')
+        .replace(/[.!?]+$/g, '')
+        .trim();
+      return cleaned || fallback;
+    }
+
+    function formatList(items) {
+      return items.map((item, index) => `${index + 1}. ${item}`).join('\n');
+    }
+
+    function buildMusic(topic) {
+      const style = pick(musicStyles);
+      const title = extractTopic(topic, 'lagu AI original');
+      return `🎵 Music Engine\n\nJudul: ${titleCase(title)}\nGenre: ${style}\nTempo: ${pick(['72 BPM', '86 BPM', '96 BPM', '110 BPM', '128 BPM'])}\nMood: ${pick(['tenang', 'semangat', 'futuristik', 'emosi', 'ceria'])}\n\nStruktur lagu:\n1. Intro 4 bar\n2. Verse 1\n3. Pre-chorus\n4. Chorus\n5. Verse 2\n6. Bridge\n7. Final chorus\n\nContoh lirik hook:\n"${title}, cahaya dalam malam,\nAI bantu kita terbang lebih tinggi,\nsetiap idea jadi irama,\nsetiap mimpi mula bernyanyi."\n\nChord cadangan:\nAm - F - C - G\n\nPrompt untuk generator muzik:\nBuat muzik ${style} tentang "${title}", mood ${pick(['hangat', 'bersih', 'sinematik', 'ceria'])}, tempo sederhana, sesuai untuk video pendek.`;
+    }
+
+    function buildVideo(topic) {
+      const title = extractTopic(topic, 'video pendek AI');
+      return `🎬 Video Engine\n\nTajuk: ${titleCase(title)}\nFormat: video pendek 30-60 saat\nGaya: ${pick(['cinematic', 'clean tutorial', 'dynamic montage', 'storytelling'])}\n\nStoryboard:\n1. Hook 0-3 saat: tunjuk masalah atau idea utama.\n2. Intro 3-8 saat: perkenalkan topik.\n3. Isi 8-40 saat: tunjuk 3 manfaat atau langkah.\n4. Climax 40-50 saat: hasil akhir atau demo.\n5. CTA 50-60 saat: ajak follow, cuba, atau baca.\n\nSkrip ringkas:\n"Pernah fikir nak buat ${title} dengan cepat? Di sini saya tunjuk idea mudah, langkah utama, dan hasil akhir yang boleh anda kembangkan."\n\nPrompt visual:\nBuat video pendek gaya ${pick(['modern', 'clean', 'futuristic', 'warm'])} tentang "${title}", warna terang, teks besar, muzik ringan, sesuai untuk TikTok, Reels, dan YouTube Shorts.`;
+    }
+
+    function buildImage(topic) {
+      const title = extractTopic(topic, 'gambar AI menarik');
+      const style = pick(visualStyles);
+      return `🖼️ Gambar Engine\n\nTema: ${titleCase(title)}\nGaya visual: ${style}\nKomposisi: ${pick(['center subject', 'wide shot', 'portrait', 'isometric', 'cinematic angle'])}\nPalet warna: ${pick(['neon blue + green', 'pastel soft', 'black + gold', 'earth tone', 'purple + pink'])}\n\nPrompt gambar:\nBuat imej "${title}" dalam gaya ${style}, komposisi ${pick(['bersih dan profesional', 'dramatik dan tajam', 'lembut dan artistik'])}, pencahayaan ${pick(['studio lighting', 'golden hour', 'neon glow', 'soft natural light'])}, detail tinggi, sesuai untuk poster web atau thumbnail.\n\nVariasi idea:\n1. Versi minimalis untuk logo.\n2. Versi poster untuk promosi.\n3. Versi thumbnail YouTube.\n4. Versi wallpaper desktop.\n5. Versi ilustrasi cerita.`;
+    }
+
+    function buildDrawing(topic) {
+      const title = extractTopic(topic, 'lukisan digital');
+      return `🎨 Melukis Engine\n\nIdea: ${titleCase(title)}\nGaya: ${pick(['anime', 'realistic', 'cartoon', 'sketch', 'watercolor', 'cyberpunk'])}\nPerspektif: ${pick(['3/4 view', 'front view', 'isometric', 'top view', 'dynamic angle'])}\n\nLangkah melukis:\n1. Buat bentuk asas dengan garisan ringkas.\n2. Tentukan siluet utama.\n3. Tambah wajah, objek, atau elemen penting.\n4. Letakkan sumber cahaya.\n5. Tambah bayang kasar.\n6. Masukkan warna utama.\n7. Tambah highlight dan detail akhir.\n\nPrompt lukisan:\nLukis "${title}" dengan gaya ${pick(['bersih', 'dinamik', 'lembut', 'futuristik'])}, fokus pada bentuk jelas, warna menarik, dan komposisi mudah difahami.`;
+    }
+
+    function playTone(context, frequency, start, duration, gainValue, type) {
+      const oscillator = context.createOscillator();
+      const gain = context.createGain();
+      oscillator.type = type;
+      oscillator.frequency.setValueAtTime(frequency, start);
+      gain.gain.setValueAtTime(0.0001, start);
+      gain.gain.exponentialRampToValueAtTime(gainValue, start + 0.03);
+      gain.gain.exponentialRampToValueAtTime(0.0001, start + duration);
+      oscillator.connect(gain);
+      gain.connect(context.destination);
+      oscillator.start(start);
+      oscillator.stop(start + duration + 0.05);
+    }
+
+    function generateMusicBuffer(context, theme) {
+      const sampleRate = context.sampleRate;
+      const length = sampleRate * 8;
+      const buffer = context.createBuffer(2, length, sampleRate);
+      const scales = {
+        happy: [261.63, 329.63, 392.00, 523.25, 659.25],
+        calm: [220.00, 277.18, 329.63, 440.00, 554.37],
+        epic: [196.00, 246.94, 293.66, 392.00, 493.88],
+        future: [174.61, 233.08, 349.23, 466.16, 698.46]
+      };
+      const scale = scales[Object.keys(scales)[Math.floor(Math.random() * Object.keys(scales).length)]];
+
+      for (let channel = 0; channel < 2; channel++) {
+        const data = buffer.getChannelData(channel);
+        for (let i = 0; i < length; i++) {
+          const t = i / sampleRate;
+          const pad = Math.sin(2 * Math.PI * scale[0] * t) * 0.08 + Math.sin(2 * Math.PI * scale[1] * t) * 0.05;
+          const beat = Math.floor(t * 2) % 4 === 0 ? Math.sin(2 * Math.PI * 80 * t) * 0.18 : 0;
+          const hi = Math.sin(2 * Math.PI * 5000 * t) * (Math.floor(t * 8) % 2 ? 0.025 : 0);
+          data[i] = (pad + beat + hi) * (1 - Math.min(t / 8, 1) * 0.18);
+        }
+      }
+      return buffer;
+    }
+
+    function showMedia(title, kind) {
+      mediaPanel.hidden = false;
+      mediaTitle.textContent = title;
+      mediaPanel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      if (kind === 'video') drawVisualizer(title);
+    }
+
+    function drawVisualizer(title) {
+      const width = canvas.width;
+      const height = canvas.height;
+      let frame = 0;
+
+      function draw() {
+        frame++;
+        const gradient = ctx.createLinearGradient(0, 0, width, height);
+        gradient.addColorStop(0, '#020617');
+        gradient.addColorStop(0.5, '#0f172a');
+        gradient.addColorStop(1, '#111827');
+        ctx.fillStyle = gradient;
+        ctx.fillRect(0, 0, width, height);
+
+        for (let i = 0; i < 70; i++) {
+          const x = (i / 70) * width;
+          const barHeight = 20 + Math.sin(frame * 0.08 + i * 0.45) * 35 + Math.random() * 35;
+          const hue = (frame * 2 + i * 5) % 360;
+          ctx.fillStyle = `hsl(${hue}, 85%, 60%)`;
+          ctx.fillRect(x, height - barHeight, width / 90, barHeight);
+        }
+
+        ctx.fillStyle = 'rgba(255,255,255,0.92)';
+        ctx.font = '700 22px Inter, sans-serif';
+        ctx.fillText(title.slice(0, 34), 22, 34);
+        ctx.fillStyle = 'rgba(148,163,184,0.85)';
+        ctx.font = '500 14px Inter, sans-serif';
+        ctx.fillText('Video AI visualizer - client-side animation', 22, 58);
+
+        if (!mediaPanel.hidden) requestAnimationFrame(draw);
+      }
+
+      draw();
+    }
+
+    async function runMediaEngine(prompt) {
+      const lower = prompt.toLowerCase();
+      const title = extractTopic(prompt, 'AI media');
+
+      if (lower.includes('bunyi') || lower.includes('mainkan') || lower.includes('play') || lower.includes('music') || lower.includes('lagu') || lower.includes('audio')) {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        const context = new AudioContext();
+        await context.resume();
+        const source = context.createBufferSource();
+        source.buffer = generateMusicBuffer(context, title);
+        source.connect(context.destination);
+        source.start();
+        showMedia('Music Engine - bunyi AI dibuat dari chat', 'music');
+        return 'Saya sudah jana bunyi muzik AI terus dari browser menggunakan Web Audio API.';
+      }
+
+      if (lower.includes('video') || lower.includes('tengok') || lower.includes('visual')) {
+        showMedia('Video Engine - visual AI dibuat dari chat', 'video');
+        return 'Saya sudah jana visual video AI terus dari browser menggunakan canvas animation.';
+      }
+
+      return '';
+    }
+
+    function buildStudy(topic) {
+      const title = extractTopic(topic, 'topik yang dipelajari');
+      return `📚 Belajar Engine\n\nTopik: ${titleCase(title)}\n\nPenjelasan ringkas:\nMulakan dengan definisi mudah, kemudian pecahkan kepada bahagian kecil. Fahami konsep asas, lihat contoh, buat latihan, dan ulang dengan bahasa sendiri.\n\nPelan belajar 30 minit:\n1. 5 minit: baca definisi.\n2. 10 minit: fahami konsep utama.\n3. 10 minit: buat contoh kecil.\n4. 5 minit: buat ringkasan.\n\nKuiz pantas:\n1. Apakah tujuan utama topik ini?\n2. Apakah 3 bahagian penting?\n3. Berikan satu contoh mudah.\n4. Apakah kesilapan biasa?\n\nNota ringkas:\nTopik ini lebih mudah jika dipelajari secara langkah demi langkah, bukan hafal terus.`;
+    }
+
+    function buildWriting(topic) {
+      const title = extractTopic(topic, 'artikel menarik');
+      return `✍️ Menulis Engine\n\nTajuk: ${titleCase(title)}\nFormat: artikel pendek / caption / email / skrip\n\nStruktur penulisan:\n1. Hook: mula dengan ayat yang menarik.\n2. Masalah: terangkan isu atau keperluan.\n3. Solusi: beri idea atau langkah.\n4. Contoh: tunjuk aplikasi sebenar.\n5. CTA: ajak pembaca bertindak.\n\nContoh pembuka:\n"Dalam dunia digital sekarang, ${title} bukan sekadar idea tambahan, tetapi cara mudah untuk buat kerja lebih pantas, jelas, dan kreatif."\n\nAyat penutup:\n"Mulakan dengan versi kecil, uji, perbaiki, dan jadikan ia lebih baik setiap hari."`;
+    }
+
+    function buildProject(topic) {
+      const title = extractTopic(topic, 'projek digital');
+      const type = pick(projectTypes);
+      return `🚀 Projek Engine\n\nNama projek: ${titleCase(title)}\nJenis: ${type}\n\nMVP:\n1. Satu halaman utama.\n2. Satu fungsi utama.\n3. Simpan data asas jika perlu.\n4. Deploy percuma.\n5. Dapatkan feedback awal.\n\nStruktur fail:\nproject/\n  index.html\n  assets/app.js\n  assets/style.css\n  README.md\n\nRoadmap 7 hari:\n1. Hari 1: tulis idea dan skop.\n2. Hari 2: buat UI ringkas.\n3. Hari 3: tambah fungsi utama.\n4. Hari 4: uji pada telefon.\n5. Hari 5: tambah halaman dokumentasi.\n6. Hari 6: deploy.\n7. Hari 7: perbaiki UX.\n\nChecklist:\n- Nama jelas\n- Fungsi utama ada\n- UI mudah\n- Mobile friendly\n- Deploy GitHub Pages`;
+    }
+
+    function buildCoding(topic) {
+      const title = extractTopic(topic, 'web app ringkas');
+      const stack = pick(codeStacks);
+      return `💻 Coding Engine\n\nProjek: ${titleCase(title)}\nStack: ${stack}\n\nStruktur fail:\nindex.html\nstyle.css\napp.js\nREADME.md\n\nContoh fungsi utama:\n- Input pengguna\n- Proses data\n- Papar hasil\n- Simpan dalam localStorage jika perlu\n\nContoh HTML ringkas:\n<div class="app">\n  <input id="input" placeholder="Tulis sesuatu">\n  <button id="btn">Hasilkan</button>\n  <output id="result"></output>\n</div>\n\nContoh JavaScript:\nconst input = document.querySelector("#input");\nconst btn = document.querySelector("#btn");\nconst result = document.querySelector("#result");\n\nbtn.addEventListener("click", () => {\n  result.textContent = "Hasil: " + input.value;\n});\n\nLangkah seterusnya:\n1. Buat fail.\n2. Tambah CSS.\n3. Uji fungsi.\n4. Deploy ke GitHub Pages.`;
+    }
+
+    function buildGeneral(topic) {
+      return `🤖 AI General Engine\n\nAnda minta: ${topic}\n\nSaya boleh bantu pecahkan kepada:\n${formatList([
+        'Tujuan utama',
+        'Langkah paling mudah untuk mula',
+        'Alat percuma yang sesuai',
+        'Prompt yang boleh digunakan',
+        'Checklist hasil akhir'
+      ])}\n\nCadangan seterusnya:\nTulis lebih spesifik, contoh: "buat music tentang hujan", "buat gambar kucing cyberpunk", "buat projek web AI", atau "tulis kod landing page".`;
+    }
+
+    function buildFreeTools(topic) {
+      const lower = topic.toLowerCase();
+      const tools = [
+        { name: 'GitHub Pages', use: 'Hosting web percuma', url: 'https://pages.github.com/' },
+        { name: 'Cloudflare Pages', use: 'Hosting web/worker percuma', url: 'https://pages.cloudflare.com/' },
+        { name: 'Hugging Face Spaces', use: 'Demo AI percuma', url: 'https://huggingface.co/spaces' },
+        { name: 'Replit', use: 'Coding dalam browser', url: 'https://replit.com/' },
+        { name: 'VS Code', use: 'Editor kod percuma', url: 'https://code.visualstudio.com/' },
+        { name: 'Blender', use: '3D, video, animasi percuma', url: 'https://www.blender.org/' },
+        { name: 'Krita', use: 'Lukis dan edit gambar percuma', url: 'https://krita.org/' },
+        { name: 'GIMP', use: 'Edit gambar percuma', url: 'https://www.gimp.org/' },
+        { name: 'Audacity', use: 'Edit audio percuma', url: 'https://www.audacityteam.org/' },
+        { name: 'OBS Studio', use: 'Rakam/stream video percuma', url: 'https://obsproject.com/' },
+        { name: 'DaVinci Resolve', use: 'Edit video percuma', url: 'https://www.blackmagicdesign.com/products/davinciresolve' },
+        { name: 'Canva', use: 'Reka bentuk mudah percuma', url: 'https://www.canva.com/' },
+        { name: 'Figma', use: 'UI/UX design percuma', url: 'https://www.figma.com/' },
+        { name: 'Google Colab', use: 'Python/AI notebook percuma', url: 'https://colab.research.google.com/' },
+        { name: 'Kaggle', use: 'Dataset dan latihan AI percuma', url: 'https://www.kaggle.com/' }
+      ];
+
+      const filtered = tools.filter((tool) => lower.includes(tool.name.toLowerCase().split(' ')[0]) || lower.includes(tool.use.toLowerCase().split(' ')[0]));
+      const selected = filtered.length ? filtered : tools.slice(0, 8);
+      return `🧰 Alat Percuma/Open Source\n\nUntuk: ${topic}\n\n${formatList(selected.map((tool) => `${tool.name} — ${tool.use} — ${tool.url}`))}\n\nCadangan percuma:\n- Web app: GitHub Pages atau Cloudflare Pages\n- Coding: VS Code, Replit, Google Colab\n- Gambar: Krita, GIMP, Canva, Figma\n- Video: OBS Studio, DaVinci Resolve, Blender\n- Audio: Audacity, Web Audio API\n- AI: Hugging Face Spaces, Kaggle`;
+    }
+
+    function buildAppBuilder(topic) {
+      const title = extractTopic(topic, 'Aplikasi Web Pelajar');
+      return `🛠️ App Builder Engine\n\nSaya boleh buat aplikasi web dari chat.\n\nAplikasi dicadangkan: ${title}\n\nCiri MVP:\n1. Halaman utama\n2. Input pengguna\n3. Proses data\n4. Papar hasil\n5. Simpan dalam localStorage jika perlu\n6. Download hasil sebagai fail\n\nStruktur fail:\nindex.html\nstyle.css\napp.js\n\nKlik butang "Buat app web" untuk buka editor live. Anda boleh edit HTML, CSS, JavaScript, run preview, dan download app siap.\n\nContoh arahan:\n- buat app kalkulator\n- buat app nota pelajar\n- buat app kuiz\n- buat app todo list\n- buat app chatbot\n- buat app portfolio`;
+    }
+
+    function getStudentData() {
+      return {
+        subject: subjectInput.value.trim() || 'Pelajaran',
+        deadline: deadlineInput.value.trim() || 'masa terdekat',
+        notes: notesInput.value.trim() || 'tiada nota khusus',
+        goal: goalInput.value.trim() || 'belajar dengan lebih teratur'
+      };
+    }
+
+    function makeStudyPlan(data) {
+      return `📚 Pelan Belajar Pelajar\n\nSubjek: ${data.subject}\nMatlamat: ${data.goal}\nMasa: ${data.deadline}\n\nLangkah belajar:\n1. Baca nota utama 10 minit.\n2. Pecahkan topik susah kepada 3 bahagian kecil.\n3. Buat contoh mudah.\n4. Uji diri dengan 5 soalan.\n5. Ringkaskan dalam 5 baris.\n6. Ulang bahagian yang masih kabur.\n\nNota yang diberi:\n${data.notes}\n\nChecklist siap:\n- Faham definisi\n- Ada contoh\n- Ada latihan\n- Ada ringkasan\n- Tahu apa perlu buat seterusnya`;
+    }
+
+    function makeQuiz(data) {
+      return `📝 Kuiz Pantas\n\nSubjek: ${data.subject}\n\n1. Apakah idea utama topik ini?\n2. Nyatakan 3 perkara penting.\n3. Berikan satu contoh mudah.\n4. Apakah kesilapan biasa pelajar buat?\n5. Bagaimana anda gunakan ilmu ini dalam tugasan sebenar?\n\nJawapan cadangan:\nGunakan nota anda: ${data.notes}\nJika tidak pasti, minta Tukuk AI terangkan satu persatu.`;
+    }
+
+    function makeFlashcards(data) {
+      return `🗂️ Flashcards\n\nSubjek: ${data.subject}\n\nKad 1:\nSoalan: Apakah tujuan utama topik ini?\nJawapan: Untuk memahami konsep asas dan boleh guna dalam tugasan.\n\nKad 2:\nSoalan: Apakah 3 perkara paling penting?\nJawapan: Definisi, contoh, dan latihan.\n\nKad 3:\nSoalan: Bagaimana saya tahu saya sudah faham?\nJawapan: Saya boleh terangkan semula dengan bahasa sendiri.\n\nKad 4:\nSoalan: Apa langkah seterusnya?\nJawapan: Buat latihan, semak jawapan, dan ulang bahagian lemah.\n\nNota: ${data.notes}`;
+    }
+
+    function makeFocusMode(data) {
+      return `⏱️ Mode Fokus Pelajar\n\nSubjek: ${data.subject}\nMatlamat: ${data.goal}\n\nSiklus 25 minit:\n1. 5 minit: baca tujuan tugasan.\n2. 15 minit: buat kerja tanpa ganggu.\n3. 5 minit: semak hasil.\n\nSelepas itu rehat 5 minit. Ulang 2-4 pusingan.\n\nPeraturan:\n- Tutup notifikasi\n- Buka hanya bahan belajar\n- Tulis satu hasil kecil setiap pusingan\n- Jangan tukar topik bila belum siap`;
+    }
+
+    function makePortfolio(data) {
+      return `🧾 Portfolio Pelajar\n\nNama projek: ${data.subject}\nTujuan: ${data.goal}\n\nRingkasan:\nProjek ini dibantu oleh Tukuk AI untuk pelajar. Ia menunjukkan proses belajar, hasil kerja, dan kemahiran yang diperoleh.\n\nBahagian portfolio:\n1. Tajuk projek\n2. Masalah atau tujuan\n3. Langkah kerja\n4. Hasil akhir\n5. Apa yang dipelajari\n6. Screenshot atau bukti kerja\n7. Refleksi diri\n\nTemplate export:\nTajuk: ${data.subject}\nMatlamat: ${data.goal}\nNota: ${data.notes}\nTarikh siap: ${data.deadline}`;
+    }
+
+    function openStudentDashboard() {
+      studentDashboard.hidden = false;
+      studentDashboard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    function setupStudentDashboard() {
+      planStudy.addEventListener('click', () => {
+        dashboardOutput.textContent = makeStudyPlan(getStudentData());
+      });
+      makeQuiz.addEventListener('click', () => {
+        dashboardOutput.textContent = makeQuiz(getStudentData());
+      });
+      makeFlashcards.addEventListener('click', () => {
+        dashboardOutput.textContent = makeFlashcards(getStudentData());
+      });
+      focusTimer.addEventListener('click', () => {
+        dashboardOutput.textContent = makeFocusMode(getStudentData());
+      });
+      portfolioExport.addEventListener('click', () => {
+        const text = makePortfolio(getStudentData());
+        dashboardOutput.textContent = text;
+        const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = 'portfolio-pelajar-tukuk-ai.txt';
+        link.click();
+        URL.revokeObjectURL(url);
+      });
+    }
+
+    function setupUtilityPanel() {
+      themeButton.addEventListener('click', () => {
+        document.body.classList.toggle('light');
+        const isLight = document.body.classList.contains('light');
+        themeButton.textContent = isLight ? 'Dark' : 'Light';
+        localStorage.setItem('tukuk-theme', isLight ? 'light' : 'dark');
+      });
+
+      const savedTheme = localStorage.getItem('tukuk-theme');
+      if (savedTheme === 'light') {
+        document.body.classList.add('light');
+        themeButton.textContent = 'Dark';
+      }
+
+      toggleUtility.addEventListener('click', () => {
+        utilityPanel.hidden = !utilityPanel.hidden;
+      });
+
+      saveTemplate.addEventListener('click', () => {
+        const template = promptInput.value.trim() || getLastAiText();
+        if (!template) {
+          showToast('Tiada template untuk disimpan');
+          return;
+        }
+        localStorage.setItem('tukuk-ai-template', template);
+        showToast('Template disimpan');
+      });
+
+      loadTemplate.addEventListener('click', () => {
+        const template = localStorage.getItem('tukuk-ai-template');
+        if (!template) {
+          showToast('Tiada template disimpan');
+          return;
+        }
+        promptInput.value = template;
+        promptInput.focus();
+        showToast('Template dimuatkan');
+      });
+
+      copyLast.addEventListener('click', async () => {
+        const text = getLastAiText();
+        if (!text) {
+          showToast('Tiada jawapan untuk disalin');
+          return;
+        }
+        await navigator.clipboard.writeText(text);
+        showToast('Jawapan disalin');
+      });
+
+      screenshotButton.addEventListener('click', async () => {
+        try {
+          const canvas = await html2canvasCapture();
+          const link = document.createElement('a');
+          link.download = 'tukuk-ai-screenshot.png';
+          link.href = canvas.toDataURL('image/png');
+          link.click();
+          showToast('Screenshot dimuat turun');
+        } catch (error) {
+          showToast('Screenshot tidak disokong browser ini');
+        }
+      });
+
+      exportAll.addEventListener('click', () => {
+        const text = Array.from(document.querySelectorAll('body')).map((el) => el.innerText).join('\n');
+        const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = 'tukuk-ai-export.txt';
+        link.click();
+        URL.revokeObjectURL(url);
+        showToast('Semua output dieksport');
+      });
+
+      presetStudent.addEventListener('click', () => {
+        promptInput.value = 'Saya pelajar. Bantu saya buat pelan belajar, kuiz, flashcards, app web percuma, dan portfolio dalam satu output.';
+        showToast('Preset pelajar dimasukkan');
+      });
+    }
+
+    async function html2canvasCapture() {
+      if (window.html2canvas) {
+        return window.html2canvas(document.body);
+      }
+      const canvas = document.createElement('canvas');
+      const width = Math.min(window.innerWidth, 1440);
+      const height = Math.min(window.innerHeight, 1800);
+      canvas.width = width;
+      canvas.height = height;
+      const context = canvas.getContext('2d');
+      context.fillStyle = '#020617';
+      context.fillRect(0, 0, width, height);
+      context.fillStyle = '#e5e7eb';
+      context.font = '700 28px Inter, sans-serif';
+      context.fillText('Tukuk AI Studio', 40, 70);
+      context.font = '18px Inter, sans-serif';
+      context.fillText('Screenshot fallback: halaman disimpan sebagai nota teks dan media.', 40, 110);
+      return canvas;
+    }
+
+    async function runMediaEngine(prompt) {
+      const lower = prompt.toLowerCase();
+      const title = extractTopic(prompt, 'AI media');
+
+      if (lower.includes('cari alat') || lower.includes('percuma') || lower.includes('open source') || lower.includes('opensource')) {
+        return buildFreeTools(title);
+      }
+
+      if (lower.includes('buat app') || lower.includes('aplikasi') || lower.includes('web app') || lower.includes('coding app') || lower.includes('program app')) {
+        return buildAppBuilder(title);
+      }
+
+      if (lower.includes('edit') || lower.includes('ubah') || lower.includes('dokumen') || lower.includes('teks') || lower.includes('kod')) {
+        return `✏️ Editor Engine\n\nSaya boleh edit apa saja: teks, dokumen, HTML, CSS, JavaScript, nota, artikel, dan kod app.\n\nKlik butang "Edit teks/kod" untuk buka editor live. Anda boleh paste apa saja, ubah, run, dan download.\n\nContoh arahan:\n- edit artikel ini\n- tukar kod HTML\n- buat dokumen pelajar\n- betulkan JavaScript\n- tambah CSS cantik`;
+      }
+
+      if (lower.includes('bunyi') || lower.includes('mainkan') || lower.includes('play') || lower.includes('music') || lower.includes('lagu') || lower.includes('audio')) {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        const context = new AudioContext();
+        await context.resume();
+        const source = context.createBufferSource();
+        source.buffer = generateMusicBuffer(context, title);
+        source.connect(context.destination);
+        source.start();
+        showMedia('Music Engine - bunyi AI dibuat dari chat', 'music');
+        return 'Saya sudah jana bunyi muzik AI terus dari browser menggunakan Web Audio API.';
+      }
+
+      if (lower.includes('video') || lower.includes('tengok') || lower.includes('visual')) {
+        showMedia('Video Engine - visual AI dibuat dari chat', 'video');
+        return 'Saya sudah jana visual video AI terus dari browser menggunakan canvas animation.';
+      }
+
+      return '';
+    }
+
+    async function generateResponse(prompt) {
+      const lower = prompt.toLowerCase();
+      const topic = extractTopic(prompt, 'idea anda');
+      const language = detectLanguage(prompt);
+
+      const mediaOutput = await runMediaEngine(prompt);
+      if (mediaOutput) return addLanguageNote(language, mediaOutput);
+
+      let output = '';
+
+      if (lower.includes('screenshot') || lower.includes('salin') || lower.includes('simpan template') || lower.includes('preset') || lower.includes('utility')) {
+        utilityPanel.hidden = false;
+        output = `🧰 Utility Panel dibuka. Anda boleh simpan template, salin jawapan, screenshot, eksport semua output, tukar tema, dan guna preset pelajar.`;
+      } else if (lower.includes('pelan belajar') || lower.includes('kuiz') || lower.includes('flashcard') || lower.includes('mode fokus') || lower.includes('portfolio pelajar') || lower.includes('dashboard pelajar')) {
+        openStudentDashboard();
+        output = `🎓 Student Dashboard dibuka. Isi subjek, nota, tarikh, dan matlamat, kemudian tekan butang yang sesuai.`;
+      } else if (lower.includes('cari alat') || lower.includes('percuma') || lower.includes('open source') || lower.includes('opensource')) output = buildFreeTools(topic);
+      else if (lower.includes('buat app') || lower.includes('aplikasi') || lower.includes('web app') || lower.includes('coding app') || lower.includes('program app')) output = buildAppBuilder(topic);
+      else if (lower.includes('edit') || lower.includes('ubah') || lower.includes('dokumen') || lower.includes('teks') || lower.includes('kod')) output = `✏️ Editor Engine\n\nSaya boleh edit apa saja: teks, dokumen, HTML, CSS, JavaScript, nota, artikel, dan kod app. Klik butang "Edit teks/kod" untuk buka editor live.`;
+      else if (lower.includes('music') || lower.includes('lagu') || lower.includes('lirik') || lower.includes('audio') || lower.includes('nyanyi')) output = buildMusic(topic);
+      else if (lower.includes('video') || lower.includes('skrip') || lower.includes('storyboard') || lower.includes('reels') || lower.includes('shorts')) output = buildVideo(topic);
+      else if (lower.includes('gambar') || lower.includes('image') || lower.includes('logo') || lower.includes('ilustrasi') || lower.includes('poster') || lower.includes('thumbnail')) output = buildImage(topic);
+      else if (lower.includes('belajar') || lower.includes('nota') || lower.includes('kuiz') || lower.includes('topik') || lower.includes('ajar')) output = buildStudy(topic);
+      else if (lower.includes('tulis') || lower.includes('artikel') || lower.includes('cerita') || lower.includes('email') || lower.includes('caption') || lower.includes('skrip')) output = buildWriting(topic);
+      else if (lower.includes('lukis') || lower.includes('melukis') || lower.includes('gaya visual') || lower.includes('komposisi') || lower.includes('seni')) output = buildDrawing(topic);
+      else if (lower.includes('projek') || lower.includes('bisnes') || lower.includes('mvp') || lower.includes('roadmap')) output = buildProject(topic);
+      else if (lower.includes('coding') || lower.includes('code') || lower.includes('kod') || lower.includes('debug') || lower.includes('program') || lower.includes('html') || lower.includes('javascript')) output = buildCoding(topic);
+      else output = buildGeneral(topic);
+
+      return addLanguageNote(language, output);
+    }
+
+    function addMessage(text, role) {
+      const item = document.createElement('div');
+      item.className = `message ${role}`;
+
+      const avatar = document.createElement('div');
+      avatar.className = `avatar ${role}`;
+      avatar.textContent = role === 'user' ? 'Anda' : 'AI';
+
+      const bubble = document.createElement('div');
+      bubble.className = 'bubble';
+      bubble.textContent = text;
+
+      item.append(avatar, bubble);
+      messages.appendChild(item);
+      messages.scrollTop = messages.scrollHeight;
+      saveChat();
+    }
+
+    function saveChat() {
+      const history = Array.from(messages.querySelectorAll('.bubble')).map((bubble) => bubble.textContent);
+      localStorage.setItem('tukuk-ai-chat-history', JSON.stringify(history));
+    }
+
+    function loadChat() {
+      const saved = localStorage.getItem('tukuk-ai-chat-history');
+      if (!saved) return;
+      const history = JSON.parse(saved);
+      history.slice(0, 12).forEach((text) => addMessage(text, 'ai'));
+    }
+
+    function setupDraggableChat() {
+      let dragging = false;
+      let resizing = false;
+      let startX = 0;
+      let startY = 0;
+      let startLeft = 0;
+      let startTop = 0;
+      let startWidth = 0;
+      let startHeight = 0;
+
+      chatCard.addEventListener('pointerdown', (event) => {
+        if (event.target.closest('button, textarea, input, audio, canvas, .quick, .tool-btn')) return;
+        dragging = true;
+        chatCard.classList.add('dragging');
+        startX = event.clientX;
+        startY = event.clientY;
+        startLeft = chatCard.offsetLeft;
+        startTop = chatCard.offsetTop;
+        chatCard.setPointerCapture(event.pointerId);
+      });
+
+      chatCard.addEventListener('pointermove', (event) => {
+        if (!dragging && !resizing) return;
+        if (dragging) {
+          chatCard.style.left = `${startLeft + event.clientX - startX}px`;
+          chatCard.style.top = `${startTop + event.clientY - startY}px`;
+        }
+        if (resizing) {
+          chatCard.style.width = `${Math.max(340, startWidth + event.clientX - startX)}px`;
+          chatCard.style.height = `${Math.max(520, startHeight + event.clientY - startY)}px`;
+        }
+      });
+
+      chatCard.addEventListener('pointerup', (event) => {
+        dragging = false;
+        resizing = false;
+        chatCard.classList.remove('dragging');
+        chatCard.releasePointerCapture(event.pointerId);
+      });
+
+      chatCard.addEventListener('pointerdown', (event) => {
+        const rect = chatCard.getBoundingClientRect();
+        if (event.clientX > rect.right - 24 && event.clientY > rect.bottom - 24) {
+          resizing = true;
+          chatCard.classList.add('resizing');
+          startX = event.clientX;
+          startY = event.clientY;
+          startWidth = chatCard.offsetWidth;
+          startHeight = chatCard.offsetHeight;
+          chatCard.setPointerCapture(event.pointerId);
+        }
+      });
+
+      resetChat.addEventListener('click', () => {
+        chatCard.style.left = '';
+        chatCard.style.top = '';
+        chatCard.style.width = '';
+        chatCard.style.height = '';
+      });
+
+      toggleTools.addEventListener('click', () => {
+        toolsPanel.hidden = !toolsPanel.hidden;
+      });
+    }
+
+    function showToast(text) {
+      toast.textContent = text;
+      toast.classList.add('show');
+      window.clearTimeout(showToast.timer);
+      showToast.timer = window.setTimeout(() => toast.classList.remove('show'), 2200);
+    }
+
+    function getLastAiText() {
+      const items = Array.from(messages.querySelectorAll('.message.ai .bubble'));
+      return items.length ? items[items.length - 1].textContent : '';
+    }
+
+    function buildWebAppHtml(topic) {
+      const title = extractTopic(topic, 'Aplikasi Web Pelajar');
+      return `<!doctype html>
+<html lang="ms">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>${title}</title>
+<style>
+body{margin:0;font-family:Inter,system-ui,sans-serif;background:#0f172a;color:#e5e7eb}
+.app{max-width:900px;margin:0 auto;padding:32px}
+.card{background:#111827;border:1px solid #334155;border-radius:24px;padding:24px}
+input,button{font:inherit}input{width:100%;padding:14px;border-radius:14px;border:1px solid #334155;background:#020617;color:#e5e7eb}
+button{margin-top:12px;padding:12px 16px;border:0;border-radius:14px;background:#22c55e;color:#020617;font-weight:800;cursor:pointer}
+.result{margin-top:18px;line-height:1.7;color:#cbd5e1}
+</style>
+</head>
+<body>
+<main class="app">
+  <section class="card">
+    <h1>${title}</h1>
+    <p>Aplikasi web ringkas dijana oleh Tukuk AI untuk pelajar.</p>
+    <input id="input" placeholder="Masukkan sesuatu">
+    <button id="btn">Hasilkan</button>
+    <div class="result" id="result">Hasil akan muncul di sini.</div>
+  </section>
+</main>
+<script>
+const input=document.querySelector('#input');
+const btn=document.querySelector('#btn');
+const result=document.querySelector('#result');
+btn.addEventListener('click',()=>{
+ result.textContent='Tukuk AI hasilkan: '+input.value;
+});
+<\/script>
+</body>
+</html>`;
+    }
+
+    function buildEditableText(topic) {
+      const title = extractTopic(topic, 'Dokumen pelajar');
+      return `# ${title}\n\nTajuk: ${title}\n\nPendahuluan:\nDokumen ini dibantu oleh Tukuk AI untuk pelajar. Ia boleh disunting terus dalam editor.\n\nIsi penting:\n1. Tujuan\n2. Langkah kerja\n3. Hasil\n4. Kesimpulan\n\nKesimpulan:\nGunakan AI percuma untuk belajar, menyusun idea, dan menyiapkan tugasan dengan lebih pantas.`;
+    }
+
+    function openEditor(code, mode = 'both') {
+      editorPanel.hidden = false;
+      editorCode.value = code;
+      document.querySelectorAll('.editor-tabs button[data-tab]').forEach((button) => button.classList.remove('active'));
+      const active = document.querySelector(`.editor-tabs button[data-tab="${mode}"]`);
+      if (active) active.classList.add('active');
+      const grid = editorPanel.querySelector('.editor-grid');
+      if (mode === 'code') {
+        grid.style.gridTemplateColumns = '1fr';
+        previewFrame.style.display = 'none';
+      } else if (mode === 'preview') {
+        grid.style.gridTemplateColumns = '1fr';
+        editorCode.style.display = 'none';
+        previewFrame.style.display = 'block';
+      } else {
+        grid.style.gridTemplateColumns = '1fr 1fr';
+        editorCode.style.display = 'block';
+        previewFrame.style.display = 'block';
+      }
+      runPreview();
+    }
+
+    function runPreview() {
+      const code = editorCode.value;
+      const doc = previewFrame.contentDocument || previewFrame.contentWindow.document;
+      doc.open();
+      doc.write(code);
+      doc.close();
+    }
+
+    function setupOpenSourceTools() {
+      speakButton.addEventListener('click', () => {
+        const text = getLastAiText();
+        if (!text) {
+          showToast('Tiada jawapan AI untuk dibacakan');
+          return;
+        }
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(text.slice(0, 1800));
+        utterance.lang = detectLanguage(text).code;
+        utterance.rate = 0.95;
+        window.speechSynthesis.speak(utterance);
+        showToast('Teks AI sedang dibacakan');
+      });
+
+      voiceButton.addEventListener('click', async () => {
+        if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+          showToast('Browser ini tidak sokong speech recognition');
+          return;
+        }
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        const recognition = new SpeechRecognition();
+        recognition.lang = detectLanguage(promptInput.value || 'ms-MY').code === 'ms' ? 'ms-MY' : 'en-US';
+        recognition.interimResults = false;
+        recognition.onresult = (event) => {
+          promptInput.value = event.results[0][0].transcript;
+          showToast('Suara ditukar ke teks');
+        };
+        recognition.start();
+      });
+
+      downloadButton.addEventListener('click', () => {
+        const text = Array.from(messages.querySelectorAll('.message')).map((message) => {
+          const role = message.classList.contains('user') ? 'Anda' : 'AI';
+          const bubble = message.querySelector('.bubble')?.textContent || '';
+          return `${role}: ${bubble}`;
+        }).join('\n\n');
+        const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = 'tukuk-ai-chat.txt';
+        link.click();
+        URL.revokeObjectURL(url);
+        showToast('Chat telah dimuat turun');
+      });
+
+      clearButton.addEventListener('click', () => {
+        messages.innerHTML = '';
+        localStorage.removeItem('tukuk-ai-chat-history');
+        showToast('Chat telah dipadam');
+      });
+
+      appButton.addEventListener('click', () => {
+        const code = buildWebAppHtml(promptInput.value || 'Aplikasi Web Pelajar');
+        openEditor(code, 'both');
+        addMessage('Saya dah jana aplikasi web ringkas dalam editor live. Anda boleh edit, run, dan download HTML app ini.', 'ai');
+      });
+
+      editButton.addEventListener('click', () => {
+        const code = buildEditableText(promptInput.value || 'Dokumen pelajar');
+        openEditor(code, 'code');
+        addMessage('Editor dibuka. Anda boleh edit teks, nota, dokumen, HTML, CSS, JavaScript, atau kod app.', 'ai');
+      });
+
+      document.querySelectorAll('.editor-tabs button[data-tab]').forEach((button) => {
+        button.addEventListener('click', () => {
+          document.querySelectorAll('.editor-tabs button[data-tab]').forEach((item) => item.classList.remove('active'));
+          button.classList.add('active');
+          const mode = button.dataset.tab;
+          const grid = editorPanel.querySelector('.editor-grid');
+          if (mode === 'code') {
+            grid.style.gridTemplateColumns = '1fr';
+            editorCode.style.display = 'block';
+            previewFrame.style.display = 'none';
+          } else if (mode === 'preview') {
+            grid.style.gridTemplateColumns = '1fr';
+            editorCode.style.display = 'none';
+            previewFrame.style.display = 'block';
+            runPreview();
+          } else {
+            grid.style.gridTemplateColumns = '1fr 1fr';
+            editorCode.style.display = 'block';
+            previewFrame.style.display = 'block';
+            runPreview();
+          }
+        });
+      });
+
+      runEditor.addEventListener('click', runPreview);
+
+      downloadApp.addEventListener('click', () => {
+        const blob = new Blob([editorCode.value], { type: editorCode.value.includes('<html') ? 'text/html' : 'text/plain;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = editorCode.value.includes('<html') ? 'tukuk-ai-app.html' : 'tukuk-ai-doc.md';
+        link.click();
+        URL.revokeObjectURL(url);
+        showToast('Fail telah dimuat turun');
+      });
+    }
+
+    async function sendPrompt() {
+      const text = promptInput.value.trim();
+      if (!text) return;
+
+      addMessage(text, 'user');
+      promptInput.value = '';
+      promptInput.style.height = 'auto';
+      sendButton.disabled = true;
+      sendButton.textContent = 'Proses';
+
+      try {
+        const response = await generateResponse(text);
+        addMessage(response, 'ai');
+      } catch (error) {
+        addMessage('Maaf, browser tidak dapat jana media. Cuba guna butang generate idea, projek, atau coding.', 'ai');
+      } finally {
+        sendButton.disabled = false;
+        sendButton.textContent = 'Hantar';
+        promptInput.focus();
+      }
+    }
+
+    sendButton.addEventListener('click', sendPrompt);
+
+    promptInput.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter' && !event.shiftKey) {
+        event.preventDefault();
+        sendPrompt();
+      }
+    });
+
+    promptInput.addEventListener('input', () => {
+      promptInput.style.height = 'auto';
+      promptInput.style.height = `${promptInput.scrollHeight}px`;
+    });
+
+    document.querySelectorAll('.quick button').forEach((button) => {
+      button.addEventListener('click', () => {
+        promptInput.value = `${button.textContent} tentang projek AI Tukuk`;
+        if (button.textContent.includes('Pelankan') || button.textContent.includes('kuiz') || button.textContent.includes('Flashcards')) {
+          openStudentDashboard();
+        }
+        if (button.textContent.includes('Preset') || button.textContent.includes('Salin')) {
+          utilityPanel.hidden = false;
+        }
+        promptInput.focus();
+        showToast('Engine dipilih');
+      });
+    });
+
+    mediaClose.addEventListener('click', () => {
+      mediaPanel.hidden = true;
+      audioPlayer.pause();
+    });
+
+    setupDraggableChat();
+    setupOpenSourceTools();
+    setupStudentDashboard();
+    setupUtilityPanel();
+    loadChat();
+    addMessage(greetings[Math.floor(Math.random() * greetings.length)], 'ai');
+  </script>
+</body>
+</html>
