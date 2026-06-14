@@ -1,15 +1,15 @@
 <!doctype html>
-<html lang="ms">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Tukuk AI - AI Percuma Untuk Pelajar</title>
-  <meta name="description" content="Tukuk AI ialah website AI percuma untuk pelajar: chat AI, buat app, music, karaoke, lirik, read aloud, berita, cerita, iklan, gambar, video, belajar, menulis, melukis, dan coding.">
-  <meta name="keywords" content="Tukuk AI, AI percuma, AI pelajar, chat AI, buat app, music AI, karaoke, lirik, read aloud, berita, cerita, iklan, gambar AI, video AI, belajar coding, pembuat aplikasi">
+  <title>Tukuk AI - Free AI Agent for Students</title>
+  <meta name="description" content="Tukuk AI is a free AI agent website for students: chat, AI Brain, app builder, music, karaoke, lyrics, read aloud, news, stories, ads, images, video, all school subjects, writing, drawing, typing, dictionary, calculator, colors, edit tools, science, HTML, CSS, JavaScript, React, Node.js, NPM, Java, Python AI libraries, containers, pipelines, MCP, terminal/console/shell, and defensive cyber diagnostics.">
+  <meta name="keywords" content="Tukuk AI, free AI, student AI, AI Brain, chat AI, app builder, music AI, karaoke, lyrics, read aloud, news, stories, ads, image AI, video AI, all school subjects, calculator, dictionary, colors, typing, edit tools, science, HTML, CSS, JavaScript, React, Node.js, NPM, Java, Python AI libraries, containers, pipelines, MCP, terminal, console, shell, cyber diagnostic">
   <meta name="author" content="Tukuk">
   <meta name="robots" content="index, follow, max-image-preview:large">
   <link rel="canonical" href="https://tukuk.github.io/tukuk-ai/">
-  <meta property="og:title" content="Tukuk AI - AI Percuma Untuk Pelajar">
+  <meta property="og:title" content="Tukuk AI - Free AI Agent for Students">
   <meta property="og:description" content="Website AI percuma untuk pelajar: chat, buat app, music, karaoke, read aloud, berita, cerita, iklan, gambar, video, belajar, dan coding.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://tukuk.github.io/tukuk-ai/">
@@ -219,7 +219,11 @@
     .metric span { color: var(--muted); font-size: 0.86rem; }
 
     .chat-card {
-      position: relative;
+      position: fixed;
+      top: 112px;
+      right: max(22px, calc((100vw - 1220px) / 2));
+      z-index: 25;
+      width: min(430px, calc(100vw - 32px));
       border: 1px solid var(--line);
       border-radius: 28px;
       background: var(--panel);
@@ -227,10 +231,10 @@
       backdrop-filter: blur(22px);
       overflow: auto;
       resize: both;
-      min-width: 340px;
+      min-width: 300px;
       min-height: 520px;
-      max-width: 960px;
-      max-height: 760px;
+      max-width: calc(100vw - 32px);
+      max-height: calc(100vh - 140px);
       cursor: move;
     }
     .chat-card::after {
@@ -735,19 +739,57 @@
     }
     .toast.show { opacity: 1; transform: translateX(-50%) translateY(-4px); }
 
+    @media (min-width: 1440px) {
+      .page { width: min(1320px, calc(100% - 48px)); }
+      .hero { gap: 42px; padding: 72px 0 42px; }
+      .workspace { gap: 24px; }
+    }
+    @media (min-width: 1800px) {
+      .page { width: min(1560px, calc(100% - 72px)); }
+      .hero { grid-template-columns: minmax(0, 1fr) minmax(460px, 560px); }
+      .chat-card { max-height: min(820px, calc(100vh - 140px)); }
+    }
+    @media (max-width: 1180px) {
+      .hero { grid-template-columns: minmax(0, 1fr) minmax(360px, 430px); gap: 24px; }
+      .chat-card { right: 18px; top: 104px; }
+    }
     @media (max-width: 920px) {
       .hero, .workspace { grid-template-columns: 1fr; }
-      .chat-card { max-width: 720px; }
+      .chat-card { position: fixed; top: 92px; right: 12px; left: 12px; width: auto; min-width: 0; max-width: none; max-height: calc(100vh - 112px); cursor: move; }
+      .chat-card::after, .resize-corner { display: none; }
       .nav-links { display: none; }
       .cards { grid-template-columns: 1fr; }
       .metrics { grid-template-columns: 1fr; }
       .bubble { max-width: 88%; }
     }
+    @media (max-width: 760px) {
+      .dashboard-grid, .editor-grid { grid-template-columns: 1fr; }
+      .editor-grid textarea { border-right: 0; border-bottom: 1px solid var(--line); }
+      .utility-grid { grid-template-columns: 1fr; }
+      .library-grid { grid-template-columns: 1fr; }
+      .chat-top { padding: 16px 58px 16px 16px; }
+      .messages { min-height: 330px; max-height: 48vh; }
+    }
     @media (max-width: 560px) {
       .page { width: min(100% - 22px, 1160px); }
+      .hero { padding: 34px 0 22px; }
       .hero-actions .btn { width: 100%; }
       .input-row { grid-template-columns: 1fr; }
       .send { min-height: 46px; }
+      .quick button { padding: 7px 9px; font-size: 0.74rem; }
+      .chat-card { top: 82px; min-height: min(720px, calc(100vh - 102px)); max-height: calc(100vh - 102px); border-radius: 22px; }
+      .messages { min-height: 300px; max-height: 44vh; padding: 14px; }
+      .composer { padding: 12px; }
+      .dashboard-actions button, .utility-grid button { width: 100%; }
+      .metric strong { font-size: 1.15rem; }
+      h1 { font-size: clamp(2.2rem, 14vw, 3.2rem); }
+    }
+    @media (max-width: 380px) {
+      .page { width: min(100% - 14px, 1160px); }
+      .chat-card { min-height: 680px; }
+      .quick button { font-size: 0.7rem; }
+      .message { gap: 8px; }
+      .avatar { width: 30px; height: 30px; }
     }
   </style>
 </head>
@@ -861,6 +903,13 @@
           <button type="button" id="makeFlashcards">Flashcards</button>
           <button type="button" id="focusTimer">Mode fokus</button>
           <button type="button" id="portfolioExport">Eksport portfolio</button>
+          <button type="button" id="buildStudentApp">Jana app pelajar</button>
+          <button type="button" id="openCalculator">Kalkulator</button>
+          <button type="button" id="openDictionary">Kamus</button>
+          <button type="button" id="openColorEngine">Warna</button>
+          <button type="button" id="openTypingEngine">Menaip</button>
+          <button type="button" id="openScienceEngine">Sains</button>
+          <button type="button" id="openAllSubjects">Semua subjek</button>
         </div>
         <div class="dashboard-output" id="dashboardOutput">Isi subjek, nota, dan matlamat untuk dapatkan bantuan belajar.</div>
       </div>
@@ -873,6 +922,15 @@
           <button type="button" id="screenshotButton">Screenshot halaman</button>
           <button type="button" id="exportAll">Eksport semua</button>
           <button type="button" id="presetStudent">Preset pelajar</button>
+          <button type="button" id="engineCoding">Engine coding</button>
+          <button type="button" id="engineSubjects">Engine subjek</button>
+          <button type="button" id="engineReadAloud">Read aloud</button>
+          <button type="button" id="engineCalculator">Kalkulator</button>
+          <button type="button" id="engineDictionary">Kamus</button>
+          <button type="button" id="engineColor">Warna</button>
+          <button type="button" id="engineBrain">AI Brain</button>
+          <button type="button" id="engineLibrary">Library lengkap</button>
+          <button type="button" id="engineWorkflow">Workflow repo</button>
         </div>
       </div>
       <div class="composer">
@@ -887,8 +945,25 @@
           <button type="button">Pelankan belajar</button>
           <button type="button">Buat kuiz</button>
           <button type="button">Flashcards</button>
-          <button type="button">Buat app web</button>
-          <button type="button">Edit apa saja</button>
+          <button type="button">Buat app web pelajar</button>
+          <button type="button">Engine coding lengkap</button>
+          <button type="button">Engine React Node NPM Java</button>
+          <button type="button">Kalkulator</button>
+          <button type="button">Kamus</button>
+          <button type="button">Warna</button>
+          <button type="button">Edit tool</button>
+          <button type="button">Menaip cepat</button>
+          <button type="button">Read aloud</button>
+          <button type="button">Kilo Free Agent</button>
+          <button type="button">Terminal Console Shell</button>
+          <button type="button">MCP Agent</button>
+          <button type="button">Container Pipeline</button>
+          <button type="button">Cyber diagnostic</button>
+          <button type="button">Aliran kerja banyak</button>
+          <button type="button">Library Python AI percuma</button>
+          <button type="button">AI Brain otak utama</button>
+          <button type="button">Sains lengkap</button>
+          <button type="button">Semua subjek sekolah</button>
           <button type="button">Cari alat percuma</button>
           <button type="button">Buat music</button>
           <button type="button">Karaoke/lirik</button>
@@ -927,12 +1002,12 @@
           <p>Hasilkan prompt gambar, konsep logo, palet warna, gaya visual, dan idea lukisan.</p>
         </article>
         <article class="card">
-          <h3>Coding engine</h3>
-          <p>Hasilkan struktur fail, contoh HTML/CSS/JS, checklist debugging, dan pelan projek.</p>
+          <h3>Coding engine lengkap</h3>
+          <p>Hasilkan HTML, CSS, JavaScript, React component, Node.js server, NPM package, dan Java class dalam editor live.</p>
         </article>
         <article class="card">
-          <h3>Open-source tools</h3>
-          <p>Gunakan Web Audio API, Canvas, Speech API, localStorage, dan download chat tanpa kos.</p>
+          <h3>Student engine lengkap</h3>
+          <p>Belajar semua subjek, kalkulator, kamus, warna, read aloud, menaip, edit tool, sains, kuiz, flashcards, dan portfolio.</p>
         </article>
         <article class="card">
           <h3>Student dashboard</h3>
@@ -990,20 +1065,56 @@
           <a href="https://tailwindcss.com/" target="_blank" rel="noopener">Tailwind CSS</a>
         </article>
         <article class="library-item">
-          <h3>Desain & media</h3>
-          <p>Alat percuma untuk gambar, video, audio, UI, dan prototype.</p>
-          <a href="https://www.figma.com/" target="_blank" rel="noopener">Figma</a> ·
-          <a href="https://www.canva.com/" target="_blank" rel="noopener">Canva</a> ·
-          <a href="https://www.blender.org/" target="_blank" rel="noopener">Blender</a> ·
-          <a href="https://www.audacityteam.org/" target="_blank" rel="noopener">Audacity</a>
+          <h3>AI music engine</h3>
+          <p>Library dan platform percuma untuk jana bunyi, lirik, chord, loop, dan demo muzik.</p>
+          <a href="https://tonejs.github.io/" target="_blank" rel="noopener">Tone.js</a> ·
+          <a href="https://p5js.org/" target="_blank" rel="noopener">p5.js sound</a> ·
+          <a href="https://huggingface.co/spaces" target="_blank" rel="noopener">Hugging Face Music Spaces</a>
         </article>
         <article class="library-item">
-          <h3>Edit foto, video & seni</h3>
-          <p>Software percuma/open-source untuk edit foto, video, melukis, mewarna, dan ilustrasi.</p>
+          <h3>AI video engine</h3>
+          <p>Alat percuma untuk visualizer, edit video, animasi, subtitle, dan rendering.</p>
+          <a href="https://ffmpeg.org/" target="_blank" rel="noopener">FFmpeg</a> ·
+          <a href="https://ffmpegwasm.netlify.app/" target="_blank" rel="noopener">FFmpeg.wasm</a> ·
+          <a href="https://www.openshot.org/" target="_blank" rel="noopener">OpenShot</a> ·
+          <a href="https://shotcut.org/" target="_blank" rel="noopener">Shotcut</a>
+        </article>
+        <article class="library-item">
+          <h3>AI gambar & edit</h3>
+          <p>Software percuma untuk lukis, edit foto, ilustrasi, vector, dan image generation.</p>
+          <a href="https://github.com/comfyanonymous/ComfyUI" target="_blank" rel="noopener">ComfyUI</a> ·
+          <a href="https://github.com/AUTOMATIC1111/stable-diffusion-webui" target="_blank" rel="noopener">Stable Diffusion WebUI</a> ·
           <a href="https://www.gimp.org/" target="_blank" rel="noopener">GIMP</a> ·
           <a href="https://krita.org/" target="_blank" rel="noopener">Krita</a> ·
-          <a href="https://obsproject.com/" target="_blank" rel="noopener">OBS Studio</a> ·
-          <a href="https://www.blackmagicdesign.com/products/davinciresolve" target="_blank" rel="noopener">DaVinci Resolve</a>
+          <a href="https://inkscape.org/" target="_blank" rel="noopener">Inkscape</a>
+        </article>
+        <article class="library-item">
+          <h3>AI lokal & belajar</h3>
+          <p>Jalankan model AI secara lokal atau belajar AI/data tanpa bayar.</p>
+          <a href="https://ollama.com/" target="_blank" rel="noopener">Ollama</a> ·
+          <a href="https://lmstudio.ai/" target="_blank" rel="noopener">LM Studio</a> ·
+          <a href="https://colab.research.google.com/" target="_blank" rel="noopener">Google Colab</a> ·
+          <a href="https://www.kaggle.com/" target="_blank" rel="noopener">Kaggle</a>
+        </article>
+        <article class="library-item">
+          <h3>Coding library</h3>
+          <p>Framework dan library percuma untuk web app, UI, backend, data, dan AI.</p>
+          <a href="https://react.dev/" target="_blank" rel="noopener">React</a> ·
+          <a href="https://nodejs.org/" target="_blank" rel="noopener">Node.js</a> ·
+          <a href="https://www.npmjs.com/" target="_blank" rel="noopener">NPM</a> ·
+          <a href="https://openjdk.org/" target="_blank" rel="noopener">Java OpenJDK</a> ·
+          <a href="https://svelte.dev/" target="_blank" rel="noopener">Svelte</a> ·
+          <a href="https://tailwindcss.com/" target="_blank" rel="noopener">Tailwind CSS</a> ·
+          <a href="https://fastapi.tiangolo.com/" target="_blank" rel="noopener">FastAPI</a> ·
+          <a href="https://pytorch.org/" target="_blank" rel="noopener">PyTorch</a>
+        </article>
+        <article class="library-item">
+          <h3>Belajar percuma</h3>
+          <p>Sumber belajar coding, AI, matematik, dan kemahiran digital untuk pelajar.</p>
+          <a href="https://www.freecodecamp.org/" target="_blank" rel="noopener">freeCodeCamp</a> ·
+          <a href="https://developer.mozilla.org/" target="_blank" rel="noopener">MDN</a> ·
+          <a href="https://www.theodinproject.com/" target="_blank" rel="noopener">The Odin Project</a> ·
+          <a href="https://www.khanacademy.org/" target="_blank" rel="noopener">Khan Academy</a>
         </article>
       </div>
     </section>
@@ -1071,6 +1182,13 @@
     const makeFlashcards = document.getElementById('makeFlashcards');
     const focusTimer = document.getElementById('focusTimer');
     const portfolioExport = document.getElementById('portfolioExport');
+    const buildStudentApp = document.getElementById('buildStudentApp');
+    const openCalculator = document.getElementById('openCalculator');
+    const openDictionary = document.getElementById('openDictionary');
+    const openColorEngine = document.getElementById('openColorEngine');
+    const openTypingEngine = document.getElementById('openTypingEngine');
+    const openScienceEngine = document.getElementById('openScienceEngine');
+    const openAllSubjects = document.getElementById('openAllSubjects');
     const themeButton = document.getElementById('themeButton');
     const toggleUtility = document.getElementById('toggleUtility');
     const utilityPanel = document.getElementById('utilityPanel');
@@ -1080,13 +1198,22 @@
     const screenshotButton = document.getElementById('screenshotButton');
     const exportAll = document.getElementById('exportAll');
     const presetStudent = document.getElementById('presetStudent');
+    const engineCoding = document.getElementById('engineCoding');
+    const engineSubjects = document.getElementById('engineSubjects');
+    const engineReadAloud = document.getElementById('engineReadAloud');
+    const engineCalculator = document.getElementById('engineCalculator');
+    const engineDictionary = document.getElementById('engineDictionary');
+    const engineColor = document.getElementById('engineColor');
+    const engineBrain = document.getElementById('engineBrain');
+    const engineLibrary = document.getElementById('engineLibrary');
+    const engineWorkflow = document.getElementById('engineWorkflow');
 
     document.getElementById('year').textContent = new Date().getFullYear();
 
     const greetings = [
-      `Hai! Saya Tukuk Assistant. Pilih music, karaoke, read aloud, berita, cerita, iklan, gambar, belajar, menulis, melukis, projek, atau coding.`,
-      `Saya ada engine percuma client-side untuk buat prompt, lirik, idea visual, kod, berita, cerita, iklan, dan pelan projek.`,
-      `Tulis apa yang anda mahu buat dalam mana-mana bahasa: buat lagu pop tentang malam, buat cerita pendek, buat iklan, buat app, atau minta berita ringkas.`
+      `Hi! I am Tukuk Assistant. English is the primary language, and other languages are supported too. Active engines: AI Brain, student learning, HTML, CSS, JavaScript, React, Node.js, NPM, Java, Python AI libraries, containers, pipelines, MCP, terminal/console/shell, cyber diagnostics, calculator, dictionary, colors, read aloud, typing, media, images, and video.`,
+      `Saya ada engine percuma client-side untuk buat app pelajar, prompt, lirik, idea visual, kod, berita, cerita, iklan, dan pelan projek.`,
+      `Tulis apa yang anda mahu buat dalam mana-mana bahasa: buat app pelajar, engine coding React Node NPM Java, kira 12 + 8 * 3, kamus AI, warna app, atau baca kuat nota.`
     ];
 
     const languages = [
@@ -1119,7 +1246,45 @@
     ];
     const visualStyles = ['cyberpunk', 'minimal', 'watercolor', '3D render', 'anime', 'flat design', 'pixel art', 'realistic'];
     const projectTypes = ['web app', 'mobile app', 'portfolio', 'dashboard', 'game', 'bot', 'landing page'];
-    const codeStacks = ['HTML/CSS/JS', 'React', 'Vue', 'Node.js', 'Python', 'PHP', 'WordPress'];
+    const codeStacks = ['HTML/CSS/JS', 'React', 'Vue', 'Node.js', 'Python', 'PHP', 'WordPress', 'Java', 'NPM'];
+    const subjects = [
+      { name: 'Matematik', keywords: ['matematik', 'math', 'algebra', 'geometri', 'kalkulus', 'statistik', 'add math', 'mat'] },
+      { name: 'Sains', keywords: ['sains', 'science', 'fizik', 'kimia', 'biologi', 'fotosintesis', 'atom', 'tenaga', 'sel'] },
+      { name: 'Bahasa Melayu', keywords: ['bahasa melayu', 'bm', 'tatabahasa', 'karangan', 'rumusan', 'novel bm'] },
+      { name: 'English', keywords: ['english', 'bahasa inggeris', 'grammar', 'essay', 'reading', 'writing'] },
+      { name: 'Sejarah', keywords: ['sejarah', 'history', 'merdeka', 'kerajaan', 'perang dunia'] },
+      { name: 'Geografi', keywords: ['geografi', 'geography', 'peta', 'cuaca', 'iklim', 'alam sekitar'] },
+      { name: 'Pendidikan Islam/Moral', keywords: ['islam', 'moral', 'akhlak', 'rukun', 'solat', 'nilai'] },
+      { name: 'Seni Visual', keywords: ['seni', 'art', 'melukis', 'warna', 'reka bentuk', 'visual'] },
+      { name: 'Reka Bentuk Teknologi', keywords: ['rbd', 'teknologi', 'rekabentuk', 'reka bentuk', 'inventor', 'cad'] },
+      { name: 'Asas Sains Komputer/Koding', keywords: ['komputer', 'coding', 'html', 'css', 'javascript', 'react', 'node', 'java', 'npm', 'algoritma'] },
+      { name: 'Perniagaan/Ekonomi', keywords: ['perniagaan', 'ekonomi', 'bisnes', 'akaun', 'pasaran', 'marketing'] }
+    ];
+    const dictionary = {
+      'ai': { ms: 'kecerdasan buatan', en: 'artificial intelligence', id: 'kecerdasan buatan' },
+      'app': { ms: 'aplikasi', en: 'application', id: 'aplikasi' },
+      'code': { ms: 'kod', en: 'code', id: 'kode' },
+      'student': { ms: 'pelajar', en: 'student', id: 'siswa' },
+      'learn': { ms: 'belajar', en: 'learn', id: 'belajar' },
+      'read': { ms: 'baca', en: 'read', id: 'baca' },
+      'write': { ms: 'tulis', en: 'write', id: 'tulis' },
+      'draw': { ms: 'lukis', en: 'draw', id: 'gambar' },
+      'science': { ms: 'sains', en: 'science', id: 'sains' },
+      'color': { ms: 'warna', en: 'color', id: 'warna' },
+      'calculator': { ms: 'kalkulator', en: 'calculator', id: 'kalkulator' },
+      'react': { ms: 'React', en: 'React', id: 'React' },
+      'node': { ms: 'Node.js', en: 'Node.js', id: 'Node.js' },
+      'java': { ms: 'Java', en: 'Java', id: 'Java' },
+      'npm': { ms: 'NPM', en: 'NPM', id: 'NPM' },
+      'html': { ms: 'HTML', en: 'HTML', id: 'HTML' },
+      'css': { ms: 'CSS', en: 'CSS', id: 'CSS' }
+    };
+    const palettes = [
+      { name: 'Pelajar Ceria', colors: ['#38bdf8', '#22c55e', '#facc15', '#ffffff', '#0f172a'] },
+      { name: 'Sains Futuristik', colors: ['#0ea5e9', '#a78bfa', '#14b8a6', '#e0f2fe', '#020617'] },
+      { name: 'Coding Pro', colors: ['#020617', '#1e293b', '#22c55e', '#38bdf8', '#f8fafc'] },
+      { name: 'Seni Lembut', colors: ['#f9a8d4', '#fde68a', '#bbf7d0', '#ffffff', '#312e81'] }
+    ];
 
     function pick(list) {
       return list[Math.floor(Math.random() * list.length)];
@@ -1164,6 +1329,218 @@
 
     function formatList(items) {
       return items.map((item, index) => `${index + 1}. ${item}`).join('\n');
+    }
+
+    function detectSubject(text) {
+      const lower = text.toLowerCase();
+      let best = { name: 'Semua Subjek', score: 0 };
+      subjects.forEach((subject) => {
+        const score = subject.keywords.reduce((total, keyword) => total + (lower.includes(keyword) ? 1 : 0), 0);
+        if (score > best.score) best = { name: subject.name, score };
+      });
+      return best.score > 0 ? best.name : 'Semua Subjek';
+    }
+
+    function subjectLesson(subject) {
+      const lessons = {
+        'Matematik': 'Definisi → contoh angka → formula → latihan → semak jawapan. Utamakan langkah demi langkah.',
+        'Sains': 'Fakta → proses → sebab-akibat → eksperimen mini → kesimpulan.',
+        'Bahasa Melayu': 'Tajuk → idea utama → isi → contoh ayat → rumusan.',
+        'English': 'Topic sentence → supporting details → examples → conclusion. Practice grammar and vocabulary.',
+        'Sejarah': 'Tarikh → peristiwa → sebab → kesan → nilai pengajaran.',
+        'Geografi': 'Lokasi → ciri fizikal/manusia → punca → kesan → cadangan.',
+        'Pendidikan Islam/Moral': 'Konsep → dalil/nilai → contoh perilaku → refleksi diri.',
+        'Seni Visual': 'Tema → unsur seni → prinsip rekaan → lakaran → warna → penambahbaikan.',
+        'Reka Bentuk Teknologi': 'Masalah → idea → lakaran → bahan → langkah pembuatan → ujian.',
+        'Asas Sains Komputer/Koding': 'Masalah → input → proses → output → kod → ujian → debugging.',
+        'Perniagaan/Ekonomi': 'Masalah pasaran → pelanggan → produk → kos → faedah → strategi.'
+      };
+      return lessons[subject] || 'Baca definisi, lihat contoh, buat latihan, semak jawapan, dan ulang bahagian lemah.';
+    }
+
+    function safeCalculate(expression) {
+      const cleaned = expression.replace(/[^\d+\-*/().%\s]/g, '');
+      if (!/^[\d+\-*/().%\s]+$/.test(cleaned) || cleaned.length > 120) return '';
+      try {
+        return String(Function(`"use strict"; return (${cleaned})`)());
+      } catch (error) {
+        return '';
+      }
+    }
+
+    function openSubjectDashboard() {
+      openStudentDashboard();
+      subjectInput.value = subjectInput.value || detectSubject(promptInput.value || 'Semua Subjek');
+    }
+
+    function speakCurrentText(text) {
+      if (!('speechSynthesis' in window)) return false;
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(text.slice(0, 2200));
+      utterance.lang = detectLanguage(text).code === 'ms' ? 'ms-MY' : 'en-US';
+      utterance.rate = 0.95;
+      window.speechSynthesis.speak(utterance);
+      return true;
+    }
+
+    function buildSubjectEngine(topic) {
+      const subject = detectSubject(topic);
+      const title = extractTopic(topic, subject);
+      return `📚 Engine Semua Subjek\n\nSubjek dikesan: ${subject}\nTopik: ${title}\n\nCara belajar:\n${subjectLesson(subject)}\n\nOutput yang boleh Tukuk AI jana:\n- Nota ringkas\n- Pelan belajar\n- Kuiz dan jawapan\n- Flashcards\n- Contoh soalan peperiksaan\n- Projek/praktikal\n- Peta minda\n- Rumusan bab\n- Latihan menaip dan baca kuat\n\nKetik butang "Semua subjek sekolah" untuk buka dashboard pelajar, atau minta: "buat nota sains fotosintesis", "buat kuiz matematik algebra", "bina app kamus", "jana app kalkulator pelajar".`;
+    }
+
+    function buildCalculatorEngine(topic) {
+      const expression = topic.match(/[0-9\s+\-*/().%]+/)?.[0]?.trim() || '';
+      const result = safeCalculate(expression);
+      const appCode = buildStudentAppHtml(`Kalkulator Pelajar: ${topic}`);
+      openEditor(appCode, 'both');
+      return `🔢 Kalkulator Engine\n\nInput: ${topic}\n${result ? `Jawapan: ${result}\n\nSaya juga dah buka app kalkulator pelajar dalam editor live. Anda boleh edit, run preview, dan download HTML.` : `Tiada ungkapan matematik ditemui. Contoh: "kira 12 + 8 * 3", "calculator 144 / 12", atau "buat app kalkulator pelajar".\n\nSaya dah buka app kalkulator pelajar dalam editor live untuk diedit dan diuji.`}\n\nKalkulator selamat: hanya angka, + - * / % dan kurungan dibenarkan.`;
+    }
+
+    function buildDictionaryEngine(topic) {
+      const word = extractTopic(topic, 'AI').toLowerCase().replace(/[^a-z0-9\s-]/gi, '').split(/\s+/).find(Boolean) || 'AI';
+      const entry = dictionary[word] || dictionary[word.toLowerCase()] || { ms: 'perkataan tempatan', en: word, id: word };
+      const output = `📖 Kamus Engine\n\nPerkataan: ${word}\nBahasa Melayu: ${entry.ms}\nEnglish: ${entry.en}\nIndonesia: ${entry.id}\n\nAyat contoh:\n- BM: Saya menggunakan ${entry.ms} untuk menyiapkan tugasan.\n- English: I use ${entry.en} to finish my assignment.\n- Indonesia: Saya menggunakan ${entry.id} untuk menyiapkan tugas.\n\nLatihan:\nTukar 5 perkataan dalam topik ini kepada Bahasa Melayu dan English, kemudian buat ayat pendek.`;
+      speakCurrentText(output);
+      return output;
+    }
+
+    function buildColorEngine(topic) {
+      const palette = palettes[Math.floor(Math.random() * palettes.length)];
+      const css = palette.colors.map((color, index) => `--color-${index + 1}: ${color};`).join('\n');
+      return `🎨 Warna Engine\n\nTema: ${extractTopic(topic, 'Aplikasi Pelajar')}\nPalet: ${palette.name}\n\nKod CSS:\n${css}\n\nGunakan:\n- Warna terang untuk butang utama.\n- Warna gelap untuk teks/background.\n- Jangan guna lebih 3 warna utama.\n- Pastikan kontras teks tinggi.\n\nCadangan UI:\nBackground: ${palette.colors[4]}\nCard: ${palette.colors[3] || palette.colors[1]}\nAccent: ${palette.colors[0]}\nSuccess: ${palette.colors[1]}`;
+    }
+
+    function buildTypingEngine(topic) {
+      const title = extractTopic(topic, 'latihan menaip pelajar');
+      const practice = `Tukuk AI membantu pelajar belajar, membaca, menulis, menaip, dan menyiapkan tugasan dengan pantas.`;
+      return `⌨️ Menaip Engine\n\nLatihan: ${title}\n\nTeks latihan:\n${practice}\n\nTarget:\n- 3 pusingan × 60 saat\n- Kecepatan: WPM\n- Ketepatan: %\n- Jangan pandang keyboard terlalu lama.\n\nCara guna:\n1. Salin teks latihan.\n2. Taip semula tanpa lihat nota.\n3. Semak ejaan.\n4. Ulang sehingga lebih lancar.\n\nPrompt seterusnya: "buat latihan menaip untuk subjek ${detectSubject(topic)}".`;
+    }
+
+    function buildScienceEngine(topic) {
+      const title = extractTopic(topic, 'topik sains');
+      return `🔬 Sains Engine\n\nTopik: ${titleCase(title)}\n\nCara belajar sains:\n1. Definisi: apakah maksud topik ini?\n2. Proses: bagaimana ia berlaku?\n3. Punca: kenapa ia berlaku?\n4. Kesan: apa akibatnya?\n5. Contoh: beri situasi sebenar.\n6. Eksperimen mini: apa boleh diuji?\n7. Kesimpulan: apa yang kita faham?\n\nEksperimen mini:\n- Tulis pemerhatian.\n- Nyatakan pemboleh ubah.\n- Catat keputusan.\n- Buat kesimpulan ringkas.\n\nKaitkan dengan: Matematik, Geografi, Teknologi, dan kehidupan harian.`;
+    }
+
+    function buildReadAloudEngine(topic) {
+      const title = extractTopic(topic, 'teks pelajar');
+      const output = `🔊 Read Aloud Engine\n\nTeks untuk dibaca: ${title}\n\nNaskah ringkas:\nHai, saya Tukuk AI. Hari ini kita belajar tentang ${title}. Kita akan fahami definisi, contoh, langkah utama, dan kesimpulan supaya lebih mudah diingat.\n\nSaya boleh bantu:\n1. Baca teks dengan suara browser.\n2. Tukar nota kepada skrip podcast.\n3. Buat latihan sebutan.\n4. Jana transkrip dan ringkasan.\n5. Simpan teks untuk latihan membaca.\n\nAudio read aloud sedang dimainkan oleh browser.`;
+      speakCurrentText(output);
+      return output;
+    }
+
+    function buildEditEngine(topic) {
+      const code = buildEditableText(topic);
+      openEditor(code, 'code');
+      return `✏️ Edit Tool Engine\n\nSaya dah buka editor live untuk: ${topic}\n\nAnda boleh edit:\n- Nota pelajar\n- Artikel\n- Dokumen\n- HTML\n- CSS\n- JavaScript\n- React component\n- Node.js server\n- Java class\n- App pelajar lengkap\n\nKlik Run untuk preview atau Download App untuk simpan fail.`;
+    }
+
+    function buildCodingEngine(topic) {
+      const lower = topic.toLowerCase();
+      let code = '';
+      let mode = 'code';
+      if (lower.includes('react')) {
+        code = buildReactTemplate(topic);
+      } else if (lower.includes('node')) {
+        code = buildNodeTemplate(topic);
+      } else if (lower.includes('npm')) {
+        code = buildNpmTemplate(topic);
+      } else if (lower.includes('java')) {
+        code = buildJavaTemplate(topic);
+      } else if (lower.includes('css')) {
+        code = buildCssTemplate(topic);
+      } else {
+        code = buildHtmlCssJsTemplate(topic);
+      }
+      openEditor(code, mode);
+      return `💻 Engine Coding Lengkap\n\nSaya dah buka kod sebenar dalam editor live untuk: ${topic}\n\nEngine menyokong:\n- HTML: struktur halaman\n- CSS: styling, layout, warna, responsive\n- JavaScript: logik, event, localStorage\n- React: component, state, props\n- Node.js: server Express\n- NPM: package.json, scripts, dependencies\n- Java: class main, input, loop, array\n\nEdit kod, klik Run, dan download fail siap.`;
+    }
+
+    function buildHtmlCssJsTemplate(topic) {
+      const title = extractTopic(topic, 'Aplikasi Web Pelajar');
+      return `<!doctype html>
+<html lang="ms">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>${title}</title>
+<style>
+:root{--bg:#0f172a;--card:#111827;--text:#e5e7eb;--muted:#94a3b8;--accent:#22c55e;--line:#334155}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,sans-serif;background:linear-gradient(135deg,#020617,#1e293b);color:var(--text)}main{max-width:920px;margin:auto;padding:32px 16px}.card{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:24px;box-shadow:0 20px 60px rgba(0,0,0,.35)}input,textarea,button{font:inherit}input,textarea{width:100%;padding:14px;border-radius:14px;border:1px solid var(--line);background:#020617;color:var(--text);margin:10px 0}button{border:0;border-radius:14px;background:var(--accent);color:#020617;font-weight:900;padding:12px 16px;cursor:pointer}button.secondary{background:#38bdf8;margin-left:8px}.output{margin-top:16px;line-height:1.7;background:rgba(15,23,42,.7);border:1px solid var(--line);border-radius:16px;padding:16px;white-space:pre-wrap}
+</style>
+</head>
+<body><main class="card"><h1>${title}</h1><p>Aplikasi pelajar dijana oleh Tukuk AI. Edit kod ini untuk tambah HTML, CSS, JavaScript, React, Node, NPM, atau Java guide.</p><input id="input" placeholder="Tulis input pelajar"><textarea id="notes" placeholder="Nota atau arahan"></textarea><button id="run">Jana hasil</button><button class="secondary" id="save">Simpan local</button><div class="output" id="output">Hasil akan muncul di sini.</div></main><script>const input=document.querySelector('#input');const notes=document.querySelector('#notes');const out=document.querySelector('#output');const save=document.querySelector('#save');function run(){out.textContent='Tukuk AI hasilkan untuk '+input.value+'\\n\\nNota:\\n'+(notes.value||'Tiada nota');}document.querySelector('#run').addEventListener('click',run);save.addEventListener('click',()=>localStorage.setItem('tukuk-student-app',JSON.stringify({input:input.value,notes:notes.value})));const saved=localStorage.getItem('tukuk-student-app');if(saved){const data=JSON.parse(saved);input.value=data.input||'';notes.value=data.notes||'';out.textContent='Data lama dimuatkan.'}<\/script></body></html>`;
+    }
+
+    function buildReactTemplate(topic) {
+      const title = extractTopic(topic, 'React Student App');
+      return `// React Student App\n// Install: npm create vite@latest tukuk-react-app -- --template react\n// cd tukuk-react-app && npm install && npm run dev\n\nimport React, { useState } from "react";\n\nexport default function App() {\n  const [topic, setTopic] = useState("${title}");\n  const [note, setNote] = useState("");\n  return (\n    <main style={{ fontFamily: "Inter, system-ui", padding: 32, background: "#0f172a", color: "#e5e7eb", minHeight: "100vh" }}>\n      <section style={{ maxWidth: 860, margin: "auto", background: "#111827", padding: 24, borderRadius: 24 }}>\n        <h1>{topic}</h1>\n        <p>React app pelajar dijana oleh Tukuk AI.</p>\n        <input value={topic} onChange={(e) => setTopic(e.target.value)} placeholder="Topik" style={{ width: "100%", padding: 12, marginBottom: 10 }} />\n        <textarea value={note} onChange={(e) => setNote(e.target.value)} placeholder="Nota" style={{ width: "100%", minHeight: 100, padding: 12 }} />\n        <button style={{ marginTop: 12, padding: "10px 16px", borderRadius: 12, background: "#22c55e", border: 0, fontWeight: 800 }}>Jana Ringkasan</button>\n        <pre style={{ whiteSpace: "pre-wrap", background: "#020617", padding: 16, borderRadius: 16 }}>Topik: {topic}\n\nRingkasan:\n1. Fahami definisi.\n2. Lihat contoh.\n3. Buat latihan.\n4. Semak jawapan.\n\nNota: {note || "Tiada nota"}</pre>\n      </section>\n    </main>\n  );\n}`;
+    }
+
+    function buildNodeTemplate(topic) {
+      const title = extractTopic(topic, 'student-api');
+      return `// Node.js API pelajar\n// Install: npm init -y && npm install express cors\n// Run: node server.js\n\nconst express = require("express");\nconst cors = require("cors");\nconst app = express();\napp.use(cors());\napp.use(express.json());\n\napp.get("/", (req, res) => {\n  res.json({ name: "Tukuk AI Student API", topic: "${title}", engines: ["belajar", "kalkulator", "kamus", "read aloud", "warna", "edit tool"] });\n});\n\napp.post("/study", (req, res) => {\n  const { subject, notes } = req.body;\n  res.json({ subject: subject || "Pelajaran", plan: ["Baca nota", "Buat contoh", "Latihan", "Semak jawapan"], notes: notes || "" });\n});\n\napp.listen(3000, () => console.log("Tukuk AI API running on http://localhost:3000"));`;
+    }
+
+    function buildNpmTemplate(topic) {
+      const title = extractTopic(topic, 'tukuk-student-app');
+      return `{
+  "name": "${title.replace(/[^a-z0-9-]/gi, '-').toLowerCase()}",
+  "version": "1.0.0",
+  "description": "Aplikasi pelajar Tukuk AI",
+  "main": "server.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "@vitejs/plugin-react": "latest",
+    "vite": "latest",
+    "react": "latest",
+    "react-dom": "latest",
+    "express": "latest",
+    "cors": "latest"
+  },
+  "keywords": ["tukuk", "ai", "student", "html", "css", "react", "node", "java"]
+}`;
+    }
+
+    function buildJavaTemplate(topic) {
+      const title = extractTopic(topic, 'StudentEngine');
+      return `// Java Student Engine\n// Run: javac StudentEngine.java && java StudentEngine\n\nimport java.util.Scanner;\n\npublic class StudentEngine {\n  public static void main(String[] args) {\n    Scanner input = new Scanner(System.in);\n    System.out.println("Tukuk AI Java Student Engine: ${title}");\n    System.out.print("Masukkan subjek: ");\n    String subject = input.nextLine();\n    System.out.print("Masukkan nota: ");\n    String notes = input.nextLine();\n\n    System.out.println("\\nSubjek: " + subject);\n    System.out.println("Pelajaran aktif:");\n    System.out.println("1. Baca definisi");\n    System.out.println("2. Lihat contoh");\n    System.out.println("3. Buat latihan");\n    System.out.println("4. Semak jawapan");\n    System.out.println("5. Ulang bahagian lemah");\n    System.out.println("\\nNota: " + (notes.isEmpty() ? "Tiada nota" : notes));\n    input.close();\n  }\n}`;
+    }
+
+    function buildCssTemplate(topic) {
+      const title = extractTopic(topic, 'Student CSS');
+      return `/* ${title} */\n/* CSS Engine untuk app pelajar */\n\n:root {\n  --bg: #0f172a;\n  --card: #111827;\n  --text: #e5e7eb;\n  --muted: #94a3b8;\n  --accent: #22c55e;\n  --blue: #38bdf8;\n  --line: #334155;\n}\n\n* { box-sizing: border-box; }\nbody {\n  margin: 0;\n  font-family: Inter, system-ui, sans-serif;\n  background: radial-gradient(circle at top left, rgba(34,197,94,.22), transparent 30%), var(--bg);\n  color: var(--text);\n}\n\n.app {\n  max-width: 980px;\n  margin: 0 auto;\n  padding: 32px 16px;\n}\n\n.card {\n  background: var(--card);\n  border: 1px solid var(--line);\n  border-radius: 24px;\n  padding: 24px;\n  box-shadow: 0 24px 80px rgba(0,0,0,.35);\n}\n\nbutton {\n  border: 0;\n  border-radius: 14px;\n  padding: 12px 16px;\n  background: linear-gradient(135deg, var(--accent), var(--blue));\n  color: #020617;\n  font-weight: 900;\n  cursor: pointer;\n}\n\ninput, textarea {\n  width: 100%;\n  margin: 10px 0;\n  padding: 14px;\n  border: 1px solid var(--line);\n  border-radius: 14px;\n  background: #020617;\n  color: var(--text);\n}\n\n.grid {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));\n  gap: 14px;\n}\n\n@media (max-width: 640px) {\n  .app { padding: 18px 10px; }\n  .card { border-radius: 18px; padding: 18px; }\n}`;
+    }
+
+    function buildStudentAppHtml(topic) {
+      const title = extractTopic(topic, 'Aplikasi Web Pelajar Tukuk AI');
+      return `<!doctype html>
+<html lang="ms">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>${title}</title>
+<style>
+:root{--bg:#0f172a;--card:#111827;--text:#e5e7eb;--muted:#94a3b8;--accent:#22c55e;--blue:#38bdf8;--line:#334155}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,sans-serif;background:linear-gradient(135deg,#020617,#1e293b);color:var(--text)}main{max-width:1000px;margin:auto;padding:32px 16px}.hero{background:var(--card);border:1px solid var(--line);border-radius:28px;padding:28px;box-shadow:0 24px 80px rgba(0,0,0,.35)}.tabs{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0}.tab{border:1px solid var(--line);background:#020617;color:var(--text);border-radius:999px;padding:10px 14px;cursor:pointer}.tab.active{background:var(--accent);color:#020617}input,textarea,button{font:inherit}input,textarea{width:100%;margin:10px 0;padding:14px;border-radius:14px;border:1px solid var(--line);background:#020617;color:var(--text)}button.run{border:0;background:linear-gradient(135deg,var(--accent),var(--blue));color:#020617;font-weight:900;border-radius:14px;padding:12px 16px;cursor:pointer}.panel{display:none;background:var(--card);border:1px solid var(--line);border-radius:24px;padding:22px;margin-top:14px}.panel.active{display:block}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}.mini{background:#020617;border:1px solid var(--line);border-radius:16px;padding:14px}.out{white-space:pre-wrap;line-height:1.7;background:#020617;border:1px solid var(--line);border-radius:16px;padding:16px}.swatch{height:44px;border-radius:12px;border:1px solid rgba(255,255,255,.2)}@media(max-width:640px){main{padding:18px 10px}.hero{padding:20px}}
+</style>
+</head>
+<body><main><section class="hero"><h1>${title}</h1><p>Aplikasi pelajar lengkap: belajar, membaca, menulis, menaip, kamus, kalkulator, warna, edit tool, sains, dan semua subjek.</p></section><nav class="tabs" id="tabs"><button class="tab active" data-tab="belajar">Belajar</button><button class="tab" data-tab="kalkulator">Kalkulator</button><button class="tab" data-tab="kamus">Kamus</button><button class="tab" data-tab="warna">Warna</button><button class="tab" data-tab="menaip">Menaip</button><button class="tab" data-tab="sains">Sains</button><button class="tab" data-tab="edit">Edit Tool</button></nav><section class="panel active" data-panel="belajar"><h2>Belajar Semua Subjek</h2><input id="subject" placeholder="Subjek/topik"><textarea id="notes" placeholder="Nota"></textarea><button class="run" id="studyBtn">Jana pelan belajar</button><div class="out" id="studyOut">Isi subjek dan nota.</div></section><section class="panel" data-panel="kalkulator"><h2>Kalkulator</h2><input id="calc" placeholder="Contoh: 12 + 8 * 3"><button class="run" id="calcBtn">Kira</button><div class="out" id="calcOut">Jawapan akan muncul di sini.</div></section><section class="panel" data-panel="kamus"><h2>Kamus</h2><input id="word" placeholder="Perkataan"><button class="run" id="dictBtn">Cari</button><div class="out" id="dictOut">Terjemahan akan muncul di sini.</div></section><section class="panel" data-panel="warna"><h2>Warna</h2><div class="grid" id="palette"></div><div class="out" id="colorOut">Palet warna dijana untuk app.</div></section><section class="panel" data-panel="menaip"><h2>Menaip</h2><p id="typingText">Tukuk AI membantu pelajar belajar, membaca, menulis, menaip, dan menyiapkan tugasan dengan pantas.</p><textarea id="typingInput" placeholder="Taip semula teks latihan"></textarea><button class="run" id="typeBtn">Semak menaip</button><div class="out" id="typeOut">Hasil menaip.</div></section><section class="panel" data-panel="sains"><h2>Sains</h2><input id="scienceTopic" placeholder="Topik sains"><button class="run" id="scienceBtn">Jana sains</button><div class="out" id="scienceOut">Nota sains akan muncul di sini.</div></section><section class="panel" data-panel="edit"><h2>Edit Tool</h2><textarea id="editor" placeholder="Tampal teks, nota, HTML, CSS, JavaScript, React, Node, Java"></textarea><button class="run" id="editBtn">Ringkaskan edit</button><div class="out" id="editOut">Hasil edit.</div></section></main><script>
+const tabs=[...document.querySelectorAll('.tab')],panels=[...document.querySelectorAll('.panel')];tabs.forEach(t=>t.addEventListener('click',()=>{tabs.forEach(x=>x.classList.remove('active'));panels.forEach(p=>p.classList.remove('active'));t.classList.add('active');document.querySelector('[data-panel="'+t.dataset.tab+'"]').classList.add('active')}));
+function subjectFor(t){t=t.toLowerCase();if(/math|algebra|geometri|kalkulus/.test(t))return'Matematik';if(/sains|fizik|kimia|biologi|fotosintesis/.test(t))return'Sains';if(/bahasa melayu|bm|karangan/.test(t))return'Bahasa Melayu';if(/english|grammar|essay/.test(t))return'English';if(/sejarah|history/.test(t))return'Sejarah';return'Semua Subjek';}
+document.querySelector('#studyBtn').addEventListener('click',()=>{const s=document.querySelector('#subject').value||'Pelajaran';const n=document.querySelector('#notes').value||'Tiada nota';const subj=subjectFor(s+' '+n);document.querySelector('#studyOut').textContent='Subjek: '+subj+'\\nTopik: '+s+'\\n\\nLangkah:\\n1. Fahami definisi\\n2. Lihat contoh\\n3. Buat latihan\\n4. Semak jawapan\\n5. Ulang bahagian lemah\\n\\nNota:\\n'+n;});
+document.querySelector('#calcBtn').addEventListener('click',()=>{const e=document.querySelector('#calc').value;try{document.querySelector('#calcOut').textContent='Jawapan: '+Function('"use strict"; return ('+e+')')()}catch(err){document.querySelector('#calcOut').textContent='Ungkapan tidak sah. Guna angka dan + - * / % ( ) sahaja.'}});
+const dict={ai:['kecerdasan buatan','artificial intelligence'],student:['pelajar','student'],learn:['belajar','learn'],read:['baca','read'],write:['tulis','write'],draw:['lukis','draw'],color:['warna','color'],code:['kod','code'],science:['sains','science']};document.querySelector('#dictBtn').addEventListener('click',()=>{const w=(document.querySelector('#word').value||'ai').toLowerCase();document.querySelector('#dictOut').textContent=(dict[w]||['perkataan:'+w,'word:'+w]).join(' | ')});
+const colors=['#38bdf8','#22c55e','#facc15','#a78bfa','#ffffff','#020617'];const palette=document.querySelector('#palette');colors.forEach(c=>{const d=document.createElement('div');d.className='swatch';d.style.background=c;d.title=c;palette.appendChild(d)});document.querySelector('#colorOut').textContent='Palet: '+colors.join(', ');
+document.querySelector('#typeBtn').addEventListener('click',()=>{const target=document.querySelector('#typingText').textContent.trim();const typed=document.querySelector('#typingInput').value.trim();const correct=target.split('').filter((c,i)=>c===typed[i]).length;document.querySelector('#typeOut').textContent='Panjang target: '+target.length+'\\nPanjang taip: '+typed.length+'\\nKetepatan kasar: '+Math.round(correct/Math.max(target.length,1)*100)+'%'});
+document.querySelector('#scienceBtn').addEventListener('click',()=>{const t=document.querySelector('#scienceTopic').value||'Topik sains';document.querySelector('#scienceOut').textContent='Topik: '+t+'\\n1. Definisi\\n2. Proses\\n3. Punca\\n4. Kesan\\n5. Contoh\\n6. Eksperimen mini\\n7. Kesimpulan'});
+document.querySelector('#editBtn').addEventListener('click',()=>{const v=document.querySelector('#editor').value;document.querySelector('#editOut').textContent='Ringkasan edit:\\n'+v.slice(0,700)+'\\n\\nTips: susun tajuk, isi penting, contoh, latihan, kesimpulan.'});
+<\/script></body></html>`;
     }
 
     function buildMusic(topic) {
@@ -1414,33 +1791,8 @@
       });
     }
 
-    async function runMediaEngine(prompt) {
-      const lower = prompt.toLowerCase();
-      const title = extractTopic(prompt, 'AI media');
-
-      if (lower.includes('bunyi') || lower.includes('mainkan') || lower.includes('play') || lower.includes('music') || lower.includes('lagu') || lower.includes('audio')) {
-        const AudioContext = window.AudioContext || window.webkitAudioContext;
-        const context = new AudioContext();
-        await context.resume();
-        const source = context.createBufferSource();
-        source.buffer = generateMusicBuffer(context, title);
-        source.connect(context.destination);
-        source.start();
-        showMedia('Music Engine - bunyi AI dibuat dari chat', 'music');
-        return 'Saya sudah jana bunyi muzik AI terus dari browser menggunakan Web Audio API.';
-      }
-
-      if (lower.includes('video') || lower.includes('tengok') || lower.includes('visual')) {
-        showMedia('Video Engine - visual AI dibuat dari chat', 'video');
-        return 'Saya sudah jana visual video AI terus dari browser menggunakan canvas animation.';
-      }
-
-      return '';
-    }
-
     function buildStudy(topic) {
-      const title = extractTopic(topic, 'topik yang dipelajari');
-      return `📚 Belajar Engine\n\nTopik: ${titleCase(title)}\n\nPenjelasan ringkas:\nMulakan dengan definisi mudah, kemudian pecahkan kepada bahagian kecil. Fahami konsep asas, lihat contoh, buat latihan, dan ulang dengan bahasa sendiri.\n\nPelan belajar 30 minit:\n1. 5 minit: baca definisi.\n2. 10 minit: fahami konsep utama.\n3. 10 minit: buat contoh kecil.\n4. 5 minit: buat ringkasan.\n\nKuiz pantas:\n1. Apakah tujuan utama topik ini?\n2. Apakah 3 bahagian penting?\n3. Berikan satu contoh mudah.\n4. Apakah kesilapan biasa?\n\nNota ringkas:\nTopik ini lebih mudah jika dipelajari secara langkah demi langkah, bukan hafal terus.`;
+      return buildSubjectEngine(topic);
     }
 
     function buildWriting(topic) {
@@ -1464,9 +1816,103 @@
     }
 
     function buildProject(topic) {
-      const title = extractTopic(topic, 'projek digital');
-      const type = pick(projectTypes);
-      return `🚀 Projek Engine\n\nNama projek: ${titleCase(title)}\nJenis: ${type}\n\nMVP:\n1. Satu halaman utama.\n2. Satu fungsi utama.\n3. Simpan data asas jika perlu.\n4. Deploy percuma.\n5. Dapatkan feedback awal.\n\nStruktur fail:\nproject/\n  index.html\n  assets/app.js\n  assets/style.css\n  README.md\n\nRoadmap 7 hari:\n1. Hari 1: tulis idea dan skop.\n2. Hari 2: buat UI ringkas.\n3. Hari 3: tambah fungsi utama.\n4. Hari 4: uji pada telefon.\n5. Hari 5: tambah halaman dokumentasi.\n6. Hari 6: deploy.\n7. Hari 7: perbaiki UX.\n\nChecklist:\n- Nama jelas\n- Fungsi utama ada\n- UI mudah\n- Mobile friendly\n- Deploy GitHub Pages`;
+      const title = extractTopic(topic, 'projek digital pelajar');
+      return `🚀 Projek Engine\n\nNama projek: ${titleCase(title)}\n\nMVP pelajar:\n1. Satu masalah atau subjek.\n2. Satu fungsi utama.\n3. UI mudah: input, butang, output.\n4. Simpan data dalam localStorage jika perlu.\n5. Deploy percuma ke GitHub Pages, Cloudflare Pages, atau Netlify.\n\nStack percuma:\n- HTML/CSS/JS untuk app ringkas.\n- React + Vite untuk UI moden.\n- Node.js + Express untuk API.\n- NPM untuk package dan scripts.\n- Java untuk latihan algoritma desktop/console.\n\nRoadmap 7 hari:\n1. Tulis skop.\n2. Lukis wireframe.\n3. Buat UI.\n4. Tambah logik.\n5. Uji mobile.\n6. Deploy.\n7. Minta feedback.`;
+    }
+
+    function buildCoding(topic) {
+      return buildCodingEngine(topic);
+    }
+
+    function buildGeneral(topic) {
+      return `🤖 AI Engine Lengkap\n\nAnda minta: ${topic}\n\nSaya boleh jana semua engine ini:\n${formatList([
+        'Belajar semua subjek sekolah',
+        'HTML, CSS, JavaScript, React, Node.js, NPM, Java',
+        'Aplikasi web pelajar lengkap',
+        'Kalkulator',
+        'Kamus',
+        'Warna dan palet UI',
+        'Read aloud browser',
+        'Menaip cepat',
+        'Edit tool untuk dokumen dan kod',
+        'Sains, Matematik, Sejarah, Bahasa, Seni, Perniagaan'
+      ])}\n\nContoh arahan:\n- buat app pelajar lengkap\n- engine coding react node npm java\n- buat kalkulator 12 + 8 * 3\n- kamus perkataan AI\n- warna app sains\n- baca kuat nota ini\n- buat nota semua subjek`;
+    }
+
+    function readBrainMemory() {
+      try {
+        return JSON.parse(localStorage.getItem('tukuk-ai-brain-memory') || '{}');
+      } catch (error) {
+        return {};
+      }
+    }
+
+    function writeBrainMemory(memory) {
+      localStorage.setItem('tukuk-ai-brain-memory', JSON.stringify(memory));
+    }
+
+    function buildAiBrain(prompt) {
+      const lower = prompt.toLowerCase();
+      const memory = readBrainMemory();
+      const subject = detectSubject(prompt);
+      const intents = [];
+      if (lower.includes('workflow') || lower.includes('aliran kerja') || lower.includes('repo')) intents.push('workflow');
+      if (lower.includes('container') || lower.includes('docker') || lower.includes('compose')) intents.push('container');
+      if (lower.includes('pipeline') || lower.includes('ci/cd') || lower.includes('github actions')) intents.push('pipeline');
+      if (lower.includes('mcp')) intents.push('mcp');
+      if (lower.includes('cyber') || lower.includes('security diagnostic') || lower.includes('diagnostic keselamatan') || lower.includes('defensive security')) intents.push('cyber-diagnostic');
+      if (lower.includes('kilo free') || lower.includes('kilo') || lower.includes('terminal') || lower.includes('console') || lower.includes('shell')) intents.push('kilo-free-agent');
+      if (lower.includes('library') || lower.includes('perpustakaan') || lower.includes('alat') || lower.includes('tool')) intents.push('library');
+      if (lower.includes('python') || lower.includes('torch') || lower.includes('tensorflow') || lower.includes('pandas')) intents.push('python-library');
+      if (lower.includes('app') || lower.includes('aplikasi') || lower.includes('web')) intents.push('app-builder');
+      if (lower.includes('coding') || lower.includes('react') || lower.includes('node') || lower.includes('npm') || lower.includes('java') || lower.includes('html') || lower.includes('css') || lower.includes('javascript')) intents.push('coding');
+      if (lower.includes('kalkulator') || lower.includes('calculator') || lower.includes('kira') || /[0-9]\s*[+\-*/]/.test(prompt)) intents.push('calculator');
+      if (lower.includes('kamus') || lower.includes('dictionary') || lower.includes('terjemah')) intents.push('dictionary');
+      if (lower.includes('warna') || lower.includes('color') || lower.includes('palet')) intents.push('color');
+      if (lower.includes('read aloud') || lower.includes('bacakan') || lower.includes('baca kuat')) intents.push('read-aloud');
+      if (lower.includes('mena') || lower.includes('taip') || lower.includes('typing')) intents.push('typing');
+      if (lower.includes('sains') || lower.includes('science') || lower.includes('fizik') || lower.includes('kimia') || lower.includes('biologi')) intents.push('science');
+      if (lower.includes('belajar') || lower.includes('kuiz') || lower.includes('flashcard') || lower.includes('nota') || lower.includes('subjek')) intents.push('study');
+      if (!intents.length) intents.push('general');
+
+      const action = intents[0];
+      let output = '';
+      if (action === 'python-library') output = buildPythonAiLibrary(prompt);
+      else if (action === 'workflow') output = buildWorkflowEngine(prompt);
+      else if (action === 'container') output = buildContainerEngine(prompt);
+      else if (action === 'pipeline') output = buildPipelineEngine(prompt);
+      else if (action === 'mcp') output = buildMcpEngine(prompt);
+      else if (action === 'cyber-diagnostic') output = buildCyberDiagnosticEngine(prompt);
+      else if (action === 'kilo-free-agent') output = buildAgentStackEngine(prompt);
+      else if (action === 'library') output = buildFreeTools(prompt);
+      else if (action === 'app-builder') output = buildAppBuilder(prompt);
+      else if (action === 'coding') output = buildCodingEngine(prompt);
+      else if (action === 'calculator') output = buildCalculatorEngine(prompt);
+      else if (action === 'dictionary') output = buildDictionaryEngine(prompt);
+      else if (action === 'color') output = buildColorEngine(prompt);
+      else if (action === 'read-aloud') output = buildReadAloudEngine(prompt);
+      else if (action === 'typing') output = buildTypingEngine(prompt);
+      else if (action === 'science') output = buildScienceEngine(prompt);
+      else if (action === 'study') output = buildSubjectEngine(prompt);
+      else output = buildGeneral(prompt);
+
+      const nextMemory = {
+        ...memory,
+        lastPrompt: prompt,
+        lastIntent: action,
+        lastSubject: subject,
+        lastTools: intents,
+        lastUpdated: new Date().toISOString()
+      };
+      writeBrainMemory(nextMemory);
+
+      return `🧠 AI Brain / Otak Utama\n\nStatus: AI Brain aktif sebagai pemilih engine.\n\nInput: ${prompt}\nSubjek dikesan: ${subject}\nEngine dipilih: ${action}\nTools aktif: ${intents.join(', ')}\n\nRancangan AI:\n${formatList([
+        'Fahami permintaan pelajar',
+        'Pilih engine yang paling sesuai',
+        'Jana output atau buka tool sebenar',
+        'Simpan konteks terakhir dalam memori browser',
+        'Cadangkan langkah seterusnya'
+      ])}\n\nTindakan dilaksanakan:\n${output}\n\nMemori terakhir:\n- Subjek: ${nextMemory.lastSubject}\n- Intent: ${nextMemory.lastIntent}\n- Tools: ${nextMemory.lastTools.join(', ')}`;
     }
 
     function buildCoding(topic) {
@@ -1488,44 +1934,172 @@
     function buildFreeTools(topic) {
       const lower = topic.toLowerCase();
       const tools = [
-        { name: 'GitHub Pages', use: 'Hosting web percuma', url: 'https://pages.github.com/' },
-        { name: 'Cloudflare Pages', use: 'Hosting web/worker percuma', url: 'https://pages.cloudflare.com/' },
-        { name: 'Hugging Face Spaces', use: 'Demo AI percuma', url: 'https://huggingface.co/spaces' },
-        { name: 'Replit', use: 'Coding dalam browser', url: 'https://replit.com/' },
-        { name: 'VS Code', use: 'Editor kod percuma', url: 'https://code.visualstudio.com/' },
-        { name: 'Blender', use: '3D, video, animasi percuma', url: 'https://www.blender.org/' },
-        { name: 'Krita', use: 'Lukis dan edit gambar percuma', url: 'https://krita.org/' },
-        { name: 'GIMP', use: 'Edit gambar percuma', url: 'https://www.gimp.org/' },
-        { name: 'Audacity', use: 'Edit audio percuma', url: 'https://www.audacityteam.org/' },
-        { name: 'OBS Studio', use: 'Rakam/stream video percuma', url: 'https://obsproject.com/' },
-        { name: 'DaVinci Resolve', use: 'Edit video percuma', url: 'https://www.blackmagicdesign.com/products/davinciresolve' },
-        { name: 'Canva', use: 'Reka bentuk mudah percuma', url: 'https://www.canva.com/' },
-        { name: 'Figma', use: 'UI/UX design percuma', url: 'https://www.figma.com/' },
-        { name: 'Google Colab', use: 'Python/AI notebook percuma', url: 'https://colab.research.google.com/' },
-        { name: 'Kaggle', use: 'Dataset dan latihan AI percuma', url: 'https://www.kaggle.com/' },
-        { name: 'MDN Web Docs', use: 'Dokumentasi web percuma', url: 'https://developer.mozilla.org/' },
-        { name: 'w3schools', use: 'Tutorial coding percuma', url: 'https://www.w3schools.com/' },
-        { name: 'Open Textbook Library', use: 'Buku pelajaran terbuka', url: 'https://open.umn.edu/opentextbooks/' },
-        { name: 'YouTube', use: 'Video belajar percuma', url: 'https://www.youtube.com/' },
-        { name: 'React', use: 'Library frontend percuma', url: 'https://react.dev/' },
-        { name: 'Vue', use: 'Library frontend percuma', url: 'https://vuejs.org/' },
-        { name: 'Express', use: 'Framework backend percuma', url: 'https://expressjs.com/' },
-        { name: 'Tailwind CSS', use: 'CSS framework percuma', url: 'https://tailwindcss.com/' }
+        { name: 'GitHub Pages', use: 'Hosting web percuma', category: 'deploy' },
+        { name: 'Cloudflare Pages', use: 'Hosting web/worker percuma', category: 'deploy' },
+        { name: 'Netlify', use: 'Hosting web statis percuma', category: 'deploy' },
+        { name: 'Vercel', use: 'Hosting frontend percuma', category: 'deploy' },
+        { name: 'Hugging Face Spaces', use: 'Demo AI percuma', category: 'ai' },
+        { name: 'Google Colab', use: 'Python/AI notebook percuma', category: 'ai' },
+        { name: 'Kaggle', use: 'Dataset dan latihan AI percuma', category: 'ai' },
+        { name: 'Ollama', use: 'Jalankan model AI lokal percuma', category: 'ai' },
+        { name: 'LM Studio', use: 'AI lokal untuk pembelajaran', category: 'ai' },
+        { name: 'llama.cpp', use: 'LLM lokal ringan percuma', category: 'ai' },
+        { name: 'vLLM', use: 'Serving LLM open-source', category: 'ai' },
+        { name: 'ComfyUI', use: 'Image generation AI percuma', category: 'image' },
+        { name: 'Stable Diffusion WebUI', use: 'Image generation AI percuma', category: 'image' },
+        { name: 'Diffusers', use: 'Library AI gambar/audio/video Python', category: 'image' },
+        { name: 'Replit', use: 'Coding dalam browser', category: 'code' },
+        { name: 'VS Code', use: 'Editor kod percuma', category: 'code' },
+        { name: 'Cursor free', use: 'Editor AI coding percuma', category: 'code' },
+        { name: 'MDN Web Docs', use: 'Dokumentasi web percuma', category: 'learn' },
+        { name: 'w3schools', use: 'Tutorial coding percuma', category: 'learn' },
+        { name: 'Open Textbook Library', use: 'Buku pelajaran terbuka', category: 'learn' },
+        { name: 'YouTube', use: 'Video belajar percuma', category: 'learn' },
+        { name: 'freeCodeCamp', use: 'Belajar coding percuma', category: 'learn' },
+        { name: 'The Odin Project', use: 'Belajar web development percuma', category: 'learn' },
+        { name: 'Khan Academy', use: 'Belajar akademik percuma', category: 'learn' },
+        { name: 'React', use: 'Library frontend percuma', category: 'web' },
+        { name: 'Vue', use: 'Library frontend percuma', category: 'web' },
+        { name: 'Svelte', use: 'Framework frontend percuma', category: 'web' },
+        { name: 'Tailwind CSS', use: 'CSS framework percuma', category: 'web' },
+        { name: 'Node.js', use: 'Backend JavaScript percuma', category: 'web' },
+        { name: 'NPM', use: 'Package manager JavaScript', category: 'web' },
+        { name: 'OpenJDK', use: 'Java Development Kit percuma', category: 'java' },
+        { name: 'Express', use: 'Framework backend percuma', category: 'web' },
+        { name: 'FastAPI', use: 'Backend Python percuma', category: 'python' },
+        { name: 'Flask', use: 'Web framework Python percuma', category: 'python' },
+        { name: 'Streamlit', use: 'Dashboard AI Python percuma', category: 'python' },
+        { name: 'Gradio', use: 'Demo model AI Python percuma', category: 'python' },
+        { name: 'Tone.js', use: 'Library music Web Audio percuma', category: 'media' },
+        { name: 'p5.js sound', use: 'Bunyi dan visual kreatif percuma', category: 'media' },
+        { name: 'FFmpeg', use: 'Edit/konversi video percuma', category: 'media' },
+        { name: 'FFmpeg.wasm', use: 'Video processing dalam browser', category: 'media' },
+        { name: 'OpenShot', use: 'Editor video percuma', category: 'media' },
+        { name: 'Shotcut', use: 'Editor video percuma', category: 'media' },
+        { name: 'Audacity', use: 'Edit audio percuma', category: 'media' },
+        { name: 'OBS Studio', use: 'Rakam/stream video percuma', category: 'media' },
+        { name: 'DaVinci Resolve', use: 'Edit video percuma', category: 'media' },
+        { name: 'Blender', use: '3D, video, animasi percuma', category: 'media' },
+        { name: 'Krita', use: 'Lukis dan edit gambar percuma', category: 'art' },
+        { name: 'GIMP', use: 'Edit gambar percuma', category: 'art' },
+        { name: 'Inkscape', use: 'Vector design percuma', category: 'art' },
+        { name: 'Canva', use: 'Reka bentuk mudah percuma', category: 'art' },
+        { name: 'Figma', use: 'UI/UX design percuma', category: 'art' }
       ];
 
-      const filtered = tools.filter((tool) => lower.includes(tool.name.toLowerCase().split(' ')[0]) || lower.includes(tool.use.toLowerCase().split(' ')[0]));
-      const selected = filtered.length ? filtered : tools.slice(0, 12);
-      return `📚 Perpustakaan Percuma\n\nUntuk: ${topic}\n\n${formatList(selected.map((tool) => `${tool.name} — ${tool.use} — ${tool.url}`))}\n\nCadangan:\n- Buku/dokumen: MDN, w3schools, Open Textbook Library\n- Video: YouTube, freeCodeCamp, Traversy Media\n- AI: Hugging Face Spaces, Google Colab, Kaggle\n- App builder: GitHub Pages, Cloudflare Pages, Replit\n- Coding library: React, Vue, Express, Tailwind CSS\n- Foto/video/seni: GIMP, Krita, OBS Studio, DaVinci Resolve`;
+      const filtered = tools.filter((tool) => {
+        const text = `${tool.name} ${tool.use} ${tool.category}`.toLowerCase();
+        return lower.split(/\s+/).some((word) => word.length > 2 && text.includes(word));
+      });
+      const selected = filtered.length ? filtered : tools;
+      return `📚 Perpustakaan Percuma / Tool Library\n\nUntuk: ${topic}\n\n${formatList(selected.slice(0, 36).map((tool) => `${tool.name} — ${tool.use} — ${tool.url}`))}\n\nKategori:\n- AI/Python: Hugging Face Spaces, Google Colab, Kaggle, Ollama, LM Studio, llama.cpp, vLLM, ComfyUI, Diffusers\n- Web: React, Vue, Svelte, Tailwind CSS, Node.js, NPM, Express, FastAPI\n- Java: OpenJDK\n- Media: Tone.js, p5.js sound, FFmpeg, Audacity, OBS, DaVinci Resolve, Blender\n- Art: Krita, GIMP, Inkscape, Figma, Canva\n- Deploy: GitHub Pages, Cloudflare Pages, Netlify, Vercel\n\nAI Brain akan pilih library ini untuk proses permintaan pengguna, bukan sekadar senarai.`;
+    }
+
+    function buildPythonAiLibrary(topic) {
+      const categories = {
+        'AI/LLM': ['torch', 'transformers', 'diffusers', 'sentence-transformers', 'llama-cpp-python', 'ollama', 'langchain', 'llama-index', 'open-webui'],
+        'Machine Learning': ['scikit-learn', 'xgboost', 'lightgbm', 'catboost', 'imbalanced-learn'],
+        'Data': ['numpy', 'pandas', 'polars', 'pyarrow', 'openpyxl', 'python-docx'],
+        'Stats/Math': ['scipy', 'sympy', 'statsmodels', 'networkx'],
+        'NLP': ['spacy', 'nltk', 'gensim', 'flashtext', 'rapidfuzz'],
+        'Vision': ['opencv-python', 'pillow', 'albumentations', 'ultralytics', 'mediapipe'],
+        'Audio/Speech': ['librosa', 'soundfile', 'pydub', 'whisper', 'faster-whisper', 'coqui-tts', 'piper-tts', 'edge-tts', 'pyttsx3'],
+        'Video': ['moviepy', 'ffmpeg-python', 'imageio-ffmpeg', 'decord'],
+        'Web/API': ['fastapi', 'flask', 'httpx', 'requests', 'beautifulsoup4', 'playwright', 'selenium'],
+        'Dashboard/UI': ['streamlit', 'gradio', 'dash', 'plotly', 'bokeh', 'altair'],
+        'Notebook/Dev': ['jupyter', 'ipywidgets', 'pytest', 'ruff', 'mypy', 'black'],
+        'Robotics/Projects': ['pygame', 'kivy', 'pyqt6', 'tkinter', 'micropython']
+      };
+      const lines = Object.entries(categories).flatMap(([category, libs]) => [`${category}:`, ...libs.map((lib) => `- ${lib}`)]);
+      const commands = [
+        'python -m venv .venv',
+        'source .venv/bin/activate',
+        'pip install numpy pandas scikit-learn matplotlib seaborn',
+        'pip install torch transformers diffusers sentence-transformers',
+        'pip install fastapi uvicorn streamlit gradio',
+        'pip install opencv-python pillow librosa soundfile moviepy',
+        'pip install spacy nltk gensim openpyxl python-docx',
+        'pip install playwright pytest ruff mypy'
+      ];
+      openEditor(`# Python AI Library Percuma\n\nTema: ${topic}\n\n${lines.join('\n')}\n\nContoh install:\n${commands.join('\n')}\n`, 'code');
+      return `🐍 Python AI Library Engine\n\nSaya dah buka senarai library Python AI percuma dalam editor.\n\nLibrary aktif:\n${formatList(Object.keys(categories).map((key) => `${key}: ${categories[key].join(', ')}`))}\n\nInstall contoh:\n${formatList(commands)}\n\nAI Brain boleh pilih library ini untuk proses permintaan: data, AI, gambar, audio, video, web app, dashboard, NLP, vision, dan automation.`;
+    }
+
+    function buildWorkflowEngine(topic) {
+      const title = extractTopic(topic, 'Aliran Kerja Banyak dalam Satu Repo');
+      const code = `<!doctype html>
+<html lang="ms">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>${title}</title>
+<style>
+:root{--bg:#0f172a;--card:#111827;--text:#e5e7eb;--muted:#94a3b8;--line:#334155;--accent:#22c55e;--blue:#38bdf8}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,sans-serif;background:linear-gradient(135deg,#020617,#1e293b);color:var(--text)}main{max-width:1080px;margin:auto;padding:24px}.card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:20px;margin-bottom:14px}input,textarea,select,button{font:inherit}input,textarea,select{width:100%;margin:8px 0;padding:12px;border-radius:14px;border:1px solid var(--line);background:#020617;color:var(--text)}button{border:0;border-radius:14px;padding:12px 14px;background:linear-gradient(135deg,var(--accent),var(--blue));color:#020617;font-weight:900;cursor:pointer}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}.item{background:#020617;border:1px solid var(--line);border-radius:16px;padding:14px}.done{opacity:.65;text-decoration:line-through}@media(max-width:640px){main{padding:14px}.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body><main><section class="card"><h1>${title}</h1><p>Satu repo boleh ada banyak aliran kerja: app pelajar, AI, media, coding, sains, dokumen, dan deployment.</p></section><section class="grid" id="list"></section><section class="card"><h2>Tambah aliran kerja</h2><input id="name" placeholder="Nama workflow"><textarea id="desc" placeholder="Langkah kerja"></textarea><select id="status"><option>Todo</option><option>Doing</option><option>Review</option><option>Done</option></select><button id="add">Tambah workflow</button><button id="reset" style="background:#334155;color:white;margin-left:8px">Reset</button></section></main><script>
+const list=document.querySelector('#list');const items=JSON.parse(localStorage.getItem('tukuk-workflows')||'[]');function render(){list.innerHTML='';items.forEach((w,i)=>{const d=document.createElement('div');d.className='item '+(w.status==='Done'?'done':'');d.innerHTML='<h3>'+w.name+'</h3><p>'+w.desc+'</p><p>Status: '+w.status+'</p><button data-move="'+i+'">Tukar status</button> <button data-del="'+i+'">Padam</button>';list.appendChild(d)});localStorage.setItem('tukuk-workflows',JSON.stringify(items));}list.addEventListener('click',e=>{const i=e.target.dataset.move;if(i!==undefined){items[i].status=['Todo','Doing','Review','Done'][(['Todo','Doing','Review','Done'].indexOf(items[i].status)+1)%4];render()}const d=e.target.dataset.del;if(d!==undefined){items.splice(d,1);render()}});document.querySelector('#add').addEventListener('click',()=>{items.push({name:document.querySelector('#name').value||'Workflow baru',desc:document.querySelector('#desc').value||'Tiada langkah',status:'Todo'});render();document.querySelector('#name').value='';document.querySelector('#desc').value=''});document.querySelector('#reset').addEventListener('click',()=>{items.length=0;render()});render();
+<\/script></body></html>`;
+      openEditor(code, 'both');
+      return `🔁 Workflow Engine\n\nSaya dah buka aplikasi pengurus aliran kerja dalam editor live.\n\nKonsep: satu repo boleh simpan banyak workflow.\n\nWorkflow yang disokong:\n- AI Brain request processor\n- App builder\n- Student study workflow\n- Coding workflow: HTML/CSS/JS/React/Node/NPM/Java\n- Media workflow: music/video/image/read aloud\n- Library workflow: cari alat percuma/open-source\n- Deployment workflow: GitHub Pages/Cloudflare/Netlify\n\nAplikasi ini simpan workflow dalam localStorage, tukar status, dan padam workflow.`;
+    }
+
+    function buildKiloFreeAgentApp(topic) {
+      const title = extractTopic(topic, 'Kilo Free Agent');
+      return `<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>${title}</title>
+<style>
+:root{--bg:#0b1020;--panel:#111827;--text:#e5e7eb;--muted:#94a3b8;--line:#334155;--green:#22c55e;--blue:#38bdf8;--purple:#a78bfa}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,monospace;background:radial-gradient(circle at top left,rgba(56,189,248,.18),transparent 30%),var(--bg);color:var(--text)}main{max-width:1180px;margin:auto;padding:18px}.top{display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap}.tabs,.quick{display:flex;gap:8px;flex-wrap:wrap}.tab,.cmd{border:1px solid var(--line);background:#020617;color:var(--text);border-radius:12px;padding:10px 12px;cursor:pointer}.tab.active,.cmd{background:linear-gradient(135deg,var(--green),var(--blue));color:#020617;font-weight:900}.grid{display:grid;grid-template-columns:1.1fr .9fr;gap:14px;margin-top:14px}.panel{background:rgba(17,24,39,.92);border:1px solid var(--line);border-radius:18px;padding:14px;min-height:420px}.log{height:360px;overflow:auto;background:#020617;border:1px solid var(--line);border-radius:14px;padding:12px;white-space:pre-wrap;line-height:1.5}.row{display:flex;gap:8px;margin-top:10px}input,textarea{width:100%;border:1px solid var(--line);border-radius:12px;background:#020617;color:var(--text);padding:12px;font:inherit}button{border:0;border-radius:12px;background:linear-gradient(135deg,var(--green),var(--blue));color:#020617;font-weight:900;padding:12px 14px;cursor:pointer}.pill{border:1px solid var(--line);border-radius:999px;padding:6px 10px;color:var(--muted)}@media(max-width:800px){.grid{grid-template-columns:1fr}.panel{min-height:320px}.log{height:280px}}
+</style>
+</head>
+<body><main><div class="top"><div><h1>${title}</h1><p>Free Kilo-like AI agent: chat, terminal, container, pipeline, MCP, and defensive security diagnostics.</p></div><span class="pill">English primary + multilingual</span></div><div class="tabs"><button class="tab active" data-tab="agent">Agent</button><button class="tab" data-tab="terminal">Terminal</button><button class="tab" data-tab="pipeline">Pipeline</button><button class="tab" data-tab="mcp">MCP</button><button class="tab" data-tab="security">Security</button></div><div class="grid"><section class="panel"><div id="tabs"></div></section><section class="panel"><h2>Command Console</h2><div class="quick"><button class="cmd" data-cmd="help">help</button><button class="cmd" data-cmd="agent build student web app">agent</button><button class="cmd" data-cmd="mcp list">mcp list</button><button class="cmd" data-cmd="pipeline status">pipeline</button><button class="cmd" data-cmd="security diagnostic https://example.com">security</button><button class="cmd" data-cmd="container status">container</button></div><div class="row"><input id="cmdInput" placeholder="Type: agent, mcp, pipeline, container, security, docker, npm, java, python"><button id="runCmd">Run</button></div><div class="log" id="log"></div></section></div></main><script>
+const panels={agent:'<h2>AI Agent</h2><textarea id="agentInput" placeholder="Ask anything"></textarea><button id="agentRun">Run Agent</button><div class="log" id="agentLog"></div>',terminal:'<h2>Terminal</h2><p>Commands work as local simulation for terminal, console, shell, PowerShell, Git Bash, WSL, macOS, Linux, Windows.</p><div class="log" id="terminalLog">Ready.</div>',pipeline:'<h2>Pipeline</h2><div class="log">1. lint\n2. test\n3. security diagnostic\n4. build container\n5. deploy\n6. observe</div>',mcp:'<h2>MCP Tools</h2><div class="log">classify_request\nsave_note\nget_free_python_ai_libraries\nsecurity_diagnostic</div>',security:'<h2>Defensive Security Diagnostic</h2><input id="secUrl" placeholder="https://example.com"><button id="secRun">Run diagnostic</button><div class="log" id="secLog"></div>'};const tabs=document.querySelector('#tabs');const log=document.querySelector('#log');let active='agent';function render(){tabs.innerHTML=panels[active];if(active==='agent')document.querySelector('#agentRun').onclick=()=>{const v=document.querySelector('#agentInput').value;document.querySelector('#agentLog').textContent='Agent received: '+v+'\nIntent: '+detect(v)+'\nTools: study,coding,media,library,mcp,security\nAnswer: I can process this request using free engines.'};if(active==='security')document.querySelector('#secRun').onclick=()=>{const u=document.querySelector('#secUrl').value||'https://example.com';document.querySelector('#secLog').textContent='Defensive checks for '+u+':\n- HTTPS\n- TLS certificate\n- Security headers\n- Reachability\n- No exploit actions'};log.innerHTML=panels[active];renderEvents()}function renderEvents(){document.querySelectorAll('.cmd').forEach(b=>b.onclick=()=>run(b.dataset.cmd));}function run(c){log.innerHTML+='\\n$ '+c+'\\n'+answer(c)+'\\n';log.scrollTop=log.scrollHeight}function answer(c){if(c.includes('help'))return'Commands: agent, mcp, pipeline, container, security, docker, npm, java, python';if(c.includes('mcp'))return'MCP tools: classify_request, save_note, get_free_python_ai_libraries';if(c.includes('pipeline'))return'Pipeline: lint -> test -> security -> build -> deploy';if(c.includes('container'))return'Container: Dockerfile + docker compose ready';if(c.includes('security'))return'Security diagnostic is defensive only: HTTPS, TLS, headers, reachability.';return'Processed by Tukuk free agent engine.'}function detect(t){t=t.toLowerCase();if(/study|learn|belajar|kuiz/.test(t))return'study';if(/code|html|css|react|node|java|npm/.test(t))return'coding';if(/music|video|image|audio/.test(t))return'media';if(/library|python|torch|pandas/.test(t))return'library';if(/security|cyber|diagnostic/.test(t))return'security';return'general'}document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));t.classList.add('active');active=t.dataset.tab;render()});render();
+<\/script></body></html>`;
+    }
+
+    function buildContainerEngine(topic) {
+      openEditor(`# Container Engine\n\nRequest: ${topic}\n\nFiles provided in agent-stack:\n- Dockerfile\n- docker-compose.yml\n- requirements.txt\n\nRun from any terminal:\n\`\`\`sh\ncd agent-stack\n./tukuk-agent.sh docker\n\`\`\`\n\nWindows:\n\`\`\`bat\ntukuk-agent.bat docker\n\`\`\`\n\nEnvironment:\n- TUKUK_AGENT_MODEL=llama3.2\n- TUKUK_MCP_URL=http://mcp:8080\n- Ports: 8000 agent, 8080 MCP`, 'code');
+      return `🐳 Container Engine\n\nI opened the container stack template in the editor.\n\nIt can run from terminal, console, shell, PowerShell, Git Bash, WSL, Linux, macOS, and Windows with Docker.\n\nCommands:\n- ./tukuk-agent.sh docker\n- tukuk-agent.bat docker\n- docker compose up --build\n\nThe stack includes the LLM agent and MCP server.`;
+    }
+
+    function buildPipelineEngine(topic) {
+      openEditor(`# Pipeline Engine\n\nRequest: ${topic}\n\nPipeline: .github/workflows/agent-pipeline.yml\n\nStages:\n1. checkout\n2. setup Python\n3. install dependencies\n4. compileall\n5. defensive security diagnostic\n6. upload diagnostic report\n7. build Docker container\n8. smoke test\n\nRun local:\n./tukuk-agent.sh pipeline`, 'code');
+      return `🔁 Pipeline Engine\n\nI opened the CI/CD pipeline template.\n\nIt works for GitHub Actions and local terminal simulation.\n\nPipeline stages: lint/test/security/build/deploy/observe.\n\nLocal command: ./tukuk-agent.sh pipeline`;
+    }
+
+    function buildMcpEngine(topic) {
+      openEditor(`# MCP Agent Engine\n\nRequest: ${topic}\n\nMCP server file: mcp_server/server.py\n\nTools:\n- classify_request\n- save_note\n- get_free_python_ai_libraries\n\nRun:\npython -m mcp_server.server\n\nAgent connects to:\nTUKUK_MCP_URL=http://localhost:8080`, 'code');
+      return `🔌 MCP Engine\n\nI opened the MCP server template.\n\nMCP gives the LLM agent tools for classification, notes, free Python AI libraries, and defensive diagnostics.\n\nRun: python -m mcp_server.server`;
+    }
+
+    function buildCyberDiagnosticEngine(topic) {
+      openEditor(`# Defensive Cyber Security Diagnostic\n\nRequest: ${topic}\n\nFile: security/diagnostic.py\n\nChecks:\n- HTTPS enabled\n- TLS certificate\n- Reachability\n- Strict-Transport-Security\n- Content-Security-Policy\n- X-Content-Type-Options\n- X-Frame-Options\n- Referrer-Policy\n- Permissions-Policy\n\nRun:\npython security/diagnostic.py --url https://example.com --output diagnostic-report.json\n\nThis is defensive only. It does not scan ports aggressively or exploit systems.`, 'code');
+      return `🛡️ Cyber Security Diagnostic Engine\n\nI opened a defensive diagnostic template.\n\nIt checks public web safety: HTTPS, TLS, headers, and reachability.\n\nCommand:\npython security/diagnostic.py --url https://example.com --output diagnostic-report.json`;
+    }
+
+    function buildAgentStackEngine(topic) {
+      const code = buildKiloFreeAgentApp(topic);
+      openEditor(code, 'both');
+      return `🧠 Kilo Free Agent Engine\n\nI opened a free Kilo-like agent app in the editor.\n\nIt includes:\n- AI chat agent\n- Terminal/console/shell simulation\n- Container status\n- Pipeline status\n- MCP tools\n- Defensive cyber security diagnostic\n- English primary with multilingual support\n\nYou can run the real stack from any terminal using the agent-stack files.`;
     }
 
     function buildAppBuilder(topic) {
       const title = extractTopic(topic, 'Aplikasi Web Pelajar');
-      return `🛠️ App Builder Engine\n\nSaya boleh buat aplikasi web dari chat.\n\nAplikasi dicadangkan: ${title}\n\nCiri MVP:\n1. Halaman utama\n2. Input pengguna\n3. Proses data\n4. Papar hasil\n5. Simpan dalam localStorage jika perlu\n6. Download hasil sebagai fail\n\nStruktur fail:\nindex.html\nstyle.css\napp.js\n\nKlik butang "Buat app web" untuk buka editor live. Anda boleh edit HTML, CSS, JavaScript, run preview, dan download app siap.\n\nContoh arahan:\n- buat app kalkulator\n- buat app nota pelajar\n- buat app kuiz\n- buat app todo list\n- buat app chatbot\n- buat app portfolio`;
+      const code = buildStudentAppHtml(title);
+      openEditor(code, 'both');
+      return `🛠️ App Builder Engine\n\nSaya dah buka aplikasi web pelajar sebenar dalam editor live.\n\nAplikasi dicadangkan: ${title}\n\nEngine dalam app:\n1. Belajar semua subjek\n2. Kalkulator\n3. Kamus\n4. Warna dan palet UI\n5. Menaip cepat\n6. Sains\n7. Edit tool untuk teks, HTML, CSS, JavaScript, React, Node, Java\n\nAnda boleh edit kod, klik Run, dan Download App untuk simpan fail HTML.`;
     }
 
     function getStudentData() {
+      const prompt = promptInput.value.trim();
       return {
-        subject: subjectInput.value.trim() || 'Pelajaran',
+        subject: subjectInput.value.trim() || detectSubject(prompt || 'Semua Subjek'),
         deadline: deadlineInput.value.trim() || 'masa terdekat',
         notes: notesInput.value.trim() || 'tiada nota khusus',
         goal: goalInput.value.trim() || 'belajar dengan lebih teratur'
@@ -1533,15 +2107,17 @@
     }
 
     function makeStudyPlan(data) {
-      return `📚 Pelan Belajar Pelajar\n\nSubjek: ${data.subject}\nMatlamat: ${data.goal}\nMasa: ${data.deadline}\n\nLangkah belajar:\n1. Baca nota utama 10 minit.\n2. Pecahkan topik susah kepada 3 bahagian kecil.\n3. Buat contoh mudah.\n4. Uji diri dengan 5 soalan.\n5. Ringkaskan dalam 5 baris.\n6. Ulang bahagian yang masih kabur.\n\nNota yang diberi:\n${data.notes}\n\nChecklist siap:\n- Faham definisi\n- Ada contoh\n- Ada latihan\n- Ada ringkasan\n- Tahu apa perlu buat seterusnya`;
+      return `📚 Pelan Belajar Pelajar\n\nSubjek dikesan: ${detectSubject(data.subject + ' ' + data.notes)}\nSubjek: ${data.subject}\nMatlamat: ${data.goal}\nMasa: ${data.deadline}\n\nLangkah belajar:\n1. Baca definisi dan istilah penting.\n2. Pecahkan topik susah kepada 3 bahagian kecil.\n3. Buat contoh mudah.\n4. Buat latihan atau kuiz.\n5. Semak jawapan.\n6. Ringkaskan dalam 5 baris.\n7. Ulang bahagian yang masih kabur.\n\nNota yang diberi:\n${data.notes}\n\nChecklist siap:\n- Faham definisi\n- Ada contoh\n- Ada latihan\n- Ada ringkasan\n- Tahu apa perlu buat seterusnya`;
     }
 
     function createQuiz(data) {
-      return `📝 Kuiz Pantas\n\nSubjek: ${data.subject}\n\n1. Apakah idea utama topik ini?\n2. Nyatakan 3 perkara penting.\n3. Berikan satu contoh mudah.\n4. Apakah kesilapan biasa pelajar buat?\n5. Bagaimana anda gunakan ilmu ini dalam tugasan sebenar?\n\nJawapan cadangan:\nGunakan nota anda: ${data.notes}\nJika tidak pasti, minta Tukuk AI terangkan satu persatu.`;
+      const subject = detectSubject(data.subject + ' ' + data.notes);
+      return `📝 Kuiz Pantas\n\nSubjek: ${subject}\nTopik: ${data.subject}\n\n1. Apakah definisi utama topik ini?\n2. Nyatakan 3 perkara penting.\n3. Berikan satu contoh mudah.\n4. Apakah kesilapan biasa pelajar buat?\n5. Bagaimana anda guna ilmu ini dalam tugasan sebenar?\n\nJawapan cadangan:\nGunakan nota anda: ${data.notes}\nJika tidak pasti, minta Tukuk AI terangkan satu persatu.`;
     }
 
     function createFlashcards(data) {
-      return `🗂️ Flashcards\n\nSubjek: ${data.subject}\n\nKad 1:\nSoalan: Apakah tujuan utama topik ini?\nJawapan: Untuk memahami konsep asas dan boleh guna dalam tugasan.\n\nKad 2:\nSoalan: Apakah 3 perkara paling penting?\nJawapan: Definisi, contoh, dan latihan.\n\nKad 3:\nSoalan: Bagaimana saya tahu saya sudah faham?\nJawapan: Saya boleh terangkan semula dengan bahasa sendiri.\n\nKad 4:\nSoalan: Apa langkah seterusnya?\nJawapan: Buat latihan, semak jawapan, dan ulang bahagian lemah.\n\nNota: ${data.notes}`;
+      const subject = detectSubject(data.subject + ' ' + data.notes);
+      return `🗂️ Flashcards\n\nSubjek: ${subject}\nTopik: ${data.subject}\n\nKad 1:\nSoalan: Apakah tujuan utama topik ini?\nJawapan: Untuk memahami konsep asas dan boleh guna dalam tugasan.\n\nKad 2:\nSoalan: Apakah 3 perkara paling penting?\nJawapan: Definisi, contoh, dan latihan.\n\nKad 3:\nSoalan: Bagaimana saya tahu saya sudah faham?\nJawapan: Saya boleh terangkan semula dengan bahasa sendiri.\n\nKad 4:\nSoalan: Apa langkah seterusnya?\nJawapan: Buat latihan, semak jawapan, dan ulang bahagian lemah.\n\nNota: ${data.notes}`;
     }
 
     function makeFocusMode(data) {
@@ -1581,6 +2157,34 @@
         link.download = 'portfolio-pelajar-tukuk-ai.txt';
         link.click();
         URL.revokeObjectURL(url);
+      });
+      buildStudentApp.addEventListener('click', () => {
+        const text = buildAppBuilder(promptInput.value || subjectInput.value || 'Aplikasi Web Pelajar');
+        dashboardOutput.textContent = text;
+      });
+      openCalculator.addEventListener('click', () => {
+        const text = buildCalculatorEngine(promptInput.value || subjectInput.value || '12 + 8 * 3');
+        dashboardOutput.textContent = text;
+      });
+      openDictionary.addEventListener('click', () => {
+        const text = buildDictionaryEngine(promptInput.value || subjectInput.value || 'AI');
+        dashboardOutput.textContent = text;
+      });
+      openColorEngine.addEventListener('click', () => {
+        const text = buildColorEngine(promptInput.value || subjectInput.value || 'app pelajar');
+        dashboardOutput.textContent = text;
+      });
+      openTypingEngine.addEventListener('click', () => {
+        const text = buildTypingEngine(promptInput.value || subjectInput.value || 'latihan menaip pelajar');
+        dashboardOutput.textContent = text;
+      });
+      openScienceEngine.addEventListener('click', () => {
+        const text = buildScienceEngine(promptInput.value || subjectInput.value || 'topik sains');
+        dashboardOutput.textContent = text;
+      });
+      openAllSubjects.addEventListener('click', () => {
+        const text = buildSubjectEngine(promptInput.value || subjectInput.value || 'Semua Subjek');
+        dashboardOutput.textContent = text;
       });
     }
 
@@ -1670,8 +2274,44 @@
       });
 
       presetStudent.addEventListener('click', () => {
-        promptInput.value = 'Saya pelajar. Bantu saya buat pelan belajar, kuiz, flashcards, app web percuma, dan portfolio dalam satu output.';
-        showToast('Preset pelajar dimasukkan');
+        promptInput.value = 'Saya pelajar. Bantu saya buat pelan belajar, kuiz, flashcards, app web percuma, portfolio, kalkulator, kamus, read aloud, menaip, warna, edit tool, sains, dan semua subjek.';
+        showToast('Preset pelajar lengkap dimasukkan');
+      });
+      engineCoding.addEventListener('click', () => {
+        promptInput.value = 'Engine coding lengkap untuk HTML CSS JavaScript React Node NPM Java';
+        sendPrompt();
+      });
+      engineSubjects.addEventListener('click', () => {
+        promptInput.value = 'Engine semua subjek sekolah: Matematik, Sains, Bahasa Melayu, English, Sejarah, Geografi, Islam/Moral, Seni, RBT, Perniagaan';
+        sendPrompt();
+      });
+      engineReadAloud.addEventListener('click', () => {
+        promptInput.value = 'Read aloud teks pelajar ini dengan suara browser';
+        sendPrompt();
+      });
+      engineCalculator.addEventListener('click', () => {
+        promptInput.value = 'Kalkulator 12 + 8 * 3 dan buat app kalkulator pelajar';
+        sendPrompt();
+      });
+      engineDictionary.addEventListener('click', () => {
+        promptInput.value = 'Kamus AI student learn read write draw color science code';
+        sendPrompt();
+      });
+      engineColor.addEventListener('click', () => {
+        promptInput.value = 'Warna palet untuk aplikasi pelajar sains dan coding';
+        sendPrompt();
+      });
+      engineBrain.addEventListener('click', () => {
+        promptInput.value = 'AI Brain jadi otak utama: pilih engine untuk belajar semua subjek, coding, app, kalkulator, kamus, warna, read aloud, menaip, sains, dan edit tool';
+        sendPrompt();
+      });
+      engineLibrary.addEventListener('click', () => {
+        promptInput.value = 'Library lengkap percuma dan Python AI library untuk proses permintaan pengguna';
+        sendPrompt();
+      });
+      engineWorkflow.addEventListener('click', () => {
+        promptInput.value = 'Aliran kerja banyak dalam satu repo untuk app, AI, media, coding, library, dan deployment';
+        sendPrompt();
       });
     }
 
@@ -1713,12 +2353,90 @@
       const lower = prompt.toLowerCase();
       const title = extractTopic(prompt, 'Karya AI Tukuk');
 
-      if (lower.includes('cari alat') || lower.includes('percuma') || lower.includes('open source') || lower.includes('opensource')) {
-        return buildFreeTools(title);
+      if (lower.includes('ai brain') || lower.includes('otak utama') || lower.includes('engine utama') || lower.includes('pemilih engine')) {
+        return buildAiBrain(title);
+      }
+
+      if (lower.includes('library') || lower.includes('perpustakaan') || lower.includes('python ai') || lower.includes('library python')) {
+        return lower.includes('python') ? buildPythonAiLibrary(title) : buildFreeTools(title);
+      }
+
+      if (lower.includes('workflow') || lower.includes('aliran kerja') || lower.includes('repo')) {
+        return buildWorkflowEngine(title);
+      }
+
+      if (lower.includes('container') || lower.includes('docker') || lower.includes('compose')) {
+        return buildContainerEngine(title);
+      }
+
+      if (lower.includes('pipeline') || lower.includes('ci/cd') || lower.includes('github actions')) {
+        return buildPipelineEngine(title);
+      }
+
+      if (lower.includes('mcp')) {
+        return buildMcpEngine(title);
+      }
+
+      if (lower.includes('cyber') || lower.includes('security diagnostic') || lower.includes('diagnostic keselamatan') || lower.includes('defensive security')) {
+        return buildCyberDiagnosticEngine(title);
+      }
+
+      if (lower.includes('kilo free') || lower.includes('kilo') || lower.includes('terminal') || lower.includes('console') || lower.includes('shell')) {
+        return buildAgentStackEngine(title);
+      }
+
+      if (lower.includes('engine semua subjek') || lower.includes('semua subjek') || lower.includes('semua mata pelajaran')) {
+        openSubjectDashboard();
+        return buildSubjectEngine(title);
+      }
+
+      if (lower.includes('sains') || lower.includes('science') || lower.includes('fizik') || lower.includes('kimia') || lower.includes('biologi') || lower.includes('fotosintesis')) {
+        return buildScienceEngine(title);
+      }
+
+      if (lower.includes('mena') || lower.includes('typing') || lower.includes('taip')) {
+        return buildTypingEngine(title);
+      }
+
+      if (lower.includes('warna') || lower.includes('color') || lower.includes('palette') || lower.includes('palet')) {
+        return buildColorEngine(title);
+      }
+
+      if (lower.includes('kamus') || lower.includes('dictionary') || lower.includes('terjemah')) {
+        return buildDictionaryEngine(title);
+      }
+
+      if (lower.includes('kalkulator') || lower.includes('calculator') || lower.includes('kira') || /[0-9]\s*[+\-*/]/.test(prompt)) {
+        return buildCalculatorEngine(title);
+      }
+
+      if (lower.includes('read aloud') || lower.includes('bacakan') || lower.includes('baca kuat') || lower.includes('suara')) {
+        return buildReadAloudEngine(title);
+      }
+
+      if (lower.includes('edit tool') || lower.includes('editor') || lower.includes('edit') || lower.includes('ubah') || lower.includes('dokumen') || lower.includes('teks')) {
+        return buildEditEngine(title);
+      }
+
+      if (lower.includes('engine coding') || lower.includes('coding lengkap') || lower.includes('react') || lower.includes('node') || lower.includes('npm') || lower.includes('java') || lower.includes('html') || lower.includes('css') || lower.includes('javascript')) {
+        return buildCodingEngine(title);
       }
 
       if (lower.includes('buat app') || lower.includes('aplikasi') || lower.includes('web app') || lower.includes('coding app') || lower.includes('program app')) {
         return buildAppBuilder(title);
+      }
+
+      if (lower.includes('engine coding') || lower.includes('coding lengkap') || lower.includes('react') || lower.includes('node') || lower.includes('npm') || lower.includes('java') || lower.includes('html') || lower.includes('css') || lower.includes('javascript')) {
+        return buildCodingEngine(title);
+      }
+
+      if (lower.includes('cari alat') || lower.includes('library') || lower.includes('perpustakaan') || lower.includes('percuma') || lower.includes('open source') || lower.includes('opensource')) {
+        return buildFreeTools(title);
+      }
+
+      if (lower.includes('belajar') || lower.includes('nota') || lower.includes('kuiz') || lower.includes('flashcard') || lower.includes('mode fokus') || lower.includes('portfolio pelajar') || lower.includes('dashboard pelajar')) {
+        openSubjectDashboard();
+        return buildSubjectEngine(title);
       }
 
       if (lower.includes('edit gambar') || lower.includes('buat gambar') || lower.includes('gambar') || lower.includes('image') || lower.includes('logo') || lower.includes('ilustrasi') || lower.includes('poster') || lower.includes('thumbnail')) {
@@ -1730,20 +2448,7 @@
         return buildKaraoke(title);
       }
 
-      if (lower.includes('read aloud') || lower.includes('bacakan') || lower.includes('baca kuat')) {
-        const output = buildReadAloud(title);
-        speakText(output);
-        return `${output}\n\nAudio read aloud sedang dimainkan oleh browser.`;
-      }
-
-      if (lower.includes('edit') || lower.includes('ubah') || lower.includes('dokumen') || lower.includes('teks') || lower.includes('kod')) {
-        editorPanel.hidden = false;
-        editorCode.value = editorCode.value || buildEditableText(title);
-        runPreview();
-        return `✏️ Editor Engine dibuka. Anda boleh edit teks, dokumen, HTML, CSS, JavaScript, nota, artikel, dan kod app terus dalam editor live.`;
-      }
-
-      if (lower.includes('bunyi') || lower.includes('mainkan') || lower.includes('play') || lower.includes('music') || lower.includes('lagu') || lower.includes('audio') || lower.includes('karaoke') || lower.includes('lirik')) {
+      if (lower.includes('bunyi') || lower.includes('mainkan') || lower.includes('play') || lower.includes('music') || lower.includes('lagu') || lower.includes('audio')) {
         const AudioContext = window.AudioContext || window.webkitAudioContext;
         if (!AudioContext) return 'Browser ini tidak sokong Web Audio API. Cuba Chrome/Chromium terbaru.';
         const context = new AudioContext();
@@ -1753,7 +2458,7 @@
         source.connect(context.destination);
         source.start();
         showMedia('Music Engine - bunyi AI dibuat dari chat', 'music');
-        return 'Saya sudah jana bunyi muzik AI terus dari browser menggunakan Web Audio API. Jika tiada bunyi, klik butang play audio atau naikkan volume browser.';
+        return 'Saya sudah jana bunyi muzik AI terus dari browser menggunakan Web Audio API.';
       }
 
       if (lower.includes('video') || lower.includes('tengok') || lower.includes('visual')) {
@@ -1841,28 +2546,59 @@
       let startWidth = 0;
       let startHeight = 0;
 
+      function clamp(value, min, max) {
+        return Math.max(min, Math.min(max, value));
+      }
+
+      function lockChatPosition() {
+        const rect = chatCard.getBoundingClientRect();
+        chatCard.style.position = 'fixed';
+        chatCard.style.left = `${rect.left}px`;
+        chatCard.style.top = `${rect.top}px`;
+        chatCard.style.right = 'auto';
+        chatCard.style.width = `${rect.width}px`;
+        chatCard.style.height = `${rect.height}px`;
+      }
+
+      function constrainChat() {
+        const margin = 8;
+        const rect = chatCard.getBoundingClientRect();
+        const maxLeft = Math.max(margin, window.innerWidth - rect.width - margin);
+        const maxTop = Math.max(margin, window.innerHeight - rect.height - margin);
+        const left = clamp(rect.left, margin, maxLeft);
+        const top = clamp(rect.top, margin, maxTop);
+        chatCard.style.left = `${left}px`;
+        chatCard.style.top = `${top}px`;
+      }
+
       chatCard.addEventListener('pointerdown', (event) => {
         const rect = chatCard.getBoundingClientRect();
         if (event.target.closest('button, textarea, input, audio, canvas, .quick, .tool-btn, .resize-corner')) return;
-        if (event.clientX > rect.right - 34 && event.clientY > rect.bottom - 34) return;
+        if (event.clientX > rect.right - 28 && event.clientY > rect.bottom - 28) return;
+        lockChatPosition();
         dragging = true;
         chatCard.classList.add('dragging');
         startX = event.clientX;
         startY = event.clientY;
-        startLeft = chatCard.offsetLeft;
-        startTop = chatCard.offsetTop;
+        const current = chatCard.getBoundingClientRect();
+        startLeft = current.left;
+        startTop = current.top;
         chatCard.setPointerCapture(event.pointerId);
       });
 
       chatCard.addEventListener('pointermove', (event) => {
         if (!dragging && !resizing) return;
         if (dragging) {
-          chatCard.style.left = `${startLeft + event.clientX - startX}px`;
-          chatCard.style.top = `${startTop + event.clientY - startY}px`;
+          const nextLeft = startLeft + event.clientX - startX;
+          const nextTop = startTop + event.clientY - startY;
+          chatCard.style.left = `${nextLeft}px`;
+          chatCard.style.top = `${nextTop}px`;
+          constrainChat();
         }
         if (resizing) {
-          chatCard.style.width = `${Math.max(340, startWidth + event.clientX - startX)}px`;
-          chatCard.style.height = `${Math.max(520, startHeight + event.clientY - startY)}px`;
+          chatCard.style.width = `${Math.max(300, startWidth + event.clientX - startX)}px`;
+          chatCard.style.height = `${Math.max(420, startHeight + event.clientY - startY)}px`;
+          constrainChat();
         }
       });
 
@@ -1870,6 +2606,7 @@
         dragging = false;
         resizing = false;
         chatCard.classList.remove('dragging', 'resizing');
+        constrainChat();
         try { chatCard.releasePointerCapture(event.pointerId); } catch (error) {}
       });
 
@@ -1877,27 +2614,33 @@
         dragging = false;
         resizing = false;
         chatCard.classList.remove('dragging', 'resizing');
+        constrainChat();
         try { chatCard.releasePointerCapture(event.pointerId); } catch (error) {}
       });
 
       chatCard.addEventListener('pointerdown', (event) => {
         const rect = chatCard.getBoundingClientRect();
         if (event.clientX > rect.right - 24 && event.clientY > rect.bottom - 24) {
+          lockChatPosition();
           resizing = true;
           chatCard.classList.add('resizing');
           startX = event.clientX;
           startY = event.clientY;
-          startWidth = chatCard.offsetWidth;
-          startHeight = chatCard.offsetHeight;
+          const current = chatCard.getBoundingClientRect();
+          startWidth = current.width;
+          startHeight = current.height;
           chatCard.setPointerCapture(event.pointerId);
         }
       });
 
       resetChat.addEventListener('click', () => {
+        chatCard.style.position = 'fixed';
+        chatCard.style.right = '';
         chatCard.style.left = '';
         chatCard.style.top = '';
         chatCard.style.width = '';
         chatCard.style.height = '';
+        constrainChat();
       });
 
       toggleTools.addEventListener('click', () => {
@@ -2047,15 +2790,15 @@ btn.addEventListener('click',()=>{
       });
 
       appButton.addEventListener('click', () => {
-        const code = buildWebAppHtml(promptInput.value || 'Aplikasi Web Pelajar');
+        const code = buildStudentAppHtml(promptInput.value || 'Aplikasi Web Pelajar Lengkap');
         openEditor(code, 'both');
-        addMessage('Saya dah jana aplikasi web ringkas dalam editor live. Anda boleh edit, run, dan download HTML app ini.', 'ai');
+        addMessage('Saya dah jana aplikasi web pelajar lengkap dengan engine belajar, kalkulator, kamus, warna, menaip, sains, dan edit tool dalam editor live.', 'ai');
       });
 
       editButton.addEventListener('click', () => {
         const code = buildEditableText(promptInput.value || 'Dokumen pelajar');
         openEditor(code, 'code');
-        addMessage('Editor dibuka. Anda boleh edit teks, nota, dokumen, HTML, CSS, JavaScript, atau kod app.', 'ai');
+        addMessage('Editor dibuka. Anda boleh edit teks, nota, dokumen, HTML, CSS, JavaScript, React, Node, NPM, Java, atau app pelajar lengkap.', 'ai');
       });
 
       document.querySelectorAll('.editor-tabs button[data-tab]').forEach((button) => {
@@ -2134,18 +2877,30 @@ btn.addEventListener('click',()=>{
 
     document.querySelectorAll('.quick button').forEach((button) => {
       button.addEventListener('click', () => {
-        promptInput.value = `${button.textContent} tentang projek AI Tukuk`;
-        if (button.textContent.includes('Pelankan') || button.textContent.includes('kuiz') || button.textContent.includes('Flashcards')) {
-          openStudentDashboard();
-        }
-        if (button.textContent.includes('Preset') || button.textContent.includes('Salin')) {
-          utilityPanel.hidden = false;
-        }
-        if (button.textContent.includes('Perpustakaan')) {
+        const text = button.textContent;
+        const prompts = {
+          'Kilo Free Agent': 'Kilo Free Agent with terminal, console, shell, container, pipeline, MCP, and cyber diagnostic',
+          'Terminal Console Shell': 'Terminal console shell engine that works from any terminal worldwide',
+          'MCP Agent': 'MCP agent with free tools for classification, notes, Python AI libraries, and defensive security diagnostic',
+          'Container Pipeline': 'Container and pipeline for Docker, GitHub Actions, LLM agent, MCP, and security diagnostic',
+          'Cyber diagnostic': 'Defensive cyber security diagnostic for HTTPS, TLS, headers, and reachability',
+          'Aliran kerja banyak': 'Aliran kerja banyak dalam satu repo untuk app, AI, media, coding, library, dan deployment',
+          'Library Python AI percuma': 'Library lengkap percuma dan Python AI library untuk proses permintaan pengguna',
+          'AI Brain otak utama': 'AI Brain jadi otak utama: pilih engine untuk belajar semua subjek, coding, app, kalkulator, kamus, warna, read aloud, menaip, sains, dan edit tool',
+          'Buat app web pelajar': 'Buat app web pelajar lengkap dengan engine belajar, kalkulator, kamus, warna, menaip, sains, dan edit tool',
+          'Engine coding lengkap': 'Engine coding lengkap untuk HTML CSS JavaScript React Node NPM Java',
+          'Engine React Node NPM Java': 'Buat template React, Node.js, NPM, dan Java untuk app pelajar',
+          'Edit tool': 'Edit tool untuk dokumen dan kod app pelajar',
+          'Menaip cepat': 'Menaip cepat latihan pelajar',
+          'Sains lengkap': 'Sains lengkap semua topik dengan eksperimen mini',
+          'Semua subjek sekolah': 'Engine semua subjek sekolah: Matematik, Sains, Bahasa Melayu, English, Sejarah, Geografi, Islam/Moral, Seni, RBT, Perniagaan'
+        };
+        promptInput.value = prompts[text] || `${text} tentang projek AI Tukuk`;
+        if (text.includes('Perpustakaan')) {
           document.getElementById('library').scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
-        promptInput.focus();
-        showToast('Engine dipilih');
+        sendPrompt();
+        showToast('Engine dijalankan');
       });
     });
 

@@ -1,0 +1,28 @@
+services:
+  agent:
+    build: .
+    container_name: tukuk-llm-agent
+    environment:
+      TUKUK_AGENT_MODEL: ${TUKUK_AGENT_MODEL:-llama3.2}
+      TUKUK_AGENT_SYSTEM: "Anda ialah AI agent pelajar Tukuk. Jawab dalam Bahasa Melayu, bantu belajar, coding, app, media, library, dan keselamatan siber defensif."
+      TUKUK_MCP_URL: http://mcp:8080
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./data:/app/data
+    depends_on:
+      - mcp
+
+  mcp:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: tukuk-mcp-server
+    command: ["python", "-m", "mcp_server.server"]
+    environment:
+      TUKUK_MCP_HOST: 0.0.0.0
+      TUKUK_MCP_PORT: 8080
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./data:/app/data
