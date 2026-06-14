@@ -84,7 +84,22 @@
 
     a { color: inherit; text-decoration: none; }
     button, input, textarea, select { font: inherit; }
-    .page { width: min(1160px, calc(100% - 32px)); margin: 0 auto; }
+    .page { width: min(1180px, calc(100% - 32px)); margin: 0 auto; }
+    .section-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 12px;
+      padding: 7px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      color: #7dd3fc;
+      background: rgba(56, 189, 248, 0.08);
+      font-weight: 800;
+      font-size: 0.82rem;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+    }
     header {
       position: sticky;
       top: 0;
@@ -217,6 +232,21 @@
       max-width: 960px;
       max-height: 760px;
       cursor: move;
+    }
+    .chat-card::after {
+      content: "Gerak & ubah saiz";
+      position: absolute;
+      left: 18px;
+      bottom: 12px;
+      z-index: 4;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(2, 6, 23, 0.72);
+      color: var(--muted);
+      font-size: 0.76rem;
+      font-weight: 800;
+      pointer-events: none;
     }
     .chat-card.resizing {
       cursor: nwse-resize;
@@ -452,6 +482,7 @@
       border: 0;
       cursor: pointer;
       font-weight: 900;
+      box-shadow: 0 12px 28px rgba(34, 197, 94, 0.18);
     }
     .send:disabled { opacity: 0.55; cursor: not-allowed; }
     .quick { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
@@ -534,6 +565,12 @@
       padding: 18px;
       background: rgba(15, 23, 42, 0.55);
       backdrop-filter: blur(18px);
+      transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+    }
+    .library-item:hover {
+      transform: translateY(-3px);
+      border-color: rgba(34, 197, 94, 0.35);
+      background: rgba(15, 23, 42, 0.72);
     }
     .library-item h3 { margin: 0 0 8px; letter-spacing: -0.03em; }
     .library-item p { margin: 0 0 12px; color: var(--muted); line-height: 1.6; }
@@ -544,6 +581,12 @@
       padding: 20px;
       background: rgba(15, 23, 42, 0.55);
       backdrop-filter: blur(18px);
+      transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+    }
+    .card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(56, 189, 248, 0.35);
+      background: rgba(15, 23, 42, 0.72);
     }
     .card h3 { margin: 0 0 8px; letter-spacing: -0.03em; }
     .card p { margin: 0; color: var(--muted); line-height: 1.65; font-size: 0.94rem; }
@@ -781,6 +824,7 @@
 
   <main class="page">
     <section id="features">
+      <span class="section-kicker">AI Engine</span>
       <h2 class="section-title">Engine percuma dalam browser</h2>
       <p class="section-copy">
         Versi ini tidak bergantung pada API berbayar. Ia menggunakan engine ringkas client-side:
@@ -816,6 +860,7 @@
     </section>
 
     <section id="library">
+      <span class="section-kicker">Free Library</span>
       <h2 class="section-title">Perpustakaan percuma</h2>
       <p class="section-copy">
         Kumpulan sumber percuma untuk pelajar: buku, video belajar, AI engine, pembuat aplikasi,
