@@ -368,6 +368,57 @@
     .media-panel[hidden] {
       display: none;
     }
+    .image-editor {
+      margin: 0 14px 14px;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 14px;
+      background: rgba(2, 6, 23, 0.42);
+    }
+    .image-editor[hidden] {
+      display: none;
+    }
+    .image-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      margin: 10px 0;
+    }
+    .image-controls input[type="file"] {
+      max-width: 220px;
+      color: var(--muted);
+    }
+    .image-controls input[type="color"] {
+      width: 44px;
+      height: 36px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--panel);
+    }
+    .image-controls input[type="range"] {
+      width: 120px;
+    }
+    .image-controls button {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 8px 11px;
+      background: rgba(15, 23, 42, 0.65);
+      color: var(--text);
+      cursor: pointer;
+      font-weight: 800;
+    }
+    .image-controls button:hover {
+      border-color: rgba(34, 197, 94, 0.35);
+    }
+    #imageCanvas {
+      width: 100%;
+      max-height: 420px;
+      border-radius: 18px;
+      background: #020617;
+      border: 1px solid var(--line);
+      cursor: crosshair;
+    }
     .media-header {
       display: flex;
       align-items: center;
@@ -740,6 +791,21 @@
         <canvas id="visualCanvas" width="640" height="260"></canvas>
         <audio id="audioPlayer" controls></audio>
       </div>
+      <div class="image-editor" id="imageEditor" hidden>
+        <div class="media-header">
+          <strong>Image Studio - gambar & edit</strong>
+          <button type="button" id="imageClose" aria-label="Tutup image studio">✕</button>
+        </div>
+        <div class="image-controls">
+          <input id="imageUpload" type="file" accept="image/*">
+          <input id="brushColor" type="color" value="#22c55e" title="Warna berus">
+          <input id="brushSize" type="range" min="1" max="40" value="8" title="Saiz berus">
+          <button type="button" id="drawGeneratedImage">Hasilkan gambar</button>
+          <button type="button" id="clearImage">Padam</button>
+          <button type="button" id="downloadImage">Download gambar</button>
+        </div>
+        <canvas id="imageCanvas" width="800" height="450"></canvas>
+      </div>
       <div class="tools-panel" id="toolsPanel" hidden>
         <button class="tool-btn" id="speakButton" type="button">Bacakan jawapan</button>
         <button class="tool-btn" id="voiceButton" type="button">Suara ke teks</button>
@@ -978,6 +1044,16 @@
     const audioPlayer = document.getElementById('audioPlayer');
     const canvas = document.getElementById('visualCanvas');
     const ctx = canvas.getContext('2d');
+    const imageEditor = document.getElementById('imageEditor');
+    const imageClose = document.getElementById('imageClose');
+    const imageUpload = document.getElementById('imageUpload');
+    const brushColor = document.getElementById('brushColor');
+    const brushSize = document.getElementById('brushSize');
+    const drawGeneratedImage = document.getElementById('drawGeneratedImage');
+    const clearImage = document.getElementById('clearImage');
+    const downloadImage = document.getElementById('downloadImage');
+    const imageCanvas = document.getElementById('imageCanvas');
+    const imageCtx = imageCanvas.getContext('2d');
     const chatCard = document.getElementById('chat');
     const resetChat = document.getElementById('resetChat');
     const toggleTools = document.getElementById('toggleTools');
@@ -1210,6 +1286,141 @@
       }
 
       draw();
+    }
+
+    function showImageEditor(title) {
+      imageEditor.hidden = false;
+      mediaPanel.hidden = true;
+      imageEditor.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      drawGeneratedArt(title);
+    }
+
+    function drawGeneratedArt(title) {
+      const width = imageCanvas.width;
+      const height = imageCanvas.height;
+      const gradient = imageCtx.createLinearGradient(0, 0, width, height);
+      const hue = Math.floor(Math.random() * 360);
+      gradient.addColorStop(0, `hsl(${hue}, 80%, 20%)`);
+      gradient.addColorStop(0.55, `hsl(${(hue + 80) % 360}, 85%, 28%)`);
+      gradient.addColorStop(1, `hsl(${(hue + 160) % 360}, 80%, 18%)`);
+      imageCtx.fillStyle = gradient;
+      imageCtx.fillRect(0, 0, width, height);
+
+      for (let i = 0; i < 18; i++) {
+        imageCtx.beginPath();
+        imageCtx.fillStyle = `hsla(${(hue + i * 24) % 360}, 85%, 65%, 0.35)`;
+        const x = Math.random() * width;
+        const y = Math.random() * height;
+        const radius = 35 + Math.random() * 120;
+        imageCtx.arc(x, y, radius, 0, Math.PI * 2);
+        imageCtx.fill();
+      }
+
+      imageCtx.fillStyle = 'rgba(2, 6, 23, 0.72)';
+      imageCtx.fillRect(28, height - 132, width - 56, 92);
+      imageCtx.strokeStyle = 'rgba(255,255,255,0.35)';
+      imageCtx.lineWidth = 3;
+      imageCtx.strokeRect(28, height - 132, width - 56, 92);
+      imageCtx.fillStyle = '#ffffff';
+      imageCtx.font = '700 34px Inter, sans-serif';
+      wrapCanvasText(imageCtx, title, 52, height - 78, width - 104, 40);
+      imageCtx.fillStyle = '#bbf7d0';
+      imageCtx.font = '600 18px Inter, sans-serif';
+      imageCtx.fillText('Dijana oleh Tukuk AI Image Studio', 52, height - 48);
+    }
+
+    function wrapCanvasText(context, text, x, y, maxWidth, lineHeight) {
+      const words = text.split(' ');
+      let line = '';
+      let currentY = y;
+      for (let n = 0; n < words.length; n++) {
+        const testLine = line + words[n] + ' ';
+        const metrics = context.measureText(testLine);
+        if (metrics.width > maxWidth && n > 0) {
+          context.fillText(line, x, currentY);
+          line = words[n] + ' ';
+          currentY += lineHeight;
+        } else {
+          line = testLine;
+        }
+      }
+      context.fillText(line, x, currentY);
+    }
+
+    function setupImageEditor() {
+      let drawing = false;
+
+      function getPoint(event) {
+        const rect = imageCanvas.getBoundingClientRect();
+        const x = (event.clientX - rect.left) * (imageCanvas.width / rect.width);
+        const y = (event.clientY - rect.top) * (imageCanvas.height / rect.height);
+        return { x, y };
+      }
+
+      imageCanvas.addEventListener('pointerdown', (event) => {
+        drawing = true;
+        imageCanvas.setPointerCapture(event.pointerId);
+        const point = getPoint(event);
+        imageCtx.beginPath();
+        imageCtx.moveTo(point.x, point.y);
+      });
+
+      imageCanvas.addEventListener('pointermove', (event) => {
+        if (!drawing) return;
+        const point = getPoint(event);
+        imageCtx.lineWidth = Number(brushSize.value);
+        imageCtx.lineCap = 'round';
+        imageCtx.strokeStyle = brushColor.value;
+        imageCtx.lineTo(point.x, point.y);
+        imageCtx.stroke();
+      });
+
+      imageCanvas.addEventListener('pointerup', () => {
+        drawing = false;
+      });
+
+      imageCanvas.addEventListener('pointercancel', () => {
+        drawing = false;
+      });
+
+      imageUpload.addEventListener('change', () => {
+        const file = imageUpload.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = () => {
+          const img = new Image();
+          img.onload = () => {
+            imageCtx.clearRect(0, 0, imageCanvas.width, imageCanvas.height);
+            imageCtx.drawImage(img, 0, 0, imageCanvas.width, imageCanvas.height);
+            showToast('Gambar dimuatkan untuk edit');
+          };
+          img.src = reader.result;
+        };
+        reader.readAsDataURL(file);
+      });
+
+      drawGeneratedImage.addEventListener('click', () => {
+        const title = promptInput.value.trim() || 'Karya AI Tukuk';
+        drawGeneratedArt(title);
+        showToast('Gambar dijana');
+      });
+
+      clearImage.addEventListener('click', () => {
+        imageCtx.clearRect(0, 0, imageCanvas.width, imageCanvas.height);
+        showToast('Canvas dikosongkan');
+      });
+
+      downloadImage.addEventListener('click', () => {
+        const link = document.createElement('a');
+        link.download = 'tukuk-ai-image.png';
+        link.href = imageCanvas.toDataURL('image/png');
+        link.click();
+        showToast('Gambar dimuat turun');
+      });
+
+      imageClose.addEventListener('click', () => {
+        imageEditor.hidden = true;
+      });
     }
 
     async function runMediaEngine(prompt) {
@@ -1477,6 +1688,16 @@
       document.getElementById('chat').scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
 
+    function speakText(text) {
+      if (!('speechSynthesis' in window)) return false;
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(text.slice(0, 1800));
+      utterance.lang = detectLanguage(text).code === 'ms' ? 'ms-MY' : 'en-US';
+      utterance.rate = 0.95;
+      window.speechSynthesis.speak(utterance);
+      return true;
+    }
+
     async function html2canvasCapture() {
       if (window.html2canvas) {
         return window.html2canvas(document.body);
@@ -1499,7 +1720,7 @@
 
     async function runMediaEngine(prompt) {
       const lower = prompt.toLowerCase();
-      const title = extractTopic(prompt, 'AI media');
+      const title = extractTopic(prompt, 'Karya AI Tukuk');
 
       if (lower.includes('cari alat') || lower.includes('percuma') || lower.includes('open source') || lower.includes('opensource')) {
         return buildFreeTools(title);
@@ -1509,12 +1730,31 @@
         return buildAppBuilder(title);
       }
 
-      if (lower.includes('edit') || lower.includes('ubah') || lower.includes('dokumen') || lower.includes('teks') || lower.includes('kod')) {
-        return `✏️ Editor Engine\n\nSaya boleh edit apa saja: teks, dokumen, HTML, CSS, JavaScript, nota, artikel, dan kod app.\n\nKlik butang "Edit teks/kod" untuk buka editor live. Anda boleh paste apa saja, ubah, run, dan download.\n\nContoh arahan:\n- edit artikel ini\n- tukar kod HTML\n- buat dokumen pelajar\n- betulkan JavaScript\n- tambah CSS cantik`;
+      if (lower.includes('edit gambar') || lower.includes('buat gambar') || lower.includes('gambar') || lower.includes('image') || lower.includes('logo') || lower.includes('ilustrasi') || lower.includes('poster') || lower.includes('thumbnail')) {
+        showImageEditor(title);
+        return `🖼️ Image Studio dibuka. Saya dah jana gambar/artboard untuk "${title}". Anda boleh upload gambar sendiri, lukis/edit atas gambar, tukar warna berus, dan download sebagai PNG.`;
       }
 
-      if (lower.includes('bunyi') || lower.includes('mainkan') || lower.includes('play') || lower.includes('music') || lower.includes('lagu') || lower.includes('audio')) {
+      if (lower.includes('karaoke') || lower.includes('lirik')) {
+        return buildKaraoke(title);
+      }
+
+      if (lower.includes('read aloud') || lower.includes('bacakan') || lower.includes('baca kuat')) {
+        const output = buildReadAloud(title);
+        speakText(output);
+        return `${output}\n\nAudio read aloud sedang dimainkan oleh browser.`;
+      }
+
+      if (lower.includes('edit') || lower.includes('ubah') || lower.includes('dokumen') || lower.includes('teks') || lower.includes('kod')) {
+        editorPanel.hidden = false;
+        editorCode.value = editorCode.value || buildEditableText(title);
+        runPreview();
+        return `✏️ Editor Engine dibuka. Anda boleh edit teks, dokumen, HTML, CSS, JavaScript, nota, artikel, dan kod app terus dalam editor live.`;
+      }
+
+      if (lower.includes('bunyi') || lower.includes('mainkan') || lower.includes('play') || lower.includes('music') || lower.includes('lagu') || lower.includes('audio') || lower.includes('karaoke') || lower.includes('lirik')) {
         const AudioContext = window.AudioContext || window.webkitAudioContext;
+        if (!AudioContext) return 'Browser ini tidak sokong Web Audio API. Cuba Chrome/Chromium terbaru.';
         const context = new AudioContext();
         await context.resume();
         const source = context.createBufferSource();
@@ -1522,7 +1762,7 @@
         source.connect(context.destination);
         source.start();
         showMedia('Music Engine - bunyi AI dibuat dari chat', 'music');
-        return 'Saya sudah jana bunyi muzik AI terus dari browser menggunakan Web Audio API.';
+        return 'Saya sudah jana bunyi muzik AI terus dari browser menggunakan Web Audio API. Jika tiada bunyi, klik butang play audio atau naikkan volume browser.';
       }
 
       if (lower.includes('video') || lower.includes('tengok') || lower.includes('visual')) {
@@ -1546,7 +1786,7 @@
       if (lower.includes('screenshot') || lower.includes('salin') || lower.includes('simpan template') || lower.includes('preset') || lower.includes('utility')) {
         utilityPanel.hidden = false;
         output = `🧰 Utility Panel dibuka. Anda boleh simpan template, salin jawapan, screenshot, eksport semua output, tukar tema, dan guna preset pelajar.`;
-      } else       if (lower.includes('karaoke') || lower.includes('lirik')) output = buildKaraoke(topic);
+      } else if (lower.includes('karaoke') || lower.includes('lirik')) output = buildKaraoke(topic);
       else if (lower.includes('read aloud') || lower.includes('baca') || lower.includes('suara')) output = buildReadAloud(topic);
       else if (lower.includes('berita')) output = buildNews(topic);
       else if (lower.includes('cerita')) output = buildStory(topic);
@@ -1925,6 +2165,7 @@ btn.addEventListener('click',()=>{
     setupOpenSourceTools();
     setupStudentDashboard();
     setupUtilityPanel();
+    setupImageEditor();
     loadChat();
     addMessage(greetings[Math.floor(Math.random() * greetings.length)], 'ai');
   </script>
