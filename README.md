@@ -6,6 +6,10 @@ Tukuk AI ialah satu website pelajar percuma yang dibina sebagai aplikasi statik 
 
 - AI chat client-side
 - Music engine menggunakan Web Audio API
+- Karaoke/lirik engine
+- Read aloud melalui browser
+- Berita, cerita, dan iklan generator
+- Perpustakaan sumber percuma: buku, YouTube, AI engine, pembuat aplikasi, library coding, edit foto/video/seni
 - Video visualizer menggunakan Canvas
 - Image prompt/artboard generator
 - Student dashboard: pelan belajar, kuiz, flashcards, mode fokus, portfolio

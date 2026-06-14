@@ -501,6 +501,17 @@
     .section-title { margin: 0 0 16px; font-size: clamp(1.8rem, 4vw, 3rem); letter-spacing: -0.06em; }
     .section-copy { color: var(--muted); line-height: 1.75; max-width: 790px; }
     .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 22px; }
+    .library-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-top: 22px; }
+    .library-item {
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      padding: 18px;
+      background: rgba(15, 23, 42, 0.55);
+      backdrop-filter: blur(18px);
+    }
+    .library-item h3 { margin: 0 0 8px; letter-spacing: -0.03em; }
+    .library-item p { margin: 0 0 12px; color: var(--muted); line-height: 1.6; }
+    .library-item a { color: #7dd3fc; font-weight: 800; }
     .card {
       border: 1px solid var(--line);
       border-radius: 24px;
@@ -610,6 +621,7 @@
       <div class="nav-links">
         <a href="#chat">AI Chat</a>
         <a href="#features">Engine</a>
+        <a href="#library">Library</a>
         <a href="#roadmap">Pelankan</a>
         <button id="themeButton" type="button">Light</button>
       </div>
@@ -714,6 +726,7 @@
           <button class="send" id="sendButton" type="button">Hantar</button>
         </div>
         <div class="quick" aria-label="Cadangan soalan">
+          <button type="button">Perpustakaan percuma</button>
           <button type="button">Preset pelajar</button>
           <button type="button">Salin jawapan</button>
           <button type="button">Pelankan belajar</button>
@@ -723,10 +736,15 @@
           <button type="button">Edit apa saja</button>
           <button type="button">Cari alat percuma</button>
           <button type="button">Buat music</button>
+          <button type="button">Karaoke/lirik</button>
+          <button type="button">Read aloud</button>
           <button type="button">Mainkan bunyi</button>
           <button type="button">Buat video</button>
           <button type="button">Buat gambar</button>
           <button type="button">Belajar coding</button>
+          <button type="button">Berita</button>
+          <button type="button">Cerita</button>
+          <button type="button">Iklan</button>
           <button type="button">Tulis artikel</button>
           <button type="button">Lukis idea</button>
           <button type="button">Buat projek</button>
@@ -767,6 +785,68 @@
         <article class="card">
           <h3>Utility sempurna</h3>
           <p>Tema, simpan template, salin jawapan, screenshot, eksport semua, dan preset pelajar.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="library">
+      <h2 class="section-title">Perpustakaan percuma</h2>
+      <p class="section-copy">
+        Kumpulan sumber percuma untuk pelajar: buku, video belajar, AI engine, pembuat aplikasi,
+        dan library coding. Tukuk AI boleh cadangkan sumber ikut subjek atau bahasa pemrograman.
+      </p>
+      <div class="library-grid">
+        <article class="library-item">
+          <h3>Buku & dokumen</h3>
+          <p>Belajar pemrograman, data, AI, dan reka bentuk web dari dokumen terbuka.</p>
+          <a href="https://www.w3schools.com/" target="_blank" rel="noopener">w3schools</a> ·
+          <a href="https://developer.mozilla.org/" target="_blank" rel="noopener">MDN Web Docs</a> ·
+          <a href="https://open.umn.edu/opentextbooks/" target="_blank" rel="noopener">Open Textbook Library</a>
+        </article>
+        <article class="library-item">
+          <h3>Video belajar</h3>
+          <p>Channel dan playlist percuma untuk coding, AI, desain, dan produktiviti pelajar.</p>
+          <a href="https://www.youtube.com/" target="_blank" rel="noopener">YouTube</a> ·
+          <a href="https://www.youtube.com/@freeCodeCamp" target="_blank" rel="noopener">freeCodeCamp</a> ·
+          <a href="https://www.youtube.com/@TraversyMedia" target="_blank" rel="noopener">Traversy Media</a>
+        </article>
+        <article class="library-item">
+          <h3>AI engine percuma</h3>
+          <p>Platform untuk uji model AI, demo, dan eksperimen tanpa bayar di awal.</p>
+          <a href="https://huggingface.co/spaces" target="_blank" rel="noopener">Hugging Face Spaces</a> ·
+          <a href="https://colab.research.google.com/" target="_blank" rel="noopener">Google Colab</a> ·
+          <a href="https://www.kaggle.com/" target="_blank" rel="noopener">Kaggle</a>
+        </article>
+        <article class="library-item">
+          <h3>Pembuat aplikasi</h3>
+          <p>Buat web app, landing page, dashboard, dan portfolio secara percuma.</p>
+          <a href="https://pages.github.com/" target="_blank" rel="noopener">GitHub Pages</a> ·
+          <a href="https://pages.cloudflare.com/" target="_blank" rel="noopener">Cloudflare Pages</a> ·
+          <a href="https://replit.com/" target="_blank" rel="noopener">Replit</a>
+        </article>
+        <article class="library-item">
+          <h3>Library coding</h3>
+          <p>Framework dan library percuma untuk frontend, backend, UI, data, dan AI.</p>
+          <a href="https://react.dev/" target="_blank" rel="noopener">React</a> ·
+          <a href="https://vuejs.org/" target="_blank" rel="noopener">Vue</a> ·
+          <a href="https://expressjs.com/" target="_blank" rel="noopener">Express</a> ·
+          <a href="https://tailwindcss.com/" target="_blank" rel="noopener">Tailwind CSS</a>
+        </article>
+        <article class="library-item">
+          <h3>Desain & media</h3>
+          <p>Alat percuma untuk gambar, video, audio, UI, dan prototype.</p>
+          <a href="https://www.figma.com/" target="_blank" rel="noopener">Figma</a> ·
+          <a href="https://www.canva.com/" target="_blank" rel="noopener">Canva</a> ·
+          <a href="https://www.blender.org/" target="_blank" rel="noopener">Blender</a> ·
+          <a href="https://www.audacityteam.org/" target="_blank" rel="noopener">Audacity</a>
+        </article>
+        <article class="library-item">
+          <h3>Edit foto, video & seni</h3>
+          <p>Software percuma/open-source untuk edit foto, video, melukis, mewarna, dan ilustrasi.</p>
+          <a href="https://www.gimp.org/" target="_blank" rel="noopener">GIMP</a> ·
+          <a href="https://krita.org/" target="_blank" rel="noopener">Krita</a> ·
+          <a href="https://obsproject.com/" target="_blank" rel="noopener">OBS Studio</a> ·
+          <a href="https://www.blackmagicdesign.com/products/davinciresolve" target="_blank" rel="noopener">DaVinci Resolve</a>
         </article>
       </div>
     </section>
@@ -866,9 +946,9 @@
     document.getElementById('year').textContent = new Date().getFullYear();
 
     const greetings = [
-      `Hai! Saya Tukuk Assistant. Pilih music, video, gambar, belajar, menulis, melukis, projek, atau coding.`,
-      `Saya ada engine percuma client-side untuk buat prompt, lirik, idea visual, kod, dan pelan projek.`,
-      `Tulis apa yang anda mahu buat dalam mana-mana bahasa: buat lagu pop tentang malam, make a cyberpunk image, crée un projet web, 作图, 動画, 노래, música, فيديو.`
+      `Hai! Saya Tukuk Assistant. Pilih music, karaoke, read aloud, berita, cerita, iklan, gambar, belajar, menulis, melukis, projek, atau coding.`,
+      `Saya ada engine percuma client-side untuk buat prompt, lirik, idea visual, kod, berita, cerita, iklan, dan pelan projek.`,
+      `Tulis apa yang anda mahu buat dalam mana-mana bahasa: buat lagu pop tentang malam, buat cerita pendek, buat iklan, buat app, atau minta berita ringkas.`
     ];
 
     const languages = [
@@ -952,6 +1032,16 @@
       const style = pick(musicStyles);
       const title = extractTopic(topic, 'lagu AI original');
       return `🎵 Music Engine\n\nJudul: ${titleCase(title)}\nGenre: ${style}\nTempo: ${pick(['72 BPM', '86 BPM', '96 BPM', '110 BPM', '128 BPM'])}\nMood: ${pick(['tenang', 'semangat', 'futuristik', 'emosi', 'ceria'])}\n\nStruktur lagu:\n1. Intro 4 bar\n2. Verse 1\n3. Pre-chorus\n4. Chorus\n5. Verse 2\n6. Bridge\n7. Final chorus\n\nContoh lirik hook:\n"${title}, cahaya dalam malam,\nAI bantu kita terbang lebih tinggi,\nsetiap idea jadi irama,\nsetiap mimpi mula bernyanyi."\n\nChord cadangan:\nAm - F - C - G\n\nPrompt untuk generator muzik:\nBuat muzik ${style} tentang "${title}", mood ${pick(['hangat', 'bersih', 'sinematik', 'ceria'])}, tempo sederhana, sesuai untuk video pendek.`;
+    }
+
+    function buildKaraoke(topic) {
+      const title = extractTopic(topic, 'lagu karaoke');
+      return `🎤 Karaoke & Lirik Engine\n\nTajuk: ${titleCase(title)}\nGaya: ${pick(['pop', 'akustik', 'EDM', 'lo-fi', 'rock', 'jazz'])}\n\nLirik contoh:\nVerse 1:\nDi malam ini kita mula menulis,\nSetiap kata jadi irama.\nAI bantu idea terbang tinggi,\nDi setiap nada kita bersama.\n\nChorus:\nNyanyikan mimpi, jangan berhenti,\nSatu dunia penuh warna.\nDengan AI kita mencipta,\nKarya sendiri yang bermakna.\n\nBridge:\nJika suara mulai ragu,\nAI tetap di sisi.\nSetiap baris jadi lagu,\nSetiap nada jadi janji.\n\nPrompt karaoke:\nBuat lirik karaoke gaya ${pick(['ceria', 'emosional', 'semangat', 'tenang'])} tentang "${title}", mudah dinyanyikan, dengan chorus yang kuat.`;
+    }
+
+    function buildReadAloud(topic) {
+      const title = extractTopic(topic, 'teks yang dibaca');
+      return `🔊 Read Aloud Engine\n\nTeks untuk dibaca: ${title}\n\nSaya boleh bantu:\n1. Baca teks dengan suara browser.\n2. Tukar teks menjadi audio ringkas.\n3. Buat naskah untuk podcast pendek.\n4. Buat transkrip dan ringkasan.\n5. Susun intonasi untuk cerita atau presentasi.\n\nContoh skrip pendek:\n"Hai, saya Tukuk AI. Hari ini kita akan belajar ${title} dengan cara yang mudah, ringkas, dan menyeronokkan."\n\nGunakan butang "Read aloud" untuk dengar jawapan AI dibaca oleh browser.`;
     }
 
     function buildVideo(topic) {
@@ -1085,6 +1175,21 @@
       return `✍️ Menulis Engine\n\nTajuk: ${titleCase(title)}\nFormat: artikel pendek / caption / email / skrip\n\nStruktur penulisan:\n1. Hook: mula dengan ayat yang menarik.\n2. Masalah: terangkan isu atau keperluan.\n3. Solusi: beri idea atau langkah.\n4. Contoh: tunjuk aplikasi sebenar.\n5. CTA: ajak pembaca bertindak.\n\nContoh pembuka:\n"Dalam dunia digital sekarang, ${title} bukan sekadar idea tambahan, tetapi cara mudah untuk buat kerja lebih pantas, jelas, dan kreatif."\n\nAyat penutup:\n"Mulakan dengan versi kecil, uji, perbaiki, dan jadikan ia lebih baik setiap hari."`;
     }
 
+    function buildNews(topic) {
+      const title = extractTopic(topic, 'berita terkini');
+      return `📰 Berita Engine\n\nTopik berita: ${titleCase(title)}\n\nFormat ringkas:\n1. Ringkasan: jelaskan isu utama dalam 2-3 ayat.\n2. Latar belakang: kenapa topik ini penting?\n3. Pihak terlibat: siapa yang terjejas?\n4. Dampak: apa kesan kepada pelajar atau masyarakat?\n5. Apa seterusnya: apa yang perlu diperhatikan?\n\nContoh tajuk:\n"${title}: Apa yang perlu pelajar tahu hari ini"\n\nNota: Tukuk AI boleh bantu susun berita secara neutral, tetapi semak fakta dari sumber rasmi sebelum diterbitkan.`;
+    }
+
+    function buildStory(topic) {
+      const title = extractTopic(topic, 'cerita pendek');
+      return `📖 Cerita Engine\n\nTajuk: ${titleCase(title)}\nGenre: ${pick(['fantasi', 'sains fiksyen', 'misteri', 'persahabatan', 'inspirasi'])}\n\nStruktur cerita:\n1. Pembukaan: perkenalkan watak dan tempat.\n2. Konflik: tunjukkan masalah utama.\n3. Perjalanan: watak cuba cari jalan keluar.\n4. Klimaks: saat paling mendebarkan.\n5. Penutup: pelajaran atau perubahan watak.\n\nPembuka contoh:\n"Pada suatu hari, ${title} bermula dengan satu keputusan kecil yang akhirnya mengubah segalanya."\n\nPrompt cerita:\nTulis cerita pendek tentang "${title}" dengan gaya ${pick(['hangat', 'menyentuh', 'seram', 'humor', 'epik'])}, sesuai untuk pelajar.`;
+    }
+
+    function buildAd(topic) {
+      const title = extractTopic(topic, 'iklan produk');
+      return `📣 Iklan Engine\n\nProduk/jenama: ${titleCase(title)}\nFormat: iklan pendek 15-30 saat\n\nStruktur iklan:\n1. Hook 3 saat: tangkap perhatian.\n2. Masalah: tunjuk keperluan pengguna.\n3. Solusi: perkenalkan produk.\n4. Manfaat: 3 kelebihan utama.\n5. CTA: ajak beli, daftar, atau cuba.\n\nSkrip iklan:\n"Ada masalah nak ${pick(['belajar lebih pantas', 'buat kerja lebih mudah', 'cipta idea menarik'])}? ${title} bantu anda dengan cara yang ringkas, cepat, dan percuma. Cuba sekarang dan lihat perbezaannya."\n\nIdea visual:\nGunakan warna cerah, teks besar, muzik ringan, dan CTA jelas di akhir video.`;
+    }
+
     function buildProject(topic) {
       const title = extractTopic(topic, 'projek digital');
       const type = pick(projectTypes);
@@ -1124,12 +1229,20 @@
         { name: 'Canva', use: 'Reka bentuk mudah percuma', url: 'https://www.canva.com/' },
         { name: 'Figma', use: 'UI/UX design percuma', url: 'https://www.figma.com/' },
         { name: 'Google Colab', use: 'Python/AI notebook percuma', url: 'https://colab.research.google.com/' },
-        { name: 'Kaggle', use: 'Dataset dan latihan AI percuma', url: 'https://www.kaggle.com/' }
+        { name: 'Kaggle', use: 'Dataset dan latihan AI percuma', url: 'https://www.kaggle.com/' },
+        { name: 'MDN Web Docs', use: 'Dokumentasi web percuma', url: 'https://developer.mozilla.org/' },
+        { name: 'w3schools', use: 'Tutorial coding percuma', url: 'https://www.w3schools.com/' },
+        { name: 'Open Textbook Library', use: 'Buku pelajaran terbuka', url: 'https://open.umn.edu/opentextbooks/' },
+        { name: 'YouTube', use: 'Video belajar percuma', url: 'https://www.youtube.com/' },
+        { name: 'React', use: 'Library frontend percuma', url: 'https://react.dev/' },
+        { name: 'Vue', use: 'Library frontend percuma', url: 'https://vuejs.org/' },
+        { name: 'Express', use: 'Framework backend percuma', url: 'https://expressjs.com/' },
+        { name: 'Tailwind CSS', use: 'CSS framework percuma', url: 'https://tailwindcss.com/' }
       ];
 
       const filtered = tools.filter((tool) => lower.includes(tool.name.toLowerCase().split(' ')[0]) || lower.includes(tool.use.toLowerCase().split(' ')[0]));
-      const selected = filtered.length ? filtered : tools.slice(0, 8);
-      return `🧰 Alat Percuma/Open Source\n\nUntuk: ${topic}\n\n${formatList(selected.map((tool) => `${tool.name} — ${tool.use} — ${tool.url}`))}\n\nCadangan percuma:\n- Web app: GitHub Pages atau Cloudflare Pages\n- Coding: VS Code, Replit, Google Colab\n- Gambar: Krita, GIMP, Canva, Figma\n- Video: OBS Studio, DaVinci Resolve, Blender\n- Audio: Audacity, Web Audio API\n- AI: Hugging Face Spaces, Kaggle`;
+      const selected = filtered.length ? filtered : tools.slice(0, 12);
+      return `📚 Perpustakaan Percuma\n\nUntuk: ${topic}\n\n${formatList(selected.map((tool) => `${tool.name} — ${tool.use} — ${tool.url}`))}\n\nCadangan:\n- Buku/dokumen: MDN, w3schools, Open Textbook Library\n- Video: YouTube, freeCodeCamp, Traversy Media\n- AI: Hugging Face Spaces, Google Colab, Kaggle\n- App builder: GitHub Pages, Cloudflare Pages, Replit\n- Coding library: React, Vue, Express, Tailwind CSS\n- Foto/video/seni: GIMP, Krita, OBS Studio, DaVinci Resolve`;
     }
 
     function buildAppBuilder(topic) {
@@ -1362,7 +1475,12 @@
       if (lower.includes('screenshot') || lower.includes('salin') || lower.includes('simpan template') || lower.includes('preset') || lower.includes('utility')) {
         utilityPanel.hidden = false;
         output = `🧰 Utility Panel dibuka. Anda boleh simpan template, salin jawapan, screenshot, eksport semua output, tukar tema, dan guna preset pelajar.`;
-      } else if (lower.includes('pelan belajar') || lower.includes('kuiz') || lower.includes('flashcard') || lower.includes('mode fokus') || lower.includes('portfolio pelajar') || lower.includes('dashboard pelajar')) {
+      } else       if (lower.includes('karaoke') || lower.includes('lirik')) output = buildKaraoke(topic);
+      else if (lower.includes('read aloud') || lower.includes('baca') || lower.includes('suara')) output = buildReadAloud(topic);
+      else if (lower.includes('berita')) output = buildNews(topic);
+      else if (lower.includes('cerita')) output = buildStory(topic);
+      else if (lower.includes('iklan') || lower.includes('promo') || lower.includes('promosi')) output = buildAd(topic);
+      else if (lower.includes('pelan belajar') || lower.includes('kuiz') || lower.includes('flashcard') || lower.includes('mode fokus') || lower.includes('portfolio pelajar') || lower.includes('dashboard pelajar')) {
         openStudentDashboard();
         output = `🎓 Student Dashboard dibuka. Isi subjek, nota, tarikh, dan matlamat, kemudian tekan butang yang sesuai.`;
       } else if (lower.includes('cari alat') || lower.includes('percuma') || lower.includes('open source') || lower.includes('opensource')) output = buildFreeTools(topic);
@@ -1718,6 +1836,9 @@ btn.addEventListener('click',()=>{
         }
         if (button.textContent.includes('Preset') || button.textContent.includes('Salin')) {
           utilityPanel.hidden = false;
+        }
+        if (button.textContent.includes('Perpustakaan')) {
+          document.getElementById('library').scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
         promptInput.focus();
         showToast('Engine dipilih');
