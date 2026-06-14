@@ -1,0 +1,14 @@
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    ignore:
+      - dependency-name: "*"
+        directories:
+          - /kilocode
+  - package-ecosystem: pip
+    directory: /agent-stack
+    schedule:
+      interval: weekly
