@@ -1168,6 +1168,7 @@
 
     function openStudentDashboard() {
       studentDashboard.hidden = false;
+      scrollToChat();
       studentDashboard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
 
@@ -1242,7 +1243,18 @@
           showToast('Tiada jawapan untuk disalin');
           return;
         }
-        await navigator.clipboard.writeText(text);
+        if (navigator.clipboard && window.isSecureContext) {
+          await navigator.clipboard.writeText(text);
+        } else {
+          const textarea = document.createElement('textarea');
+          textarea.value = text;
+          textarea.style.position = 'fixed';
+          textarea.style.opacity = '0';
+          document.body.appendChild(textarea);
+          textarea.select();
+          document.execCommand('copy');
+          textarea.remove();
+        }
         showToast('Jawapan disalin');
       });
 
@@ -1275,6 +1287,10 @@
         promptInput.value = 'Saya pelajar. Bantu saya buat pelan belajar, kuiz, flashcards, app web percuma, dan portfolio dalam satu output.';
         showToast('Preset pelajar dimasukkan');
       });
+    }
+
+    function scrollToChat() {
+      document.getElementById('chat').scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
 
     async function html2canvasCapture() {
@@ -1431,8 +1447,15 @@
       chatCard.addEventListener('pointerup', (event) => {
         dragging = false;
         resizing = false;
-        chatCard.classList.remove('dragging');
-        chatCard.releasePointerCapture(event.pointerId);
+        chatCard.classList.remove('dragging', 'resizing');
+        try { chatCard.releasePointerCapture(event.pointerId); } catch (error) {}
+      });
+
+      chatCard.addEventListener('pointercancel', (event) => {
+        dragging = false;
+        resizing = false;
+        chatCard.classList.remove('dragging', 'resizing');
+        try { chatCard.releasePointerCapture(event.pointerId); } catch (error) {}
       });
 
       chatCard.addEventListener('pointerdown', (event) => {
@@ -1574,6 +1597,8 @@ btn.addEventListener('click',()=>{
           promptInput.value = event.results[0][0].transcript;
           showToast('Suara ditukar ke teks');
         };
+        recognition.onerror = () => showToast('Suara tidak dapat dikenali');
+        recognition.onend = () => showToast('Voice input ditutup');
         recognition.start();
       });
 
