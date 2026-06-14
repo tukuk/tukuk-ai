@@ -1150,11 +1150,11 @@
       return `📚 Pelan Belajar Pelajar\n\nSubjek: ${data.subject}\nMatlamat: ${data.goal}\nMasa: ${data.deadline}\n\nLangkah belajar:\n1. Baca nota utama 10 minit.\n2. Pecahkan topik susah kepada 3 bahagian kecil.\n3. Buat contoh mudah.\n4. Uji diri dengan 5 soalan.\n5. Ringkaskan dalam 5 baris.\n6. Ulang bahagian yang masih kabur.\n\nNota yang diberi:\n${data.notes}\n\nChecklist siap:\n- Faham definisi\n- Ada contoh\n- Ada latihan\n- Ada ringkasan\n- Tahu apa perlu buat seterusnya`;
     }
 
-    function makeQuiz(data) {
+    function createQuiz(data) {
       return `📝 Kuiz Pantas\n\nSubjek: ${data.subject}\n\n1. Apakah idea utama topik ini?\n2. Nyatakan 3 perkara penting.\n3. Berikan satu contoh mudah.\n4. Apakah kesilapan biasa pelajar buat?\n5. Bagaimana anda gunakan ilmu ini dalam tugasan sebenar?\n\nJawapan cadangan:\nGunakan nota anda: ${data.notes}\nJika tidak pasti, minta Tukuk AI terangkan satu persatu.`;
     }
 
-    function makeFlashcards(data) {
+    function createFlashcards(data) {
       return `🗂️ Flashcards\n\nSubjek: ${data.subject}\n\nKad 1:\nSoalan: Apakah tujuan utama topik ini?\nJawapan: Untuk memahami konsep asas dan boleh guna dalam tugasan.\n\nKad 2:\nSoalan: Apakah 3 perkara paling penting?\nJawapan: Definisi, contoh, dan latihan.\n\nKad 3:\nSoalan: Bagaimana saya tahu saya sudah faham?\nJawapan: Saya boleh terangkan semula dengan bahasa sendiri.\n\nKad 4:\nSoalan: Apa langkah seterusnya?\nJawapan: Buat latihan, semak jawapan, dan ulang bahagian lemah.\n\nNota: ${data.notes}`;
     }
 
@@ -1177,10 +1177,10 @@
         dashboardOutput.textContent = makeStudyPlan(getStudentData());
       });
       makeQuiz.addEventListener('click', () => {
-        dashboardOutput.textContent = makeQuiz(getStudentData());
+        dashboardOutput.textContent = createQuiz(getStudentData());
       });
       makeFlashcards.addEventListener('click', () => {
-        dashboardOutput.textContent = makeFlashcards(getStudentData());
+        dashboardOutput.textContent = createFlashcards(getStudentData());
       });
       focusTimer.addEventListener('click', () => {
         dashboardOutput.textContent = makeFocusMode(getStudentData());
