@@ -73,11 +73,14 @@ Active workflows:
 - `defensive-security-diagnostic.yml`: run defensive website diagnostic
 - `codeql.yml`: GitHub CodeQL analysis
 
-Imported KiloCode workflow templates are stored in:
+Imported KiloCode repository files and workflow templates are stored in:
 
 ```text
+kilocode/
 agent-stack/kilocode-workflows/
 ```
+
+The original source is Kilo-Org/kilocode. No new GitHub repo was created; everything is merged into this `tukuk-ai` repo.
 
 ## Safety
 
