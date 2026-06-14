@@ -1,8 +1,3 @@
-node_modules/
-dist/
-build/
-.DS_Store
-*.log
 __pycache__/
 *.py[cod]
 .pytest_cache/
@@ -12,3 +7,6 @@ data/
 diagnostic-report.json
 .env
 .venv/
+.git/
+.github/
+agent-stack/kilocode-workflows/
