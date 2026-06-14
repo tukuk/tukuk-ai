@@ -52,10 +52,34 @@ Run local pipeline check:
 ./tukuk-agent.sh pipeline
 ```
 
+Run Kilo-Free command guide:
+
+```bash
+./tukuk-agent.sh kilo
+```
+
 Run agent request:
 
 ```bash
 ./tukuk-agent.sh agent "Build a student web app"
+```
+
+Open Tukuk AI website from desktop:
+
+```bash
+./tukuk-agent.sh web
+```
+
+Open a Tukuk terminal/console session:
+
+```bash
+./tukuk-agent.sh terminal
+```
+
+Run MCP-compatible tool server:
+
+```bash
+./tukuk-agent.sh mcp
 ```
 
 Run defensive security diagnostic:

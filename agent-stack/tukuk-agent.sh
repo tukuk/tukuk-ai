@@ -3,21 +3,32 @@ set -eu
 ROOT="$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)"
 cd "$ROOT"
 MODEL="${TUKUK_AGENT_MODEL:-llama3.2}"
-case "${1:-agent}" in
+case "${1:-kilo}" in
   agent)
     shift || true
-    python cli.py agent "${1:-Bantu saya belajar dan buat app web pelajar}" --model "$MODEL"
+    python cli.py agent "${1:-Build a student web app}" --model "$MODEL"
     ;;
-  diagnostic)
+  terminal|console|shell-session)
+    python cli.py terminal
+    ;;
+  mcp)
+    python cli.py mcp
+    ;;
+  pipeline)
+    python cli.py pipeline
+    ;;
+  diagnostic|security)
     shift || true
     python cli.py diagnostic --url "${1:-https://example.com}"
     ;;
+  web|website)
+    python cli.py web --open
+    ;;
+  kilo|help|--help|-h|"")
+    python cli.py kilo
+    ;;
   docker)
     docker compose up --build
-    ;;
-  pipeline)
-    python -m compileall agent mcp_server security
-    python security/diagnostic.py --url https://example.com --output diagnostic-report.json || true
     ;;
   *)
     python cli.py "$@"
