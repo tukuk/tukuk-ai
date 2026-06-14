@@ -5,6 +5,7 @@ updates:
     schedule:
       interval: weekly
     ignore:
+      - dependency-name: esbuild
       - dependency-name: "*"
         directories:
           - /kilocode
