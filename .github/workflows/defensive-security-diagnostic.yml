@@ -1,0 +1,25 @@
+name: defensive-security-diagnostic
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  diagnostic:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: agent-stack
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python security/diagnostic.py --url https://example.com --output diagnostic-report.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: tukuk-defensive-security-diagnostic
+          path: agent-stack/diagnostic-report.json
